@@ -1,0 +1,997 @@
+Elixir Quick Guide Jobs  SENDFiles  Whiteboard  Net Meeting Tools  Articles Facebook Google+ Twitter Linkedin YouTube Home Tutorials Library Coding Ground Tutor Connect Videos Search Elixir Tutorial Elixir - Home Elixir - Overview Elixir - Environment Elixir - Basic Syntax Elixir - Data Types Elixir - Variables Elixir - Operators Elixir - Pattern Matching Elixir - Decision Making Elixir - Strings Elixir - Char Lists Elixir - Lists and Tuples Elixir - Keyword Lists Elixir - Maps Elixir - Modules Elixir - Aliases Elixir - Functions Elixir - Recursion Elixir - Loops Elixir - Enumerables Elixir - Streams Elixir - Structs Elixir - Protocols Elixir - File I/O Elixir - Processes Elixir - Sigils Elixir - Comprehensions Elixir - Typespecs Elixir - Behaviours Elixir - Errors Handling Elixir - Macros Elixir - Libraries Elixir Useful Resources Elixir - Quick Guide Elixir - Useful Resources Elixir - Discussion Selected Reading Developer's Best Practices Questions and Answers Effective Resume Writing HR Interview Questions Computer Glossary Who is Who Elixir - Quick Guide Advertisements Previous Page Next Page   Elixir - Overview Elixir is a dynamic, functional language designed for building scalable and maintainable applications. It leverages the Erlang VM, known for running low-latency, distributed and fault-tolerant systems, while also being successfully used in web development and the embedded software domain. Elixir is a functional, dynamic language built on top of Erlang and the Erlang VM. Erlang is a language that was originally written in 1986 by Ericsson to help solve telephony problems like distribution, fault-tolerance, and concurrency. Elixir, written by José Valim, extends Erlang and provides a friendlier syntax into the Erlang VM. It does this while keeping the performance of the same level as Erlang. Features of Elixir Let us now discuss a few important features of Elixir ? Scalability ? All Elixir code runs inside lightweight processes that are isolated and exchange information via messages. Fault Tolerance ? Elixir provides supervisors which describe how to restart parts of your system when things go wrong, going back to a known initial state that is guaranteed to work. This ensures your application/platform is never down. Functional Programming ? Functional programming promotes a coding style that helps developers write code that is short, fast, and maintainable. Build tools ? Elixir ships with a set of development tools. Mix is one such tool that makes it easy to create projects, manage tasks, run tests, etc. It also has its own package manager - Hex. Erlang Compatibility ? Elixir runs on the Erlang VM giving developers complete access to Erlang’s ecosystem. Elixir - Environment In order to run Elixir, you need to set it up locally on your system. To install Elixir, you will first require Erlang. On some platforms, Elixir packages come with Erlang in them. Installing Elixir Let us now understand the installation of Elixir in different Operating Systems. Windows Setup To install Elixir on windows, download installer from https://repo.hex.pm/elixirwebsetup.exe and simply click Next to proceed through all steps. You will have it on your local system. If you have any problems while installing it, you can check this pagefor more info. Mac Setup If you have Homebrew installed, make sure that it is the latest version. For updating, use the following command ? 
+brew update
+ Now, install Elixir using the command given below ? 
+brew install elixir
+ Ubuntu/Debian Setup The steps to install Elixir in an Ubuntu/Debian setup is as follows ? Add Erlang Solutions repo ? 
+wget https://packages.erlang-solutions.com/erlang-solutions_1.0_all.deb && sudo 
+dpkg -i erlang-solutions_1.0_all.deb 
+sudo apt-get update 
+ Install the Erlang/OTP platform and all of its applications ? 
+sudo apt-get install esl-erlang 
+ Install Elixir ? 
+sudo apt-get install elixir
+ Other Linux Distros If you have any other Linux distribution, please visit this page to set up elixir on your local system. Testing the Setup To test the Elixir setup on your system, open your terminal and enter iex in it. It will open the interactive elixir shell like the following ? 
+Erlang/OTP 19 [erts-8.0] [source-6dc93c1] [64-bit] 
+[smp:4:4] [async-threads:10] [hipe] [kernel-poll:false]  
+
+Interactive Elixir (1.3.1) - press Ctrl+C to exit (type h() ENTER for help) 
+iex(1)>
+ Elixir is now successfully set up on your system. Elixir - Basic Syntax We will start with the customary 'Hello World' program. To start the Elixir interactive shell, enter the following command. 
+iex
+ After the shell starts, use the IO.puts function to "put" the string on the console output. Enter the following in your Elixir shell ? 
+IO.puts "Hello world"
+ In this tutorial, we will use the Elixir script mode where we will keep the Elixir code in a file with the extension .ex. Let us now keep the above code in the test.ex file. In the succeeding step, we will execute it using elixirc? 
+IO.puts "Hello world"
+ Let us now try to run the above program as follows ? 
+$elixirc test.ex
+ The above program generates the following result ? 
+Hello World
+ Here we are calling a function IO.puts to generate a string to our console as output. This function can also be called the way we do in C, C++, Java, etc., providing arguments in parentheses following the function name ? 
+IO.puts("Hello world") 
+ Comments Single line comments start with a '#' symbol. There's no multi-line comment, but you can stack multiple comments. For example ? 
+#This is a comment in Elixir
+ Line Endings There are no required line endings like ';' in Elixir. However, we can have multiple statements in the same line, using ';'. For example, 
+IO.puts("Hello"); IO.puts("World!")
+ The above program generates the following result ? 
+Hello 
+World!
+ Identifiers Identifiers like variables, function names are used to identify a variable, function, etc. In Elixir, you can name your identifiers starting with a lower case alphabet with numbers, underscores and upper case letters thereafter. This naming convention is commonly known as snake_case. For example, following are some valid identifiers in Elixir ? 
+var1       variable_2      one_M0r3_variable
+ Please note that variables can also be named with a leading underscore. A value that is not meant to be used must be assigned to _ or to a variable starting with underscore ? 
+_some_random_value = 42
+ Also elixir relies on underscores to make functions private to modules. If you name a function with a leading underscore in a module, and import that module, this function will not be imported. There are many more intricacies related to function naming in Elixir which we will discuss in coming chapters. Reserved Words Following words are reserved and cannot be used as variables, module or function names. 
+after     and     catch     do     inbits     inlist     nil     else     end 
+not     or     false     fn     in     rescue     true     when     xor 
+__MODULE__    __FILE__    __DIR__    __ENV__    __CALLER__ 
+ Elixir - Data Types For using any language, you need to understand the basic data types the language supports. In this chapter, we will discuss 7 basic data types supported by the elixir language: integers, floats, Booleans, atoms, strings, lists and tuples. Numerical Types Elixir, like any other programming language, supports both integers and floats. If you open your elixir shell and input any integer or float as input, it'll return its value. For example, 
+42
+ When the above program is run, it produces the following result ? 
+42
+ You can also define numbers in octal, hex and binary bases. Octal To define a number in octal base, prefix it with '0o'. For example, 0o52 in octal is equivalent to 42 in decimal. Hexadecimal To define a number in decimal base, prefix it with '0x'. For example, 0xF1 in hex is equivalent to 241 in decimal. Binary To define a number in binary base, prefix it with '0b'. For example, 0b1101 in binary is equivalent to 13 in decimal. Elixir supports 64bit double precision for floating point numbers. And they can also be defined using an exponentiation style. For example, 10145230000 can be written as 1.014523e10 Atoms Atoms are constants whose name is their value. They can be created using the color(:) symbol. For example, 
+:hello
+ Booleans Elixir supports true and false as Booleans. Both these values are in fact attached to atoms :true and :false respectively. Strings Strings in Elixir are inserted between double quotes, and they are encoded in UTF-8. They can span multiple lines and contain interpolations. To define a string simply enter it in double quotes ? 
+"Hello world"
+ To define multiline strings, we use a syntax similar to python with triple double quotes ? 
+"""
+Hello
+World!
+"""
+ We'll learn about strings, binaries and char lists(similar to strings) in depth in the strings chapter. Binaries Binaries are sequences of bytes enclosed in << >> separated with a comma. For example, 
+<< 65, 68, 75>>
+ Binaries are mostly used to handle bits and bytes related data, if you have any. They can, by default, store 0 to 255 in each value. This size limit can be increased by using the size function that says how many bits it should take to store that value. For example, 
+<<65, 255, 289::size(15)>>
+ Lists Elixir uses square brackets to specify a list of values. Values can be of any type. For example, 
+[1, "Hello", :an_atom, true]
+ Lists come with inbuilt functions for head and tail of the list named hd and tl which return the head and tail of the list respectively. Sometimes when you create a list, it'll return a char list. This is because when elixir sees a list of printable ASCII characters, it prints it as a char list. Please note that strings and char lists are not equal. We'll discuss lists further in later chapters. Tuples Elixir uses curly brackets to define tuples. Like lists, tuples can hold any value. 
+{ 1, "Hello", :an_atom, true 
+ A question arises here, - why provide both lists and tuples when they both work in the same way? Well they have different implementations. Lists are actually stored as linked lists, so insertions, deletions are very fast in lists. Tuples on the other hand, are stored in contiguous memory block, which make accessing them faster but adds an additional cost on insertions and deletions. Elixir - Variables A variable provides us with named storage that our programs can manipulate. Each variable in Elixir has a specific type, which determines the size and layout of the variable's memory; the range of values that can be stored within that memory; and the set of operations that can be applied to the variable. Types of Variables Elixir supports the following basic types of variables. Integer These are used for Integers. They are of size 32bit on a 32bit architecture and 64 bits on a 64-bit architecture. Integers are always signed in elixir. If an integer starts to expand in size above its limit, elixir convers it in a Big Integer which takes up memory in range 3 to n words whichever can fit it in memory. Floats Floats have a 64-bit precision in elixir. They are also like integers in terms of memory. When defining a float, exponential notation can be used. Boolean They can take up 2 values which is either true or false. Strings Strings are utf-8 encoded in elixir. They have a strings module which provides a lot of functionality to the programmer to manipulate strings. Anonymous Functions/Lambdas These are functions that can be defined and assigned to a variable, which can then be used to call this function. Collections There are a lot of collection types available in Elixir. Some of them are Lists, Tuples, Maps, Binaries, etc. These will be discussed in subsequent chapters. Variable Declaration A variable declaration tells the interpreter where and how much to create the storage for the variable. Elixir does not allow us to just declare a variable. A variable must be declared and assigned a value at the same time. For example, to create a variable named life and assign it a value 42, we do the following ? 
+life = 42
+ This will bind the variable life to value 42. If we want to reassign this variable a new value, we can do this by using the same syntax as above, i.e., 
+life = "Hello world"
+ Variable Naming Naming variables follow a snake_case convention in Elixir, i.e., all variables must start with a lowercase letter, followed by 0 or more letters(both upper and lower case), followed at the end by an optional '?' OR '!'. Variable names can also be started with a leading underscore but that must be used only when ignoring the variable, i.e., that variable will not be used again but is needed to be assigned to something. Printing Variables In the interactive shell, variables will print if you just enter the variable name. For example, if you create a variable ? 
+life = 42 
+ And enter 'life' in your shell, you'll get the output as ? 
+42
+ But if you want to output a variable to the console (When running an external script from a file), you need to provide the variable as input to IO.puts function ? 
+life = 42  
+IO.puts life 
+ or 
+life = 42 
+IO.puts(life) 
+ This will give you the following output ? 
+42
+ Elixir - Operators An operator is a symbol that tells the compiler to perform specific mathematical or logical manipulations. There are a LOT of operators provided by elixir. They are divided in the following categories ? Arithmetic operators Comparison operators Boolean operators Misc operators Arithmetic Operators The following table shows all the arithmetic operators supported by Elixir language. Assume variable A holds 10 and variable B holds 20, then ? Show Examples Operator Description Example + Adds 2 numbers. A + B will give 30 - Subtracts second number from first. A-B will give -10 * Multiplies two numbers. A*B will give 200 / Divides first number from second. This casts the numbers in floats and gives a float result A/B will give 0.5. div This function is used to get the quotient on division. div(10,20) will give 0 rem This function is used to get the remainder on division. rem(A, B) will give 10 Comparison Operators The comparison operators in Elixir are mostly common to those provided in most other languages. The following table sums up comparison operators in Elixir. Assume variable A holds 10 and variable B holds 20, then ? Show Examples Operator Description Example == Checks if value on left is equal to value on right(Type casts values if they are not the same type). A == B will give false != Checks if value on left is not equal to value on right. A != B will give true === Checks if type of value on left equals type of value on right, if yes then check the same for value. A === B will give false !== Same as above but checks for inequality instead of equality. A !== B will give true > Checks if the value of left operand is greater than the value of right operand; if yes, then the condition becomes true. A > B will give false < Checks if the value of left operand is less than the value of right operand; if yes, then the condition becomes true. A < B will give true >= Checks if the value of left operand is greater than or equal to the value of right operand; if yes, then the condition becomes true. A >= B will give false <= Checks if the value of left operand is less than or equal to the value of right operand; if yes, then the condition becomes true. A <= B will give true Logical operators Elixir provides 6 logical operators: and, or, not, &&, || and !. The first three, and or not are strict Boolean operators, meaning that they expect their first argument to be a Boolean. Non Boolean argument will raise an error. While the next three, &&, || and ! are non strict, do not require us to have the first value strictly as a boolean. They work in the same way as their strict counterparts. Assume variable A holds true and variable B holds 20, then ? Show Examples Operator Description Example and Checks if both values provided are truthy, if yes then returns the value of second variable. (Logical and). A and B will give 20 or Checks if either value provided is truthy. Returns whichever value is truthy. Else returns false. (Logical or). A or B will give true not Unary operator which inverts the value of given input. not A will give false && Non-strict and. Works same as and but does not expect first argument to be a Boolean. B && A will give 20 || Non-strict or. Works same as or but does not expect first argument to be a Boolean. B || A will give true ! Non-strict not. Works same as not but does not expect the argument to be a Boolean. !A will give false NOTE ?and, or, && and || || are short circuit operators. This means that if the first argument of and is false, then it will not further check for the second one. And if the first argument of or is true, then it will not check for the second one. For example, 
+false and raise("An error")  
+#This won't raise an error as raise function wont get executed 
+   because of short circuiting nature of and operator
+ Bitwise Operators Bitwise operators work on bits and perform bit by bit operation. Elixir provides bitwise modules as part of the package Bitwise, so in order to use these, you need to use the bitwise module. To use it, enter the following command in your shell ? 
+use Bitwise
+ Assume A to be 5 and B to be 6 for the following examples ? Show Examples Operator Description Example &&& Bitwise and operator copies a bit to result if it exists in both operands. A &&& B will give 4 ||| Bitwise or operator copies a bit to result if it exists in either operand. A ||| B will give 7 >>> Bitwise right shift operator shifts first operand bits to the right by the number specified in second operand. A >>> B will give 0 <<< Bitwise left shift operator shifts first operand bits to the left by the number specified in second operand. A <<< B will give 320 ^^^ Bitwise XOR operator copies a bit to result only if it is different on both operands. A ^^^ B will give 3 ~~~ Unary bitwise not inverts the bits on the given number. ~~~A will give -6 Misc Operators Other than the above operators, Elixir also provides a range of other operators like Concatenation Operator, Match Operator, Pin Operator, Pipe Operator, String Match Operator, Code Point Operator, Capture Operator, Ternary Operator that make it quite a powerful language. Show Examples Elixir - Pattern Matching Pattern matching is a technique which Elixir inherits form Erlang. It is a very powerful technique that allows us to extract simpler substructures from complicated data structures like lists, tuples, maps, etc. A match has 2 main parts, a left and a right side. The right side is a data structure of any kind. The left side attempts to match the data structure on the right side and bind any variables on the left to the respective substructure on the right. If a match is not found, the operator raises an error. The simplest match is a lone variable on the left and any data structure on the right. This variable will match anything. For example, 
+x = 12
+x = "Hello"
+IO.puts(x)
+ You can place variables inside a structure so that you can capture a substructure. For example, 
+[var_1, _unused_var, var_2] = [{"First variable"}, 25, "Second variable" ]
+IO.puts(var_1)
+IO.puts(var_2)
+ This will store the values, {"First variable"} in var_1 and "Second variable" in var_2. There is also a special _ variable(or variables prefixed with '_') that works exactly like other variables but tells elixir, "Make sure something is here, but I don't care exactly what it is.". In the previous example, _unused_var was one such variable. We can match more complicated patterns using this technique. For example if you want to unwrap and get a number in a tuple which is inside a list which itself is in a list, you can use the following command ? 
+[_, [_, {a}]] = ["Random string", [:an_atom, {24}]]
+IO.puts(a)
+ This will bind a to 24. Other values are ignored as we are using '_'. In pattern matching, if we use a variable on the right, its value is used. If you want to use the value of a variable on the left, you'll need to use the pin operator. For example, if you have a variable "a" having value 25 and you want to match it with another variable "b" having value 25, then you need to enter ? 
+a = 25
+b = 25
+^a = b
+ The last line matches the current value of a, instead of assigning it, to the value of b. If we have a non-matching set of left and right hand side, the match operator raises an error. For example, if we try to match a tuple with a list or a list of size 2 with a list of size 3, an error will be displayed. Elixir - Decision Making Decision making structures require that the programmer specifies one or more conditions to be evaluated or tested by the program, along with a statement or statements to be executed if the condition is determined to be true, and optionally, other statements to be executed if the condition is determined to be false. Following is the general from of a typical decision making structure found in most of the programming language ? Elixir provides if/else conditional constructs like many other programming languages. It also has a cond statement which calls the first true value it finds. Case is another control flow statement which uses pattern matching to control the flow of the program. Let's have a deep look at them. Elixir provides the following types of decision making statements. Click the following links to check their detail. S.No. Statement & Description 1 if statement An if statement consists of a Boolean expression followed by do, one or more executable statements and finally an end keyword. Code in if statement executes only if Boolean condition evaluates to true. 2 if..else statement An if statement can be followed by an optional else statement(within the do..end block), which executes when the Boolean expression is false. 3 unless statement An unless statement has the same body as an if statement. The code within unless statement executes only when the condition specified is false. 4 unless..else statement An unless..else statement has the same body as an if..else statement. The code within unless statement executes only when the condition specified is false. 5 cond A cond statement is used where we want to execute code on basis of several conditions. It kind of works like an if...else if….else construct in several other programming languages. 6 case Case statement can be considered as a replacement for switch statement in imperative languages. Case takes a variable/literal and applies pattern matching to it with different cases. If any case matches, Elixir executes code associated with that case and exits case statement. Elixir - Strings Strings in Elixir are inserted between double quotes, and they are encoded in UTF-8. Unlike C and C++ where the default strings are ASCII encoded and only 256 different characters are possible, UTF-8 consists of 66536 code points. This means that UTF-8 encoding consists of those many different possible characters. Since the strings use utf-8, we can also use symbols like: ö, ?, etc. Create a String To create a string variable, simply assign a string to a variable ? 
+str = "Hello world"
+ To print this to your console, simply call the IO.puts function and pass it the variable str ? 
+str = str = "Hello world" 
+IO.puts(str)
+ The above program generates the following result ? 
+Hello World
+ Empty Strings You can create an empty string using the string literal, "". For example, a = ""
+if String.length(a) === 0 do
+   IO.puts("a is an empty string")
+end
+ The above program generates the following result. 
+a is an empty string
+ String Interpolation String interpolation is a way to construct a new String value from a mix of constants, variables, literals, and expressions by including their values inside a string literal. Elixir supports string interpolation, to use a variable in a string, when writing it, wrap it with curly braces and prepend the curly braces with a '#' sign. For example, 
+x = "Apocalypse" 
+y = "X-men #{x}"
+IO.puts(y)
+ This will take the value of x and substitute it in y. The above code will generate the following result ? 
+X-men Apocalypse
+ String Concatenation We have already seen the use of String concatenation in previous chapters. The '<>' operator is used to concatenate strings in Elixir. To concatenate 2 strings, 
+x = "Dark"
+y = "Knight"
+z = x <> " " <> y
+IO.puts(z)
+ The above code generates the following result ? 
+Dark Knight
+ String Length To get the length of the string, we use the String.length function. Pass the string as a parameter and it will show you its size. For example, IO.puts(String.length("Hello"))
+ When running above program, it produces following result ? 
+5
+ Reversing a String To reverse a string, pass it to the String.reverse function. For example, IO.puts(String.reverse("Elixir"))
+ The above program generates the following result ? 
+rixilE
+ String Comparison To compare 2 strings, we can use the == or the === operators. For example, 
+var_1 = "Hello world"
+var_2 = "Hello Elixir"
+if var_1 === var_2 do
+   IO.puts("#{var_1} and #{var_2} are the same")
+else
+   IO.puts("#{var_1} and #{var_2} are not the same")
+end
+ The above program generates the following result ? 
+Hello world and Hello elixir are not the same.
+ String Matching We have already seen the use of the =~ string match operator. To check if a string matches a regex, we can also use the string match operator or the String.match? function. For example, IO.puts(String.match?("foo", ~r/foo/))
+IO.puts(String.match?("bar", ~r/foo/))
+ The above program generates the following result ? 
+true 
+false
+ This same can also be achieved by using the =~ operator. For example, 
+IO.puts("foo" =~ ~r/foo/)
+ The above program generates the following result ? 
+true
+ String Functions Elixir supports a large number of functions related to strings, some of the most used are listed in the following table. S.No. Function and its Purpose 1 at(string, position) Returns the grapheme at the position of the given utf8 string. If position is greater than string length, then it returns nil 2 capitalize(string) Converts the first character in the given string to uppercase and the remainder to lowercase 3 contains?(string, contents) Checks if string contains any of the given contents 4 downcase(string) Converts all characters in the given string to lowercase 5 ends_with?(string, suffixes) Returns true if string ends with any of the suffixes given 6 first(string) Returns the first grapheme from a utf8 string, nil if the string is empty 7 last(string) Returns the last grapheme from a utf8 string, nil if the string is empty 8 replace(subject, pattern, replacement, options \\ []) Returns a new string created by replacing occurrences of pattern in subject with replacement 9 slice(string, start, len) Returns a substring starting at the offset start, and of length len 10 split(string) Divides a string into substrings at each Unicode whitespace occurrence with leading and trailing whitespace ignored. Groups of whitespace are treated as a single occurrence. Divisions do not occur on non-breaking whitespace 11 upcase(string) Converts all characters in the given string to uppercase Binaries A binary is just a sequence of bytes. Binaries are defined using << >>. For example: 
+<< 0, 1, 2, 3 >>
+ Of course, those bytes can be organized in any way, even in a sequence that does not make them a valid string. For example, 
+<< 239, 191, 191 >>
+ Strings are also binaries. And the string concatenation operator <> is actually a Binary concatenation operator: 
+IO.puts(<< 0, 1 >> <> << 2, 3 >>)
+ The above code generates the following result ? 
+<< 0, 1, 2, 3 >>
+ Note the ? character. Since this is utf-8 encoded, this character representation takes up 2 bytes. Since each number represented in a binary is meant to be a byte, when this value goes up from 255, it is truncated. To prevent this, we use size modifier to specify how many bits we want that number to take. For example ? 
+IO.puts(<< 256 >>) # truncated, it'll print << 0 >>
+IO.puts(<< 256 :: size(16) >>) #Takes 16 bits/2 bytes, will print << 1, 0 >>
+ The above program will generate the following result ? 
+<< 0 >>
+<< 1, 0 >>
+ We can also use the utf8 modifier, if a character is code point then, it will be produced in the output; else the bytes ? 
+IO.puts(<< 256 :: utf8 >>) The above program generates the following result ? 
+?
+ We also have a function called is_binary that checks if a given variable is a binary. Note that only variables which are stored as multiples of 8bits are binaries. Bitstrings If we define a binary using the size modifier and pass it a value that is not a multiple of 8, we end up with a bitstring instead of a binary. For example, 
+bs = << 1 :: size(1) >>
+IO.puts(bs)
+IO.puts(is_binary(bs))
+IO.puts(is_bitstring(bs))
+ The above program generates the following result ? 
+<< 1::size(1) >>
+false
+true
+ This means that variable bs is not a binary but rather a bitstring. We can also say that a binary is a bitstring where the number of bits is divisible by 8. Pattern matching works on binaries as well as bitstrings in the same way. Elixir - Char lists A char list is nothing more than a list of characters. Consider the following program to understand the same. 
+IO.puts('Hello')
+IO.puts(is_list('Hello'))
+ The above program generates the following result ? 
+Hello
+true
+ Instead of containing bytes, a char list contains the code points of the characters between single-quotes. So while the double-quotes represent a string (i.e. a binary), singlequotes represent a char list (i.e. a list). Note that IEx will generate only code points as output if any of the chars is outside the ASCII range. Char lists are used mostly when interfacing with Erlang, in particular old libraries that do not accept binaries as arguments. You can convert a char list to a string and back by using the to_string(char_list) and to_char_list(string) functions ? 
+IO.puts(is_list(to_char_list("he??o")))
+IO.puts(is_binary(to_string ('he??o')))
+ The above program generates the following result ? 
+true
+true
+ NOTE ? The functions to_string and to_char_list are polymorphic, i.e., they can take multiple types of input like atoms, integers and convert them to strings and char lists respectively. Elixir - Lists and Tuples (Linked) Lists A linked list is a heterogeneous list of elements that are stored at different locations in memory and are kept track of by using references. Linked lists are data structures especially used in functional programming. Elixir uses square brackets to specify a list of values. Values can be of any type ? 
+[1, 2, true, 3]
+ When Elixir sees a list of printable ASCII numbers, Elixir will print that as a char list (literally a list of characters). Whenever you see a value in IEx and you are not sure what it is, you can use the i function to retrieve information about it. 
+IO.puts([104, 101, 108, 108, 111])
+ The above characters in the list are all printable. When the above program is run, it produces the following result ? 
+'hello'
+ You can also define lists the other way round, using single quotes ? 
+IO.puts(is_list('Hello'))
+ When the above program is run, it produces the following result ? 
+true
+ Keep in mind single-quoted and double-quoted representations are not equivalent in Elixir as they are represented by different types. Length of a List To find the length of a list, we use the length function as in the following program ? 
+IO.puts(length([1, 2, :true, "str"]))
+ The above program generates the following result ? 
+4
+ Concatenation and Subtraction Two lists can be concatenated and subtracted using the ++ and -- operators. Consider the following example to understand the functions. 
+IO.puts([1, 2, 3] ++ [4, 5, 6])
+IO.puts([1, true, 2, false, 3, true] -- [true, false])
+ This will give you a concatenated string in the first case and a subtracted string in the second. The above program generates the following result ? 
+[1, 2, 3, 4, 5, 6]
+[1, 2, 3, true]
+ Head and Tail of a List The head is the first element of a list and the tail is the remainder of a list. They can be retrieved with the functions hd and tl. Let us assign a list to a variable and retrieve its head and tail. 
+list = [1, 2, 3]
+IO.puts(hd(list))
+IO.puts(tl(list))
+ This will give us the head and tail of the list as output. The above program generates the following result ? 
+1
+[2, 3]
+ Note ? Getting the head or the tail of an empty list is an error. Other List functions Elixir standard library provides a whole lot of functions to deal with lists. We will have a look at some of those here. You can check out the rest here List. S.no. Function Name and Description 1 delete(list, item) Deletes the given item from the list. Returns a list without the item. If the item occurs more than once in the list, just the first occurrence is removed. 2 delete_at(list, index) Produces a new list by removing the value at the specified index. Negative indices indicate an offset from the end of the list. If index is out of bounds, the original list is returned. 3 first(list) Returns the first element in list or nil if list is empty. 4 flatten(list) Flattens the given list of nested lists. 5 insert_at(list, index, value) Returns a list with value inserted at the specified index. Note that index is capped at the list length. Negative indices indicate an offset from the end of the list. 6 last(list) Returns the last element in list or nil if list is empty. Tuples Tuples are also data structures which store a number of other structures within them. Unlike lists, they store elements in a contiguous block of memory. This means accessing a tuple element per index or getting the tuple size is a fast operation. Indexes start from zero. Elixir uses curly brackets to define tuples. Like lists, tuples can hold any value ? 
+{:ok, "hello"}
+ Length of a Tuple To get the length of a tuple, use the tuple_size function as in the following program ? 
+IO.puts(tuple_size({:ok, "hello"}))
+ The above program generates the following result ? 
+2
+ Appending a Value To append a value to the tuple, use the Tuple.append function ? 
+tuple = {:ok, "Hello"}
+Tuple.append(tuple, :world)
+ This will create and return a new tuple: {:ok, "Hello", :world} Insertng a Value To insert a value at a given position, we can either use the Tuple.insert_at function or the put_elem function. Consider the following example to understand the same ? 
+tuple = {:bar, :baz}
+new_tuple_1 = Tuple.insert_at(tuple, 0, :foo)
+new_tuple_2 = put_elem(tuple, 1, :foobar)
+ Notice that put_elem and insert_at returned new tuples. The original tuple stored in the tuple variable was not modified because Elixir data types are immutable. By being immutable, Elixir code is easier to reason about as you never need to worry if a particular code is mutating your data structure in place. Tuples vs. Lists What is the difference between lists and tuples? Lists are stored in memory as linked lists, meaning that each element in a list holds its value and points to the following element until the end of the list is reached. We call each pair of value and pointer a cons cell. This means accessing the length of a list is a linear operation: we need to traverse the whole list in order to figure out its size. Updating a list is fast as long as we are prepending elements. Tuples, on the other hand, are stored contiguously in memory. This means getting the tuple size or accessing an element by index is fast. However, updating or adding elements to tuples is expensive because it requires copying the whole tuple in memory. Elixir - Keyword lists So far, we have not discussed any associative data structures, i.e., data structures that can associate a certain value (or multiple values) to a key. Different languages call these features with different names like dictionaries, hashes, associative arrays, etc. In Elixir, we have two main associative data structures: keyword lists and maps. In this chapter, we will focus on Keyword lists. In many functional programming languages, it is common to use a list of 2-item tuples as the representation of an associative data structure. In Elixir, when we have a list of tuples and the first item of the tuple (i.e. the key) is an atom, we call it a keyword list. Consider the following example to understand the same ? 
+list = [{:a, 1}, {:b, 2}]
+ Elixir supports a special syntax for defining such lists. We can place the colon at the end of each atom and get rid of the tuples entirely. For example, 
+list_1 = [{:a, 1}, {:b, 2}]
+list_2 = [a: 1, b: 2]
+IO.puts(list_1 == list_2)
+ The above program will generate the following result ? 
+true
+ Both of these represent a keyword list. Since keyword lists are also lists, we can use all the operations we used on lists on them. To retrieve the value associated with an atom in the keyword list, pass the atom as to [] after the name of the list ? 
+list = [a: 1, b: 2]
+IO.puts(list[:a])
+ The above program generates the following result ? 
+1
+ Keyword lists have three special characteristics ? Keys must be atoms. Keys are ordered, as specified by the developer. Keys can be given more than once. In order to manipulate keyword lists, Elixir provides the Keyword module. Remember, though, keyword lists are simply lists, and as such they provide the same linear performance characteristics as lists. The longer the list, the longer it will take to find a key, to count the number of items, and so on. For this reason, keyword lists are used in Elixir mainly as options. If you need to store many items or guarantee one-key associates with a maximum one-value, you should use maps instead. Accessing a key To access values associated with a given key, we use the Keyword.get function. It returns the first value associated with the given key. To get all the values, we use the Keyword.get_values function. For example ? 
+kl = [a: 1, a: 2, b: 3] 
+IO.puts(Keyword.get(kl, :a)) 
+IO.puts(Keyword.get_values(kl)) 
+ The above program will generate the following result ? 
+1
+[1, 2]
+ Inserting a key To add a new value, use Keyword.put_new. If the key already exists, its value remains unchanged ? 
+kl = [a: 1, a: 2, b: 3]
+kl_new = Keyword.put_new(kl, :c, 5)
+IO.puts(Keyword.get(kl_new, :c))
+ When the above program is run, it produces a new Keyword list with additional key, c and generates the following result ? 
+5
+ Deleting a key If you want to delete all entries for a key, use Keyword.delete; to delete only the first entry for a key, use Keyword.delete_first. 
+kl = [a: 1, a: 2, b: 3, c: 0]
+kl = Keyword.delete_first(kl, :b)
+kl = Keyword.delete(kl, :a)
+
+IO.puts(Keyword.get(kl, :a))
+IO.puts(Keyword.get(kl, :b))
+IO.puts(Keyword.get(kl, :c))
+ This will delete the first b in the List and all the a in the list. When the above program is run, it will generate the following result ? 
+0
+ Elixir - Maps Keyword lists are a convenient way to address content stored in lists by key, but underneath, Elixir is still walking through the list. That might be suitable if you have other plans for that list requiring walking through all of it, but it can be an unnecessary overhead if you are planning to use keys as your only approach to the data. This is where maps come to your rescue. Whenever you need a key-value store, maps are the “go to” data structure in Elixir. Creating a Map A map is created using the %{} syntax ? 
+map = %{:a => 1, 2 => :b}
+ Compared to the keyword lists, we can already see two differences ? Maps allow any value as a key. Maps’ keys do not follow any ordering. Accessing a key In order to acces value associated with a key, Maps use the same syntax as Keyword lists ? 
+map = %{:a => 1, 2 => :b}
+IO.puts(map[:a])
+IO.puts(map[2])
+ When the above program is run, it generates the following result ? 
+1
+b
+ Inserting a key To insert a key in a map, we use the Dict.put_new function which takes the map, new key and new value as arguments ? 
+map = %{:a => 1, 2 => :b}
+new_map = Dict.put_new(map, :new_val, "value") 
+IO.puts(new_map[:new_val])
+ This will insert the key-value pair :new_val - "value" in a new map. When the above program is run, it generates the following result ? 
+"value"
+ Updating a Value To update a value already present in the map, you can use the following syntax ? 
+map = %{:a => 1, 2 => :b}
+new_map = %{ map | a: 25}
+IO.puts(new_map[:a])
+ When the above program is run, it generates the following result ? 
+25
+ Pattern Matching In contrast to keyword lists, maps are very useful with pattern matching. When a map is used in a pattern, it will always match on a subset of the given value ? 
+%{:a => a} = %{:a => 1, 2 => :b}
+IO.puts(a)
+ This will match a with 1. And hence, it will generate the output as 1. As shown above, a map matches as long as the keys in the pattern exist in the given map. Therefore, an empty map matches all maps. Variables can be used when accessing, matching and adding map keys ? 
+n = 1
+map = %{n => :one}
+%{^n => :one} = %{1 => :one, 2 => :two, 3 => :three}
+ The Map module provides a very similar API to the Keyword module with convenience functions to manipulate maps. You can use functions such as the Map.get, Map.delete, to manipulate maps. Maps with Atom keys Maps come with a few interesting properties. When all the keys in a map are atoms, you can use the keyword syntax for convenience ? 
+map = %{:a => 1, 2 => :b} 
+IO.puts(map.a) 
+ Another interesting property of maps is that they provide their own syntax for updating and accessing atom keys ? 
+map = %{:a => 1, 2 => :b}
+IO.puts(map.a)
+ Note that to access atom keys in this way, it should exist or the program will fail to work. Elixir - Modules In Elixir, we group several functions into modules. We have already used different modules in the previous chapters such as the String module, Bitwise module, Tuple module, etc. In order to create our own modules in Elixir, we use the defmodule macro. We use the def macro to define functions in that module ? 
+defmodule Math do
+   def sum(a, b) do
+      a + b
+   end
+end
+ In the following sections, our examples are going to get longer in size, and it can be tricky to type them all in the shell. We need to learn how to compile Elixir code and also how to run Elixir scripts. Compilation It is always convenient to write modules into files so they can be compiled and reused. Let us assume we have a file named math.ex with the following content ? 
+defmodule Math do
+   def sum(a, b) do
+      a + b
+   end
+end
+ We can compile the files using the command ?elixirc : 
+$ elixirc math.ex
+ This will generate a file named Elixir.Math.beam containing the bytecode for the defined module. If we start iex again, our module definition will be available (provided that iex is started in the same directory the bytecode file is in). For example, IO.puts(Math.sum(1, 2))
+ The above program will generate the following result ? 
+3
+ Scripted Mode In addition to the Elixir file extension .ex, Elixir also supports .exs files for scripting. Elixir treats both files exactly the same way, the only difference is in the objective. .ex files are meant to be compiled while .exs files are used for scripting. When executed, both extensions compile and load their modules into memory, although only .ex files write their bytecode to disk in the format of .beam files. For example, if we wanted to run the Math.sum in the same file, we can use the .exs in following way ? Math.exs 
+defmodule Math do
+   def sum(a, b) do
+      a + b
+   end
+end
+IO.puts(Math.sum(1, 2))
+ We can run it using the Elixir command ? 
+$ elixir math.exs
+ The file will be compiled in memory and executed, printing “3” as the result. No bytecode file will be created. Module Nesting Modules can be nested in Elixir. This feature of the language helps us organize our code in a better way. To create nested modules, we use the following syntax ? 
+defmodule Foo do
+   #Foo module code here
+   defmodule Bar do
+      #Bar module code here
+   end
+end
+ The example given above will define two modules: Foo and Foo.Bar. The second can be accessed as Bar inside Foo as long as they are in the same lexical scope. If, later, the Bar module is moved outside the Foo module definition, it must be referenced by its full name (Foo.Bar) or an alias must be set using the alias directive discussed in the alias chapter. Note ? In Elixir, there is no need to define the Foo module in order to define the Foo.Bar module, as the language translates all module names to atoms. You can define arbitrarilynested modules without defining any module in the chain. For example, you can define Foo.Bar.Baz without defining Foo or Foo.Bar. Elixir - Aliases In order to facilitate software reuse, Elixir provides three directives – alias, require and import. It also provides a macro called use which is summarized below ? 
+# Alias the module so it can be called as Bar instead of Foo.Bar
+alias Foo.Bar, as: Bar
+
+# Ensure the module is compiled and available (usually for macros)
+require Foo
+
+# Import functions from Foo so they can be called without the `Foo.` prefix
+import Foo
+
+# Invokes the custom code defined in Foo as an extension point
+use Foo
+ Let us now understand in detail about each directive. alias The alias directive allows you to set up aliases for any given module name. For example, if you want to give an alias 'Str' to the String module, you can simply write ? 
+alias String, as: Str
+IO.puts(Str.length("Hello")) 
+ The above program generates the following result ? 
+5
+ An alias is given to the String module as Str. Now when we call any function using the Str literal, it actually references to the String module. This is very helpful when we use very long module names and want to substitute those with shorter ones in the current scope. NOTE ? Aliases MUST start with a capital letter. Aliases are valid only within the lexical scope they are called in. For example, if you have 2 modules in a file and make an alias within one of the modules, that alias will not be accessible in the second module. If you give the name of an in built module, like String or Tuple, as an alias to some other module, to access the inbuilt module, you will need to prepend it with "Elixir.". For example, 
+alias List, as: String
+#Now when we use String we are actually using List.
+#To use the string module: 
+IO.puts(Elixir.String.length("Hello"))
+ When the above program is run, it generates the following result ? 
+5
+ require Elixir provides macros as a mechanism for meta-programming (writing code that generates code). Macros are chunks of code that are executed and expanded at compilation time. This means, in order to use a macro, we need to guarantee that its module and implementation are available during compilation. This is done with the require directive. 
+Integer.is_odd(3)
+ When the above program is run, it will generate the following result ? 
+** (CompileError) iex:1: you must require Integer before invoking the macro Integer.is_odd/1
+ In Elixir, Integer.is_odd is defined as a macro. This macro can be used as a guard. This means that, in order to invoke Integer.is_odd, we will need the Integer module. Use the require Integer function and run the program as shown below. 
+require Integer
+Integer.is_odd(3)
+ This time the program will run and produce the output as: true. In general, a module is not required before usage, except if we want to use the macros available in that module. An attempt to call a macro that was not loaded will raise an error. Note that like the alias directive, require is also lexically scoped. We will talk more about macros in a later chapter. import We use the import directive to easily access functions or macros from other modules without using the fully-qualified name. For instance, if we want to use the duplicate function from the List module several times, we can simply import it. 
+import List, only: [duplicate: 2]
+ In this case, we are importing only the function duplicate (with argument list length 2) from List. Although :only is optional, its usage is recommended in order to avoid importing all the functions of a given module inside the namespace. :except could also be given as an option in order to import everything in a module except a list of functions. The import directive also supports :macros and :functions to be given to :only. For example, to import all macros, a user can write ? 
+import Integer, only: :macros
+ Note that import too is Lexically scoped just like the require and the alias directives. Also note that 'import'ing a module also 'require's it. use Although not a directive, use is a macro tightly related to require that allows you to use a module in the current context. The use macro is frequently used by developers to bring external functionality into the current lexical scope, often modules. Let us understand the use directive through an example ? 
+defmodule Example do 
+   use Feature, option: :value 
+end 
+ Use is a macro that transforms the above into ? 
+defmodule Example do
+   require Feature
+   Feature.__using__(option: :value)
+end
+ The use Module first requires the module and then calls the __using__ macro on Module. Elixir has great metaprogramming capabilities and it has macros to generate code at compile time. The __using__ macro is called in the above instance, and the code is injected into our local context. The local context is where the use macro was called at the time of compilation. Elixir - Functions A function is a set of statements organized together to perform a specific task. Functions in programming work mostly like function in Math. You give functions some input, they generate output based on the input provided. There are 2 types of functions in Elixir ? Anonymous function Functions defined using the fn..end construct are anonymous functions. These functions are sometimes also called as lambdas. They are used by assigning them to variable names. Named function Functions defined using the def keyword are named functions. These are native functions provided in Elixir. Anonymous Functions Just as the name implies, an anonymous function has no name. These are frequently passed to other functions. To define an anonymous function in Elixir, we need the fn and end keywords. Within these, we can define any number of parameters and function bodies separated by ->. For example, 
+sum = fn (a, b) -> a + b end
+IO.puts(sum.(1, 5))
+ When running above program, is run, it generates the following result ? 
+6
+ Note that these functions are not called like the named functions. We have a '.' between the function name and its arguments. Using the Capture Operator We can also define these functions using the capture operator. This is an easier method to create functions. We will now define the above sum function using the capture operator, 
+sum = &(&1 + &2) 
+IO.puts(sum.(1, 2))
+ When the above program is run, it generates the following result ? 
+3
+ In the shorthand version, our parameters are not named but are available to us as &1, &2, &3, and so on. Pattern Matching Functions Pattern matching is not only limited to variables and data structures. We can use pattern matching to make our functions polymorphic. For example, we will declare a function that can either take 1 or 2 inputs (within a tuple) and print them to the console, 
+handle_result = fn
+   {var1} -> IO.puts("#{var1} found in a tuple!")
+   {var_2, var_3} -> IO.puts("#{var_2} and #{var_3} found!")
+end
+handle_result.({"Hey people"})
+handle_result.({"Hello", "World"})
+ When the above program is run, it produces the following result ? 
+Hey people found in a tuple!
+Hello and World found!
+ Named Functions We can define functions with names so we can easily refer to them later. Named functions are defined within a module using the def keyword. Named functions are always defined in a module. To call named functions, we need to reference them using their module name. The following is the syntax for named functions ? 
+def function_name(argument_1, argument_2) do
+   #code to be executed when function is called
+end
+ Let us now define our named function sum within the Math module. 
+defmodule Math do
+   def sum(a, b) do
+      a + b
+   end
+end
+
+IO.puts(Math.sum(5, 6))
+ When running above program, it produces following result ? 
+11
+ For 1-liner functions, there is a shorthand notation to define these functions, using do:. For example ? 
+defmodule Math do
+   def sum(a, b), do: a + b
+end
+IO.puts(Math.sum(5, 6))
+ When running above program, it produces following result ? 
+11
+ Private Functions Elixir provides us the ability to define private functions that can be accessed from within the module in which they are defined. To define a private function, use defp instead of def. For example, 
+defmodule Greeter do
+   def hello(name), do: phrase <> name
+   defp phrase, do: "Hello "
+end
+
+Greeter.hello("world")
+ When the above program is run, it produces the following result ? 
+Hello world
+ But if we just try to explicitly call phrase function, using the Greeter.phrase() function, it will raise an error. Default arguments If we want a default value for an argument, we use the argument \\ value syntax ? 
+defmodule Greeter do
+   def hello(name, country \\ "en") do
+      phrase(country) <> name
+   end
+
+   defp phrase("en"), do: "Hello, "
+   defp phrase("es"), do: "Hola, "
+end
+
+Greeter.hello("Ayush", "en")
+Greeter.hello("Ayush")
+Greeter.hello("Ayush", "es")
+ When the above program is run, it produces the following result ? 
+Hello, Ayush
+Hello, Ayush
+Hola, Ayush
+ Elixir - Recursion Recursion is a method where the solution to a problem depends on the solutions to smaller instances of the same problem. Most computer programming languages support recursion by allowing a function to call itself within the program text. Ideally recursive functions have an ending condition. This ending condition, also known as the base case stops reentering the function and adding function calls to the stack. This is where the recursive function call stops. Let us consider the following example to further understand the recursive function. 
+defmodule Math do
+   def fact(res, num) do
+   if num === 1 do
+      res
+   else
+      new_res = res * num
+      fact(new_res, num-1)
+      end
+   end
+end
+
+IO.puts(Math.fact(1,5)) When the above program is run, it generates the following result ? 
+120
+ So in the above function, Math.fact, we are calculating the factorial of a number. Note that we are calling the function within itself. Let us now understand how this works. We have provided it with 1 and the number whose factorial we want to calculate. The function checks if the number is 1 or not and returns res if it is 1(Ending condition). If not then it creates a variable new_res and assigns it the value of previous res * current num. It returns the value returned by our function call fact(new_res, num-1). This repeats until we get num as 1. Once that happens, we get the result. Let us consider another example, printing each element of the list one by one. To do this, we will utilize the hd and tl functions of lists and pattern matching in functions ? 
+a = ["Hey", 100, 452, :true, "People"]
+defmodule ListPrint do
+   def print([]) do
+   end
+   def print([head | tail]) do 
+      IO.puts(head)
+      print(tail)
+   end
+end
+
+ListPrint.print(a)
+ The first print function is called when we have an empty list(ending condition). If not, then the second print function will be called which will divide the list in 2 and assign the first element of the list to head and the remaining of the list to tail. The head then gets printed and we call the print function again with the rest of the list, i.e., tail. When the above program is run, it produces the following result ? 
+"Hey"
+100
+452
+:true
+"People"
+ Elixir - Loops Due to immutability, loops in Elixir (as in any functional programming language) are written differently from imperative languages. For example, in an imperative language like C, you will write ? 
+for(i = 0; i < 10; i++) {
+   printf("%d", array[i]);
+}
+ In the example given above, we are mutating both the array and the variable i. Mutating is not possible in Elixir. Instead, functional languages rely on recursion: a function is called recursively until a condition is reached that stops the recursive action from continuing. No data is mutated in this process. Let us now write a simple loop using recursion that prints hello n times. defmodule Loop do
+   def print_multiple_times(msg, n) when n <= 1 do
+      IO.puts msg
+   end
+
+   def print_multiple_times(msg, n) do
+      IO.puts msg
+      print_multiple_times(msg, n - 1)
+   end
+end
+
+Loop.print_multiple_times("Hello", 10)
+ When the above program is run, it produces the following result ? Hello
+Hello
+Hello
+Hello
+Hello
+Hello
+Hello
+Hello
+Hello
+Hello
+ We have utilized function's pattern matching techniques and recursion to successfully implement a loop. Recursive definitions are difficult to understand but converting loops to recursion is easy. Elixir provides us the Enum module. This module is used for the most iterative looping calls as it is much easier to use those than trying to figure out recursive definitions for the same. We will discuss those in the next chapter. Your own recursive definitions should only be used when you dont find a solution using that module. Those functions are tail call optimized and quite fast. Elixir - Enumerables An enumerable is an object that may be enumerated. "Enumerated" means to count off the members of a set/collection/category one by one (usually in order, usually by name). Elixir provides the concept of enumerables and the Enum module to work with them. The functions in the Enum module are limited to, as the name says, enumerating values in data structures. Example of an enumerable data structure is a list, tuple, map, etc. The Enum module provides us with a little over 100 functions to deal with enums. We will discuss a few important functions in this chapter. all? When we use all? function, the entire collection must evaluate to true otherwise false will be returned. For example, to check if all of the elements in the list are odd numbers, then. 
+res = Enum.all?([1, 2, 3, 4], fn(s) -> rem(s,2) == 1 end) 
+IO.puts(res)
+ When the above program is run, it produces the following result ? 
+false
+ This is because not all elements of this list are odd. any? As the name suggests, this function returns true if any element of the collection evaluates to true. For example ? 
+res = Enum.any?([1, 2, 3, 4], fn(s) -> rem(s,2) == 1 end)
+IO.puts(res)
+ When the above program is run, it produces the following result ? 
+true
+ chunk This function divides our collection into small chunks of the size provided as the second argument. For example ? 
+res = Enum.chunk([1, 2, 3, 4, 5, 6], 2)
+IO.puts(res)
+ When the above program is run, it produces the following result ? 
+[[1, 2], [3, 4], [5, 6]]
+ each It may be necessary to iterate over a collection without producing a new value, for this case we use the each function ? 
+Enum.each(["Hello", "Every", "one"], fn(s) -> IO.puts(s) end)
+ When the above program is run, it produces the following result ? 
+Hello
+Every
+one
+ map To apply our function to each item and produce a new collection we use the map function. It is one of the most useful constructs in functional programming as it is quite expressive and short. Let us consider an example to understand this. We will double the values stored in a list and store it in a new list res ? 
+res = Enum.map([2, 5, 3, 6], fn(a) -> a*2 end)
+IO.puts(res)
+ When the above program is run, it produces the following result ? 
+[4, 10, 6, 12]
+ reduce The reduce function helps us reduce our enumerable to a single value. To do this, we supply an optional accumulator (5 in this example) to be passed into our function; if no accumulator is provided, the first value is used ? 
+res = Enum.reduce([1, 2, 3, 4], 5, fn(x, accum) -> x + accum end)
+IO.puts(res)
+ When the above program is run, it produces the following result ? 
+15
+ The accumulator is the initial value passed to the fn. From the second call onwards the value returned from previous call is passed as accum. We can also use reduce without the accumulator ? 
+res = Enum.reduce([1, 2, 3, 4], fn(x, accum) -> x + accum end)
+IO.puts(res)
+ When the above program is run, it produces the following result ? 
+10
+ uniq The uniq function removes duplicates from our collection and returns only the set of elements in the collection. For example ? 
+res = Enum.uniq([1, 2, 2, 3, 3, 3, 4, 4, 4, 4])
+IO.puts(res)
+ When running above program, it produces the following result ? 
+[1, 2, 3, 4]
+ Eager Evaluation All the functions in the Enum module are eager. Many functions expect an enumerable and return a list back. This means that when performing multiple operations with Enum, each operation is going to generate an intermediate list until we reach the result. Let us consider the following example to understand this ? 
+odd? = &(odd? = &(rem(&1, 2) != 0) 
+res = 1..100_000 |> Enum.map(&(&1 * 3)) |> Enum.filter(odd?) |> Enum.sum 
+IO.puts(res) 
+ When the above program is run, it produces the following result ? 
+7500000000
+ The example above has a pipeline of operations. We start with a range and then multiply each element in the range by 3. This first operation will now create and return a list with 100_000 items. Then we keep all odd elements from the list, generating a new list, now with 50_000 items, and then we sum all entries. The |> symbol used in the snippet above is the pipe operator: it simply takes the output from the expression on its left side and passes it as the first argument to the function call on its right side. It’s similar to the Unix | operator. Its purpose is to highlight the flow of data being transformed by a series of functions. Without the pipe operator, the code looks complicated ? 
+Enum.sum(Enum.filter(Enum.map(1..100_000, &(&1 * 3)), odd?))
+ We have many other functions, however, only a few important ones have been described here. Elixir - Streams Many functions expect an enumerable and return a list back. It means, while performing multiple operations with Enum, each operation is going to generate an intermediate list until we reach the result. Streams support lazy operations as opposed to eager operations by enums. In short, streams are lazy, composable enumerables. What this means is Streams do not perform an operation unless it is absolutely needed. Let us consider an example to understand this ? 
+odd? = &(rem(&1, 2) != 0)
+res = 1..100_000 |> Stream.map(&(&1 * 3)) |> Stream.filter(odd?) |> Enum.sum
+IO.puts(res)
+ When the above program is run, it produces the following result ? 
+7500000000
+ In the example given above, 1..100_000 |> Stream.map(&(&1 * 3)) returns a data type, an actual stream, that represents the map computation over the range 1..100_000. It has not yet evaluated this representation. Instead of generating intermediate lists, streams build a series of computations that are invoked only when we pass the underlying stream to the Enum module. Streams are useful when working with large, possibly infinite, collections. Streams and enums have many functions in common. Streams mainly provide the same functions provided by the Enum module which generated Lists as their return values after performing computations on input enumerables. Some of them are listed in the following table ? S. No. Function and its Description 1 chunk(enum, n, step, leftover \\ nil) Streams the enumerable in chunks, containing n items each, where each new chunk starts step elements into the enumerable. 2 concat(enumerables) Creates a stream that enumerates each enumerable in an enumerable. 3 each(enum, fun) Executes the given function for each item. 4 filter(enum, fun) Creates a stream that filters elements according to the given function on enumeration. 5 map(enum, fun) Creates a stream that will apply the given function on enumeration. 6 drop(enum, n) Lazily drops the next n items from the enumerable. Elixir - Structs Structs are extensions built on top of maps that provide compile-time checks and default values. Defining Structs To define a struct, the defstruct construct is used: 
+defmodule User do
+   defstruct name: "John", age: 27
+end
+ The keyword list used with defstruct defines what fields the struct will have along with their default values. Structs take the name of the module they are defined in. In the example given above, we defined a struct named User. We can now create User structs by using a syntax similar to the one used to create maps ? 
+new_john = %User{})
+ayush = %User{name: "Ayush", age: 20}
+megan = %User{name: "Megan"})
+ The above code will generate three different structs with values ? 
+%User{age: 27, name: "John"}
+%User{age: 20, name: "Ayush"}
+%User{age: 27, name: "Megan"}
+ Structs provide compile-time guarantees that only the fields (and all of them) defined through defstruct will be allowed to exist in a struct. So you cannot define your own fields once you have created the struct in the module. Accessing and Updating Structs When we discussed maps, we showed how we can access and update the fields of a map. The same techniques (and the same syntax) apply to structs as well. For example, if we want to update the user we created in the earlier example, then ? 
+defmodule User do
+   defstruct name: "John", age: 27
+end
+john = %User{}
+#john right now is: %User{age: 27, name: "John"}
+
+#To access name and age of John, 
+IO.puts(john.name)
+IO.puts(john.age)
+ When the above program is run, it produces the following result ? 
+John
+27
+ To update a value in a struct, we will again use the same procedure that we used in the map chapter, 
+meg = %{john | name: "Meg"}
+ Structs can also be used in pattern matching, both for matching on the value of specific keys as well as for ensuring that the matching value is a struct of the same type as the matched value. Elixir - Protocols Protocols are a mechanism to achieve polymorphism in Elixir. Dispatching on a protocol is available to any data type as long as it implements the protocol. Let us consider an example of using protocols. We used a function called to_string in the previous chapters to convert from other types to the string type. This is actually a protocol. It acts according to the input that is given without producing an error. This might seem like we are discussing pattern matching functions, but as we proceed further, it turns out different. Consider the following example to further understand the protocol mechanism. Let us create a protocol that will display if the given input is empty or not. We will call this protocol blank?. Defining a Protocol We can define a protocol in Elixir in the following way ? 
+defprotocol Blank do
+   def blank?(data)
+end
+ As you can see, we do not need to define a body for the function. If you are familiar with interfaces in other programming languages, you can think of a Protocol as essentially the same thing. So this Protocol is saying that anything that implements it must have an empty? function, although it is up to the implementor as to how the function responds. With the protocol defined, let us understand how to add a couple of implementations. Implementing a Protocol Since we have defined a protocol, we now need to tell it how to handle the different inputs that it might get. Let us build on the example we had taken earlier. We will implement the blank protocol for lists, maps and strings. This will show if the thing we passed is blank or not. 
+#Defining the protocol
+defprotocol Blank do
+   def blank?(data)
+end
+
+#Implementing the protocol for lists
+defimpl Blank, for: List do
+   def blank?([]), do: true
+   def blank?(_), do: false
+end
+
+#Implementing the protocol for strings
+defimpl Blank, for: BitString do
+   def blank?(""), do: true
+   def blank?(_), do: false
+end
+
+#Implementing the protocol for maps
+defimpl Blank, for: Map do
+   def blank?(map), do: map_size(map) == 0
+end
+
+IO.puts(Blank.blank? [])
+IO.puts(Blank.blank? [:true, "Hello"])
+IO.puts(Blank.blank? "")
+IO.puts(Blank.blank? "Hi")
+ You can implement your Protocol for as many or as few types as you want, whatever makes sense for the usage of your Protocol. This was a pretty basic use case of protocols. When the above program is run, it produces the following result ? 
+true
+false
+true
+false
+ Note ? If you use this for any types other than those you defined the protocol for, it will produce an error. Elixir - File IO File IO is an integral part of any programming language as it allows the language to interact with the files on the file system. In this chapter, we will discuss two modules – Path and File. The Path Module The path module is a very small module that can be considered as a helper module for filesystem operations. The majority of the functions in the File module expect paths as arguments. Most commonly, those paths will be regular binaries. The Path module provides facilities for working with such paths. Using functions from the Path module as opposed to just manipulating binaries is preferred since the Path module takes care of different operating systems transparently. It is to be observed that Elixir will automatically convert slashes (/) into backslashes (\) on Windows when performing file operations. Let us consider the following example to further understand the Path module ? 
+IO.puts(Path.join("foo", "bar"))
+ When the above program is run, it produces the following result ? 
+foo/bar
+ There are a lot of methods that the path module provides. You can have a look at the different methods here. These methods are frequently used if you are performing many file manipulation operations. The File Module The file module contains functions that allow us to open files as IO devices. By default, files are opened in binary mode, which requires developers to use the specific IO.binread and IO.binwrite functions from the IO module. Let us create a file called newfile and write some data to it. 
+{:ok, file} = File.read("newfile", [:write]) 
+# Pattern matching to store returned stream
+IO.binwrite(file, "This will be written to the file")
+ If you go to open the file we just wrote into, content will be displayed in the following way ? 
+This will be written to the file 
+ Let us now understand how to use the file module. Opening a file To open a file, we can use any one of the following 2 functions ? 
+{:ok, file} = File.open("newfile")
+file = File.open!("newfile")
+ Let us now understand the difference between the File.open function and the File.open!() function. The File.open function always returns a tuple. If file is successfully opened, it returns the first value in the tuple as :ok and the second value is literal of type io_device. If an error is caused, it will return a tuple with first value as :error and second value as the reason. The File.open!() function on the other hand will return a io_device if file is successfully opened else it will raise an error. NOTE: This is the pattern followed in all of the file module functions we are going to discuss. We can also specify the modes in which we want to open this file. To open a file as read only and in utf-8 encoding mode, we use the following code ? 
+file = File.open!("newfile", [:read, :utf8])
+ Writing to a File We have two ways to write to files. Let us see the first one using the write function from the File module. 
+File.write("newfile", "Hello")
+ But this should not be used if you are making multiple writes to the same file. Every time this function is invoked, a file descriptor is opened and a new process is spawned to write to the file. If you are doing multiple writes in a loop, open the file via File.open and write to it using the methods in IO module. Let us consider an example to understand the same ? 
+#Open the file in read, write and utf8 modes. 
+file = File.open!("newfile_2", [:read, :utf8, :write])
+
+#Write to this "io_device" using standard IO functions
+IO.puts(file, "Random text")
+ You can use other IO module methods like IO.write and IO.binwrite to write to files opened as io_device. Reading from a File We have two ways to read from files. Let us see the first one using the read function from the File module. 
+IO.puts(File.read("newfile"))
+ When running this code, you should get a tuple with the first element as :ok and the second one as the contents of newfile We can also use the File.read! function to just get the contents of the files returned to us. Closing an Open File Whenever you open a file using the File.open function, after you are done using it, you should close it using the File.close function ? 
+File.close(file)
+ Elixir - Processes In Elixir, all code runs inside processes. Processes are isolated from each other, run concurrent to one another and communicate via message passing. Elixir’s processes should not be confused with operating system processes. Processes in Elixir are extremely lightweight in terms of memory and CPU (unlike threads in many other programming languages). Because of this, it is not uncommon to have tens or even hundreds of thousands of processes running simultaneously. In this chapter, we will learn about the basic constructs for spawning new processes, as well as sending and receiving messages between different processes. The Spawn Function The easiest way to create a new process is to use the spawn function. The spawn accepts a function that will be run in the new process. For example ? 
+pid = spawn(fn -> 2 * 2 end)
+Process.alive?(pid)
+ When the above program is run, it produces the following result ? 
+false
+ The return value of the spawn function is a PID. This is a unique identifier for the process and so if you run the code above your PID, it will be different. As you can see in this example, the process is dead when we check to see if it alive. This is because the process will exit as soon as it has finished running the given function. As already mentioned, all Elixir codes run inside processes. If you run the self function you will see the PID for your current session ? 
+pid = self
+ 
+Process.alive?(pid)
+ When the above program is run, it produces following result ? 
+true
+ Message Passing We can send messages to a process with send and receive them with receive. Let us pass a message to the current process and receive it on the same. 
+send(self(), {:hello, "Hi people"})
+
+receive do
+   {:hello, msg} -> IO.puts(msg)
+   {:another_case, msg} -> IO.puts("This one won't match!")
+end
+ When the above program is run, it produces the following result ? 
+Hi people
+ We sent a message to the current process using the send function and passed it to the PID of self. Then we handled the incoming message using the receive function. When a message is sent to a process, the message is stored in the process mailbox. The receive block goes through the current process mailbox searching for a message that matches any of the given patterns. The receive block supports guards and many clauses, such as case. If there is no message in the mailbox matching any of the patterns, the current process will wait until a matching message arrives. A timeout can also be specified. For example, 
+receive do
+   {:hello, msg}  -> msg
+after
+   1_000 -> "nothing after 1s"
+end
+ When the above program is run, it produces the following result ? 
+nothing after 1s
+ NOTE ? A timeout of 0 can be given when you already expect the message to be in the mailbox. Links The most common form of spawning in Elixir is actually via spawn_link function. Before taking a look at an example with spawn_link, let us understand what happens when a process fails. 
+spawn fn -> raise "oops" end
+ When the above program is run, it produces the following error ? 
+[error] Process #PID<0.58.00> raised an exception
+** (RuntimeError) oops
+   :erlang.apply/2
+ It logged an error but the spawning process is still running. This is because processes are isolated. If we want the failure in one process to propagate to another one, we need to link them. This can be done with the spawn_link function. Let us consider an example to understand the same ? 
+spawn_link fn -> raise "oops" end
+ When the above program is run, it produces the following error ? 
+** (EXIT from #PID<0.41.0>) an exception was raised:
+   ** (RuntimeError) oops
+      :erlang.apply/2
+ If you are running this in iex shell then the shell handles this error and does not exit. But if you run by first making a script file and then using elixir <file-name>.exs, the parent process will also be brought down due to this failure. Processes and links play an important role when building fault-tolerant systems. In Elixir applications, we often link our processes to supervisors which will detect when a process dies and start a new process in its place. This is only possible because processes are isolated and don’t share anything by default. And since processes are isolated, there is no way a failure in a process will crash or corrupt the state of another. While other languages will require us to catch/handle exceptions; in Elixir, we are actually fine with letting processes fail because we expect supervisors to properly restart our systems. State If you are building an application that requires state, for example, to keep your application configuration, or you need to parse a file and keep it in memory, where would you store it? Elixir's process functionality can come in handy when doing such things. We can write processes that loop infinitely, maintain state, and send and receive messages. As an example, let us write a module that starts new processes that work as a key-value store in a file named kv.exs. 
+defmodule KV do
+   def start_link do
+      Task.start_link(fn -> loop(%{}) end)
+   end
+
+   defp loop(map) do
+      receive do
+         {:get, key, caller} ->
+         send caller, Map.get(map, key)
+         loop(map)
+         {:put, key, value} ->
+         loop(Map.put(map, key, value))
+      end
+   end
+end
+ Note that the start_link function starts a new process that runs the loop function, starting with an empty map. The loop function then waits for messages and performs the appropriate action for each message. In the case of a :get message, it sends a message back to the caller and calls loop again, to wait for a new message. While the :put message actually invokes loop with a new version of the map, with the given key and value stored. Let us now run the following ? 
+iex kv.exs
+ Now you should be in your iex shell. To test out our module, try the following ? 
+{:ok, pid} = KV.start_link
+
+# pid now has the pid of our new process that is being 
+# used to get and store key value pairs 
+
+# Send a KV pair :hello, "Hello" to the process
+send pid, {:put, :hello, "Hello"}
+
+# Ask for the key :hello
+send pid, {:get, :hello, self()}
+
+# Print all the received messages on the current process.
+flush()
+ When the above program is run, it produces the following result ? 
+"Hello"
+ Elixir - Sigils In this chapter, we are going to explore sigils, the mechanisms provided by the language for working with textual representations. Sigils start with the tilde (~) character which is followed by a letter (which identifies the sigil) and then a delimiter; optionally, modifiers can be added after the final delimiter. Regex Regexes in Elixir are sigils. We have seen their use in the String chapter. Let us again take an example to see how we can use regex in Elixir. 
+# A regular expression that matches strings which contain "foo" or "bar":
+regex = ~r/foo|bar/
+IO.puts("foo" =~ regex)
+IO.puts("baz" =~ regex)
+ When the above program is run, it produces the following result ? 
+true
+false
+ Sigils support 8 different delimiters ? 
+~r/hello/
+~r|hello|
+~r"hello"
+~r'hello'
+~r(hello)
+~r[hello]
+~r{hello}
+~r<hello>
+ The reason behind supporting different delimiters is that different delimiters can be more suited for different sigils. For example, using parentheses for regular expressions may be a confusing choice as they can get mixed with the parentheses inside the regex. However, parentheses can be handy for other sigils, as we will see in the next section. Elixir supports Perl compatible regexes and also support modifiers. You can read up more about the use of regexes here. Strings, Char lists and Word lists Other than regexes, Elixir has 3 more inbuilt sigils. Let us have a look at the sigils. Strings The ~s sigil is used to generate strings, like double quotes are. The ~s sigil is useful, for example, when a string contains both double and single quotes ? 
+new_string = ~s(this is a string with "double" quotes, not 'single' ones)
+IO.puts(new_string)
+ This sigil generates strings. When the above program is run, it produces the following result ? 
+"this is a string with \"double\" quotes, not 'single' ones"
+ Char Lists The ~c sigil is used to generate char lists ? new_char_list = ~c(this is a char list containing 'single quotes')
+IO.puts(new_char_list)
+ When the above program is run, it produces the following result ? 
+this is a char list containing 'single quotes'
+ Word Lists The ~w sigil is used to generate lists of words (words are just regular strings). Inside the ~w sigil, words are separated by whitespace. 
+new_word_list = ~w(foo bar bat)
+IO.puts(new_word_list)
+ When the above program is run, it produces the following result ? 
+foobarbat
+ The ~w sigil also accepts the c, s and a modifiers (for char lists, strings and atoms, respectively), which specify the data type of the elements of the resulting list ? 
+new_atom_list = ~w(foo bar bat)a
+IO.puts(new_atom_list)
+ When the above program is run, it produces the following result ? 
+[:foo, :bar, :bat]
+ Interpolation and Escaping in Sigils Besides lowercase sigils, Elixir supports uppercase sigils to deal with escaping characters and interpolation. While both ~s and ~S will return strings, the former allows escape codes and interpolation while the latter does not. Let us consider an example to understand this ? 
+~s(String with escape codes \x26 #{"inter" <> "polation"})
+# "String with escape codes & interpolation"
+~S(String without escape codes \x26 without #{interpolation})
+# "String without escape codes \\x26 without \#{interpolation}"
+ Custom Sigils We can easily create our own custom sigils. In this example, we will create a sigil to convert a string to uppercase. 
+defmodule CustomSigil do
+   def sigil_u(string, []), do: String.upcase(string)
+end
+
+import CustomSigil
+
+IO.puts(~u/tutorials point/)
+ When we run the above code, it produces the following result ? 
+TUTORIALS POINT
+ First we define a module called CustomSigil and within that module, we created a function called sigil_u. As there is no existing ~u sigil in the existing sigil space, we will use it. The _u indicates that we wish use u as the character after the tilde. The function definition must take two arguments, an input and a list. Elixir - Comprehensions List comprehensions are syntactic sugar for looping through enumerables in Elixir. In this chapter we will use comprehensions for iteration and generation. Basics When we looked at the Enum module in the enumerables chapter, we came across the map function. 
+Enum.map(1..3, &(&1 * 2))
+ In this example, we will pass a function as the second argument. Each item in the range will be passed into the function, and then a new list will be returned containing the new values. Mapping, filtering, and transforming are very common actions in Elixir and so there is a slightly different way of achieving the same result as the previous example ? 
+for n <- 1..3, do: n * 2
+ When we run the above code, it produces the following result ? 
+[2, 4, 6]
+ The second example is a comprehension, and as you can probably see, it is simply syntactic sugar for what you can also achieve if you use the Enum.map function. However, there are no real benefits to using a comprehension over a function from the Enum module in terms of performance. Comprehensions are not limited to lists but can be used with all enumerables. Filter You can think of filters as a sort of guard for comprehensions. When a filtered value returns false or nil it is excluded from the final list. Let us loop over a range and only worry about even numbers. We will use the is_even function from the Integer module to check if a value is even or not. 
+import Integer
+IO.puts(for x <- 1..10, is_even(x), do: x)
+ When the above code is run, it produces the following result ? 
+[2, 4, 6, 8, 10]
+ We can also use multiple filters in the same comprehension. Add another filter that you want after the is_even filter separated by a comma. :into Option In the examples above, all the comprehensions returned lists as their result. However, the result of a comprehension can be inserted into different data structures by passing the :into option to the comprehension. For example, a bitstring generator can be used with the :into option in order to easily remove all spaces in a string ? 
+IO.puts(for <<c <- " hello world ">>, c != ?\s, into: "", do: <<c>>)
+ When the above code is run, it produces the following result ? 
+helloworld
+ The above code removes all spaces from the string using c != ?\s filter and then using the :into option, it puts all the returned characters in a string. Elixir - Typespecs Elixir is a dynamically typed language, so all types in Elixir are inferred by the runtime. Nonetheless, Elixir comes with typespecs, which are a notation used for declaring custom data types and declaring typed function signatures (specifications). Function Specifications(specs) By default, Elixir provides some basic types, such as integer or pid, and also complex types: for example, the round function, which rounds a float to its nearest integer, takes a number as an argument (an integer or a float) and returns an integer. In the related documentation, the round typed signature is written as ? 
+round(number) :: integer
+ The above description implies that the function on the left takes as argument what is specified in parenthesis and returns what is on the right of ::, i.e., Integer. Function specs are written with the @spec directive, placed right before the function definition. The round function can be written as ? 
+@spec round(number) :: integer
+def round(number), do: # Function implementation
+...
+ Typespecs support complex types as well, for example, if you want to return a list of integers, then you can use [Integer] Custom Types While Elixir provides a lot of useful inbuilt types, it is convenient to define custom types when appropriate. This can be done when defining modules through the @type directive. Let us consider an example to understand the same ? 
+defmodule FunnyCalculator do
+  @type number_with_joke :: {number, String.t}
+
+  @spec add(number, number) :: number_with_joke
+  def add(x, y), do: {x + y, "You need a calculator to do that?"}
+
+  @spec multiply(number, number) :: number_with_joke
+  def multiply(x, y), do: {x * y, "It is like addition on steroids."}
+end
+
+{result, comment} = FunnyCalculator.add(10, 20)
+IO.puts(result)
+IO.puts(comment)
+ When the above program is run, it produces the following result ? 
+30
+You need a calculator to do that?
+ NOTE ? Custom types defined through @type are exported and available outside the module they are defined in. If you want to keep a custom type private, you can use the @typep directive instead of @type. Elixir - Behaviours Behaviors in Elixir (and Erlang) are a way to separate and abstract the generic part of a component (which becomes the behavior module) from the specific part (which becomes the callback module). Behaviors provide a way to ? Define a set of functions that have to be implemented by a module. Ensure that a module implements all the functions in that set. If you have to, you can think of behaviors like interfaces in object oriented languages like Java: a set of function signatures that a module has to implement. Defining a Behaviour Let us consider an example to create our own behavior and then use this generic behavior to create a module. We will define a behavior that greets people hello and goodbye in different languages. 
+defmodule GreetBehaviour do
+   @callback say_hello(name :: string) :: nil
+   @callback say_bye(name :: string) :: nil
+end
+ The @callback directive is used to list the functions that adopting modules will need to define. It also specifies the no. of arguments, their type and their return values. Adopting a Behaviour We have successfully defined a behavior. Now we will adopt and implement it in multiple modules. Let us create two modules implementing this behavior in English and Spanish. 
+defmodule GreetBehaviour do
+   @callback say_hello(name :: string) :: nil
+   @callback say_bye(name :: string) :: nil
+end
+
+defmodule EnglishGreet do
+   @behaviour GreetBehaviour
+   def say_hello(name), do: IO.puts("Hello " <> name)
+   def say_bye(name), do: IO.puts("Goodbye, " <> name)
+end
+
+defmodule SpanishGreet do
+   @behaviour GreetBehaviour
+   def say_hello(name), do: IO.puts("Hola " <> name)
+   def say_bye(name), do: IO.puts("Adios " <> name)
+end
+
+EnglishGreet.say_hello("Ayush")
+EnglishGreet.say_bye("Ayush")
+SpanishGreet.say_hello("Ayush")
+SpanishGreet.say_bye("Ayush")
+ When the above program is run, it produces the following result ? 
+Hello Ayush
+Goodbye, Ayush
+Hola Ayush
+Adios Ayush
+ As you have already seen, we adopt a behaviour using the @behaviour directive in the module. We have to define all the functions implemented in the behaviour for all the child modules. This can roughly be considered equivalent to interfaces in OOP languages. Elixir - Error Handling Elixir has three error mechanisms: errors, throws and exits. Let us explore each mechanism in detail. Error Errors (or exceptions) are used when exceptional things happen in the code. A sample error can be retrieved by trying to add a number into a string ? 
+IO.puts(1 + "Hello")
+ When the above program is run, it produces the following error ? 
+** (ArithmeticError) bad argument in arithmetic expression
+   :erlang.+(1, "Hello")
+ This was a sample inbuilt error. Raising Errors We can raise errors using the raise functions. Let us consider an example to understand the same ? 
+#Runtime Error with just a message
+raise "oops"  # ** (RuntimeError) oops
+ Other errors can be raised with raise/2 passing the error name and a list of keyword arguments 
+#Other error type with a message
+raise ArgumentError, message: "invalid argument foo"
+ You can also define your own errors and raise those. Consider the following example ? 
+defmodule MyError do
+   defexception message: "default message"
+end
+
+raise MyError  # Raises error with default message
+raise MyError, message: "custom message"  # Raises error with custom message
+ Rescuing Errors We do not want our programs to abruptly quit but rather the errors need to be handled carefully. For this we use error handling. We rescue errors using the try/rescue construct. Let us consider the following example to understand the same ? 
+err = try do
+   raise "oops"
+rescue
+   e in RuntimeError -> e
+end
+
+IO.puts(err.message)
+ When the above program is run, it produces the following result ? 
+oops
+ We have handled errors in the rescue statement using pattern matching. If we do not have any use of the error, and just want to use it for identification purposes, we can also use the form ? 
+err = try do
+   1 + "Hello"
+rescue
+   RuntimeError -> "You've got a runtime error!"
+   ArithmeticError -> "You've got a Argument error!"
+end
+
+IO.puts(err)
+ When running above program, it produces the following result ? 
+You've got a Argument error!
+ NOTE ? Most functions in the Elixir standard library are implemented twice, once returning tuples and the other time raising errors. For example, the File.read and the File.read! functions. The first one returned a tuple if the file was read successfully and if an error was encountered, this tuple was used to give the reason for the error. The second one raised an error if an error was encountered. If we use the first function approach, then we need to use case for pattern matching the error and take action according to that. In the second case, we use the try rescue approach for error prone code and handle errors accordingly. Throws In Elixir, a value can be thrown and later be caught. Throw and Catch are reserved for situations where it is not possible to retrieve a value unless by using throw and catch. The instances are quite uncommon in practice except when interfacing with libraries. For example, let us now assume that the Enum module did not provide any API for finding a value and that we needed to find the first multiple of 13 in a list of numbers ? 
+val = try do
+   Enum.each 20..100, fn(x) ->
+      if rem(x, 13) == 0, do: throw(x)
+   end
+   "Got nothing"
+catch
+   x -> "Got #{x}"
+end
+
+IO.puts(val)
+ When the above program is run, it produces the following result ? 
+Got 26
+ Exit When a process dies of “natural causes” (for example, unhandled exceptions), it sends an exit signal. A process can also die by explicitly sending an exit signal. Let us consider the following example ? 
+spawn_link fn -> exit(1) end
+ In the example above, the linked process died by sending an exit signal with value of 1. Note that exit can also be “caught” using try/catch. For example ? 
+val = try do
+   exit "I am exiting"
+catch
+   :exit, _ -> "not really"
+end
+
+IO.puts(val)
+ When the above program is run, it produces the following result ? 
+not really
+ After Sometimes it is necessary to ensure that a resource is cleaned up after some action that can potentially raise an error. The try/after construct allows you to do that. For example, we can open a file and use an after clause to close it–even if something goes wrong. 
+{:ok, file} = File.open "sample", [:utf8, :write]
+try do
+   IO.write file, "olá"
+   raise "oops, something went wrong"
+after
+   File.close(file)
+end
+ When we run this program, it will give us an error. But the after statement will ensure that the file descriptor is closed upon any such event. Elixir - Macros Macros are one of the most advanced and powerful features of Elixir. As with all advanced features of any language, macros should be used sparingly. They make it possible to perform powerful code transformations in compilation time. We will now understand what macros are and how to use them in brief. Quote Before we start talking about macros, let us first look at Elixir internals. An Elixir program can be represented by its own data structures. The building block of an Elixir program is a tuple with three elements. For example, the function call sum(1, 2, 3) is represented internally as ? 
+{:sum, [], [1, 2, 3]}
+ The first element is the function name, the second is a keyword list containing metadata and the third is the arguments list. You can get this as the output in iex shell if you write the following ? 
+quote do: sum(1, 2, 3)
+ Operators are also represented as such tuples. Variables are also represented using such triplets, except that the last element is an atom, instead of a list. When quoting more complex expressions, we can see that the code is represented in such tuples, which are often nested inside each other in a structure resembling a tree. Many languages would call such representations an Abstract Syntax Tree (AST). Elixir calls these quoted expressions. Unquote Now that we can retrieve the internal structure of our code, how do we modify it? To inject new code or values, we use unquote. When we unquote an expression it will be evaluated and injected into the AST. Let us consider an example(in iex shell) to understand the concept ? 
+num = 25
+
+quote do: sum(15, num)
+
+quote do: sum(15, unquote(num))
+ When the above program is run, it produces the following result ? 
+{:sum, [], [15, {:num, [], Elixir}]}
+{:sum, [], [15, 25]} 
+ In the example for the quote expression, it did not automatically replace num with 25. We need to unquote this variable if we want to modify the AST. Macros So now that we are familiar with quote and unquote, we can explore metaprogramming in Elixir using macros. In the simplest of terms macros are special functions designed to return a quoted expression that will be inserted into our application code. Imagine the macro being replaced with the quoted expression rather than called like a function. With macros we have everything necessary to extend Elixir and dynamically add code to our applications Let us implement unless as a macro. We will begin by defining the macro using the defmacro macro. Remember that our macro needs to return a quoted expression. 
+defmodule OurMacro do
+   defmacro unless(expr, do: block) do
+      quote do
+         if !unquote(expr), do: unquote(block)
+      end
+   end
+end
+
+require OurMacro
+
+OurMacro.unless true, do: IO.puts "True Expression"
+
+OurMacro.unless false, do: IO.puts "False expression"
+ When the above program is run, it produces the following result ? 
+False expression 
+ What is happening here is our code is being replaced by the quoted code returned by the unless macro. We have unquoted the expression to evaluate it in current context and also unquoted the do block to execute it in its context. This example shows us metaprogramming using macros in elixir. Macros can be used in much more complex tasks but should be used sparingly. This is because metaprogramming in general is considered a bad practice and should be used only when necessary. Elixir - Libraries Elixir provides excellent interoperability with Erlang libraries. Let us discuss a few libraries in brief. The Binary Module The built-in Elixir String module handles binaries that are UTF-8 encoded. The binary module is useful when you are dealing with binary data that is not necessarily UTF-8 encoded. Let us consider an example to further understand the Binary module ? 
+# UTF-8
+IO.puts(String.to_char_list("Ø"))
+
+# binary
+IO.puts(:binary.bin_to_list "Ø")
+ When the above program is run, it produces the following result ? 
+[216]
+[195, 152]
+ The above example shows the difference; the String module returns UTF-8 codepoints, while :binary deals with raw data bytes. The Crypto Module The crypto module contains hashing functions, digital signatures, encryption and more. This module is not part of the Erlang standard library, but is included with the Erlang distribution. This means you must list :crypto in your project’s applications list whenever you use it. Let us see an example using the crypto module ? IO.puts(Base.encode16(:crypto.hash(:sha256, "Elixir")))
+ When the above program is run, it produces the following result ? 
+3315715A7A3AD57428298676C5AE465DADA38D951BDFAC9348A8A31E9C7401CB
+ The Digraph Module The digraph module contains functions for dealing with directed graphs built of vertices and edges. After constructing the graph, the algorithms in there will help finding, for instance, the shortest path between two vertices, or loops in the graph. Note that the functions in :digraph alter the graph structure indirectly as a side effect, while returning the added vertices or edges. 
+digraph = :digraph.new()
+coords = [{0.0, 0.0}, {1.0, 0.0}, {1.0, 1.0}]
+[v0, v1, v2] = (for c <- coords, do: :digraph.add_vertex(digraph, c))
+:digraph.add_edge(digraph, v0, v1)
+:digraph.add_edge(digraph, v1, v2)
+for point <- :digraph.get_short_path(digraph, v0, v2) do 
+   {x, y} = point
+   IO.puts("#{x}, #{y}")
+end
+ When the above program is run, it produces the following result ? 0.0, 0.0
+1.0, 0.0
+1.0, 1.0
+ The Math Module The math module contains common mathematical operations covering trigonometry, exponential and logarithmic functions. Let us consider the following example to understand how the Math module works ? 
+# Value of pi
+IO.puts(:math.pi())
+
+# Logarithm
+IO.puts(:math.log(7.694785265142018e23))
+
+# Exponentiation
+IO.puts(:math.exp(55.0))
+
+#...
+ When the above program is run, it produces the following result ? 
+3.141592653589793
+55.0
+7.694785265142018e23
+ The Queue Module The queue is a data structure that implements (double-ended) FIFO (first-in first-out) queues efficiently. The following example shows how a Queue module works ? 
+q = :queue.new
+q = :queue.in("A", q)
+q = :queue.in("B", q)
+{{:value, val}, q} = :queue.out(q)
+IO.puts(val)
+{{:value, val}, q} = :queue.out(q)
+IO.puts(val)
+ When the above program is run, it produces the following result ? 
+A
+B
+ Previous Page Print Next Page   Advertisements Write for us FAQ's Helping Contact © Copyright 2017. All Rights Reserved. go

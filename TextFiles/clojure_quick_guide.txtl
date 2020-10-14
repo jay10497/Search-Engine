@@ -1,0 +1,982 @@
+Clojure Quick Guide Jobs  SENDFiles  Whiteboard  Net Meeting Tools  Articles Facebook Google+ Twitter Linkedin YouTube Home Tutorials Library Coding Ground Tutor Connect Videos Search Clojure Tutorial Clojure - Home Clojure - Overview Clojure - Environment Clojure - Basic Syntax Clojure - REPL Clojure - Data Types Clojure - Variables Clojure - Operators Clojure - Loops Clojure - Decision Making Clojure - Functions Clojure - Numbers Clojure - Recursion Clojure - File I/O Clojure - Strings Clojure - Lists Clojure - Sets Clojure - Vectors Clojure - Maps Clojure - Namespaces Clojure - Exception Handling Clojure - Sequences Clojure - Regular Expressions Clojure - Predicates Clojure - Destructuring Clojure - Date & Time Clojure - Atoms Clojure - Metadata Clojure - StructMaps Clojure - Agents Clojure - Watchers Clojure - Macros Clojure - Reference Values Clojure - Databases Clojure - Java Interface Clojure - Concurrent Programming Clojure - Applications Clojure - Automated Testing Clojure - Libraries Clojure Useful Resources Clojure - Quick Guide Clojure - Useful Resources Clojure - Discussion Selected Reading Developer's Best Practices Questions and Answers Effective Resume Writing HR Interview Questions Computer Glossary Who is Who Clojure - Quick Guide Advertisements Previous Page Next Page   Clojure - Overview Clojure is a high level, dynamic functional programming language. Clojure is designed based on the LISP programming language and has compilers which makes it run on both Java and .Net runtime environment. Before we talk about Clojure, let’s just have a quick description of LISP programming language. LISPs have a tiny language core, almost no syntax, and a powerful macro facility. With these features, you can bend LISP to meet your design, instead of the other way around. LISP has been there for a long time dating back to 1958. Common LISP reads in an expression, evaluates it, and then prints out the result. For example, if you want to compute the value of a simple mathematical expression of 4+6 then you type in. 
+USER(1) (+ 4 6)
+ Clojure has the following high-level key objectives as a programming language. It is based on the LISP programming language which makes its code statements smaller than traditional programming languages. It is a functional programming language. It focuses on immutability which is basically the concept that you should not make any changes to objects which are created in place. It can manage the state of an application for the programmer. It supports concurrency. It embraces existing programming languages. For example, Clojure can make use of the entire Java ecosystem for management of the running of the code via the JVM. The official website for Clojure is http://clojure.org/ Clojure - Environment Try it Option Online We have set up the Clojure Programming environment on-line, so that you can compile and execute all the available examples on line. It gives you confidence in what you are reading and enables you to verify the programs with different options. Feel free to modify any example and execute it on-line. Try the following example using our on-line compiler available at CodingGround. 
+(ns clojure.examples.hello
+   (:gen-class))
+
+(defn hello-world [username]
+   (println (format "Hello, %s" username)))
+
+(hello-world "world")
+ For most of the examples given in this tutorial, you will find a Try it option in our website code sections at the top right corner that will take you to the online compiler. So just make use of it and enjoy your learning. There are a variety of ways to work with Clojure as a programming language. We will look at two ways to work with Clojure programming. Leiningen ? Leiningen is an essential tool to create, build, and automate Clojure projects. Eclipse Plugin ? There is a plugin called CounterClockwise, which is available for Eclipse for carrying out Clojure development in the Eclipse IDE. Leiningen Installation Ensure the following System requirements are met before proceeding with the installation. System Requirements JDK JDK 1.7 or above Memory 2 GB RAM (recommended) Step 1 ? Download the binary installation. Go to the link http://leiningen-wininstallerto get the Windows Installer. Click on the option to start the download of the Groovy installer. Step 2 ? Launch the Installer and click the Next button. Step 3 Specify the location for the installation and click the Next button. Step 4 ? The setup will detect the location of an existing Java installation. Click the Next button to proceed. Step 5 ? Click the Install button to begin the installation. After the installation is complete, it will give you the option to open a Clojure REPL, which is an environment that can be used to create and test your Clojure programs. Eclipse Installation Ensure the following System requirements are met before proceeding with the installation. System Requirements JDK JDK 1.7 or above Eclipse Eclipse 4.5 (Mars) Step 1 ? Open Eclipse and click the Menu item. Click Help ? Eclipse Marketplace. Step 2 ? Type in the keyword Clojure in the dialog box which appears and hit the ‘Go’ button. The option for counterclockwise will appear, click the Install button to begin the installation of this plugin. Step 3 ? In the next dialog box, click the Confirm button to begin the installation. Step 4 ? In the next dialog box, you will be requested to accept the license agreement. Accept the license agreement and click the Finish button to continue with the installation. The installation will begin, and once completed, it will prompt you to restart Eclipse. Once Eclipse is restarted, you will see the option in Eclipse to create a new Clojure project. Clojure - Basic Syntax In order to understand the basic syntax of Clojure, let’s first look at a simple Hello World program. Hello World as a Complete Program Write ‘Hello world’ in a complete Clojure program. Following is an example. Example 
+(ns clojure.examples.hello
+   (:gen-class))
+(defn hello-world []
+   (println "Hello World"))
+(hello-world)
+ The following things need to be noted about the above program. The program will be written in a file called main.clj. The extension ‘clj’ is the extension name for a clojure code file. In the above example, the name of the file is called main.clj. The ‘defn’ keyword is used to define a function. We will see functions in details in another chapter. But for now, know that we are creating a function called helloworld, which will have our main Clojure code. In our Clojure code, we are using the ‘println’ statement to print “Hello World” to the console output. We then call the hello-world function which in turn runs the ‘println’ statement. The above program produces the following output. Output 
+Hello World
+ General Form of a Statement The general form of any statement needs to be evaluated in braces as shown in the following example. 
+(+ 1 2)
+ In the above example, the entire expression is enclosed in braces. The output of the above statement is 3. The + operator acts like a function in Clojure, which is used for the addition of numerals. The values of 1 and 2 are known as parameters to the function. Let us consider another example. In this example, ‘str’ is the operator which is used to concatenate two strings. The strings “Hello” and “World” are used as parameters. 
+(str "Hello" "World")
+ Example If we combine the above two statements and write a program, it will look like the following. 
+(ns clojure.examples.hello
+   (:gen-class))
+(defn Example []
+   (println (str "Hello World"))
+   (println (+ 1 2)))
+(Example)
+ Output The above program produces the following output. 
+Hello World
+3
+ Namespaces A namespace is used to define a logical boundary between modules defined in Clojure. Current Namespace This defines the current namespace in which the current Clojure code resides in. Syntax 
+*ns*
+ Example In the REPL command window run the following command. 
+*ns*
+ Output When we run the above command, the output will defer depending on what is the current namespace. Following is an example of an output. The namespace of the Clojure code is ? 
+clojure.examples.hello
+
+(ns clojure.examples.hello
+   (:gen-class))
+(defn Example []
+   (println (str "Hello World"))
+   (println (+ 1 2)))
+(Example)
+ Require Statement in Clojure Clojure code is packaged in libraries. Each Clojure library belongs to a namespace, which is analogous to a Java package. You can load a Clojure library with the ‘Require’ statement. Syntax 
+(require quoted-namespace-symbol)
+ Example Following is an example of the usage of this statement. 
+(ns clojure.examples.hello
+   (:gen-class))
+(require ‘clojure.java.io’)
+(defn Example []
+   (.exists (file "Example.txt")))
+(Example)
+ In the above code, we are using the ‘require’ keyword to import the namespace clojure.java.io which has all the functions required for input/output functionality. Since we not have the required library, we can use the ‘file’ function in the above code. Comments in Clojure Comments are used to document your code. Single line comments are identified by using the ;; at any position in the line. Following is an example. Example 
+(ns clojure.examples.hello
+   (:gen-class))
+
+;; This program displays Hello World
+(defn Example []
+   (println "Hello World"))
+(Example)
+ Delimiters In Clojure, statements can be split or delimited by using either the curved or square bracket braces. Example Following are two examples. 
+(ns clojure.examples.hello
+   (:gen-class))
+
+;; This program displays Hello World
+(defn Example []
+   (println (+ 1 2 3)))
+(Example)
+ Output The above program produces the following output. 
+6
+ Example Following is another example. 
+(ns clojure.examples.hello
+   (:gen-class))
+
+;; This program displays Hello World
+(defn Example []
+   (println [+ 1 2 3]))
+(Example)
+ Output The above program produces the following output. 
+[#object[clojure.core$_PLUS_ 0x10f163b "clojure.core$_PLUS_@10f163b"] 1 2 3]
+ Whitespaces Whitespaces can be used in Clojure to split different components of a statement for better clarity. This can be done with the assistance of the comma (,) operator. For example, the following two statements are equivalent and the output of both the statements will be 15. 
+(+ 1 2 3 4 5)
+(+ 1, 2, 3, 4, 5)
+ Although Clojure ignores commas, it sometimes uses them to make things easier for the programmer to read. For instance, if you have a hash map like the following (def a-map {:a 1 :b 2 :c 3}) and ask for its value in the REPL window, Clojure will print the output as {:a 1, :b 2, :c 3}. The results are easier to read, especially if you’re looking at a large amount of data. Symbols In Clojure, symbols are equivalent to identifiers in other programming languages. But unlike other programming languages, the compiler sees symbols as actual string values. As a symbol is a value, a symbol can be stored in a collection, passed as an argument to a function, etc., just like any other object. A symbol can only contain alphanumeric characters and ‘* + ! / . : - _ ?’ but must not begin with a numeral or colon. Following are valid examples of symbols. 
+tutorial-point!
+TUTORIAL
++tutorial+
+ Clojure Project Structure Finally let’s talk about a typical project structure for a Clojure project. Since Clojure code runs on Java virtual machine, most of the project structure within Clojure is similar to what you would find in a java project. Following is the snapshot of a sample project structure in Eclipse for a Clojure project. Following key things need to be noted about the above program structure. demo_1 ? This is the package in which the Clojure code file is placed. core.clj ? This is the main Clojure code file, which will contain the code for the Clojure application. The Leiningen folder contains files like clojure-1.6.0.jar which is required to run any Clojure-based application. The pom.properties file will contain information such as the groupId, artifactId and version of the Clojure project. The project.clj file contains information about the Clojure application itself. Following is a sample of the project file contents. 
+(defproject demo-1 "0.1.0-SNAPSHOT"
+   :description "FIXME: write description"
+   :url "http://example.com/FIXME"
+   :license {
+      :name "Eclipse Public License"
+      :url "http://www.eclipse.org/legal/epl-v10.html"
+   }
+   :dependencies [[org.clojure/clojure "1.6.0"]])
+ Clojure - REPL REPL (read-eval-print loop) is a tool for experimenting with Clojure code. It allows you to interact with a running program and quickly try out if things work out as they should. It does this by presenting you with a prompt where you can enter the code. It then reads your input, evaluates it, prints the result, and loops, presenting you with a prompt again. This process enables a quick feedback cycle that isn’t possible in most other languages. Starting a REPL Session A REPL session can be started in Leiningen by typing the following command in the command line. 
+lein repl
+ This will start the following REPL window. You then start evaluating Clojure commands in the REPL window as required. To start a REPL session in Eclipse, click the Menu option, go to Run As ? Clojure Application. This will start a new REPL session in a separate window along with the console output. Conceptually, REPL is similar to Secure Shell (SSH). In the same way that you can use SSH to interact with a remote server, Clojure REPL allows you to interact with a running Clojure process. This feature can be very powerful because you can even attach a REPL toa live production app and modify your program as it runs. Special Variables in REPL REPL includes some useful variables, the one widely used is the special variable *1, *2, and *3. These are used to evaluate the results of the three most recent expressions. Following example shows how these variables can be used. 
+user => "Hello"
+Hello
+user => "World"
+World
+user => (str *2 *1)
+HelloWorld
+ In the above example, first two strings are being sent to the REPL output window as “Hello” and “World” respectively. Then the *2 and *1 variables are used to recall the last 2 evaluated expressions. Clojure - Data Types Clojure offers a wide variety of built-in data types. Built-in Data Types Following is a list of data types which are defined in Clojure. Integers ? Following are the representation of Integers available in Clojure. Decimal Integers (Short, Long and Int) ? These are used to represent whole numbers. For example, 1234. Octal Numbers ? These are used to represent numbers in octal representation. For example, 012. Hexadecimal Numbers ? These are used to represent numbers in representation. For example, 0xff. Radix Numbers ? These are used to represent numbers in radix representation. For example, 2r1111 where the radix is an integer between 2 and 36, inclusive. Floating point. The default is used to represent 32-bit floating point numbers. For example, 12.34. The other representation is the scientific notation. For example, 1.35e-12. char ? This defines a single character literal. Characters are defined with the backlash symbol. For example, /e. Boolean ? This represents a Boolean value, which can either be true or false. String ? These are text literals which are represented in the form of chain of characters. For example, “Hello World”. Nil ? This is used to represent a NULL value in Clojure. Atom ? Atoms provide a way to manage shared, synchronous, independent state. They are a reference type like refs and vars. Bound Values Since all of the datatypes in Clojure are inherited from Java, the bounded values are the same as in Java programming language. The following table shows the maximum allowed values for the numerical and decimal literals. S.No. Numerical and Decimal literals. 1 Short -32,768 to 32,767 2 int -2,147,483,648 to 2,147,483,647 3 long -9,223,372,036,854,775,808 to +9,223,372,036,854,775,807 4 float 1.40129846432481707e-45 to 3.40282346638528860e+38 5 double 4.94065645841246544e-324d to 1.79769313486231570e+308d Class Numeric Types In addition to the primitive types, the following object types (sometimes referred to as wrapper types) are allowed. Name java.lang.Byte java.lang.Short java.lang.Integer java.lang.Long java.lang.Float java.lang.Double Example The following program shows a consolidated clojure code to demonstrate the data types in Clojure. 
+(ns clojure.examples.hello
+   (:gen-class))
+
+;; This program displays Hello World
+(defn Example []
+   ;; The below code declares a integer variable
+   (def x 1)
+   
+   ;; The below code declares a float variable
+   (def y 1.25)
+   
+   ;; The below code declares a string variable
+   (def str1 "Hello")
+   (println x)
+   (println y)
+   (println str1))
+(Example)
+ Output The above program produces the following output. 
+1
+1.25
+Hello
+ Clojure - Variables In Clojure, variables are defined by the ‘def’ keyword. It’s a bit different wherein the concept of variables has more to do with binding. In Clojure, a value is bound to a variable. One key thing to note in Clojure is that variables are immutable, which means that in order for the value of the variable to change, it needs to be destroyed and recreated again. Following are the basic types of variables in Clojure. short ? This is used to represent a short number. For example, 10. int ? This is used to represent whole numbers. For example, 1234. long ? This is used to represent a long number. For example, 10000090. float ? This is used to represent 32-bit floating point numbers. For example, 12.34. char ? This defines a single character literal. For example, ‘/a’. Boolean ? This represents a Boolean value, which can either be true or false. String ? These are text literals which are represented in the form of chain of characters. For example, “Hello World”. Variable Declarations Following is the general syntax of defining a variable. Syntax 
+(def var-name var-value)
+ Where ‘var-name’ is the name of the variable and ‘var-value’ is the value bound to the variable. Example Following is an example of variable declaration. 
+(ns clojure.examples.hello
+   (:gen-class))
+
+;; This program displays Hello World
+(defn Example []
+   ;; The below code declares a integer variable
+   (def x 1)
+   
+   ;; The below code declares a float variable
+   (def y 1.25)
+
+   ;; The below code declares a string variable
+   (def str1 "Hello")
+   
+   ;; The below code declares a boolean variable
+   (def status true))
+(Example)
+ Naming Variables The name of a variable can be composed of letters, digits, and the underscore character. It must begin with either a letter or an underscore. Upper and lowercase letters are distinct because Clojure, just like Java is a case-sensitive programming language. Example Following are some examples of variable naming in Clojure. 
+(ns clojure.examples.hello
+   (:gen-class))
+
+;; This program displays Hello World
+(defn Example []
+   ;; The below code declares a Boolean variable with the name of status
+   (def status true)
+   
+   ;; The below code declares a Boolean variable with the name of STATUS
+   (def STATUS false)
+   
+   ;; The below code declares a variable with an underscore character.
+   (def _num1 2))
+(Example)
+ Note ? In the above statements, because of the case sensitivity, status and STATUS are two different variable defines in Clojure. The above example shows how to define a variable with an underscore character. Printing variables Since Clojure uses the JVM environment, you can also use the ‘println’ function. The following example shows how this can be achieved. Example 
+(ns clojure.examples.hello
+   (:gen-class))
+
+;; This program displays Hello World
+(defn Example []
+   ;; The below code declares a integer variable
+   (def x 1)
+   
+   ;; The below code declares a float variable
+   (def y 1.25)
+   
+   ;; The below code declares a string variable
+   (def str1 "Hello")
+   (println x)
+   (println y)
+   (println str1))
+(Example)
+ Output The above program produces the following output. 
+1
+1.25
+Hello
+ Clojure - Operators An operator is a symbol that tells the compiler to perform specific mathematical or logical manipulations. Clojure has the following types of operators ? Arithmetic operators Relational operators Logical operators Bitwise operators Note ? In Clojure, operators and operands work in the following syntax manner. Syntax 
+(operator operand1 operand2 operandn)
+ For example, Example 
+(+ 1 2)
+ The above example does an arithmetic operation on the numbers 1 and 2. Arithmetic Operators Clojure language supports the normal Arithmetic operators as any language. Following are the Arithmetic operators available in Clojure. Show Examples Operator Description Example + Addition of two operands (+ 1 2) will give 3 ? Subtracts second operand from the first (- 2 1) will give 1 * Multiplication of both operands (* 2 2) will give 4 / Division of numerator by denominator (float (/ 3 2)) will give 1.5 inc Incremental operators used to increment the value of an operand by 1 inc 5 will give 6 dec Incremental operators used to decrement the value of an operand by 1 dec 5 will give 4 max Returns the largest of its arguments max 1 2 3 will return 3 min Returns the smallest of its arguments min 1 2 3 will return 1 rem Remainder of dividing the first number by the second rem 3 2 will give 1 Relational Operators Relational operators allow comparison of objects. Following are the relational operators available in Clojure. Show Examples Operator Description Example = Tests the equality between two objects (= 2 2) will give true not= Tests the difference between two objects (not = 3 2) will give true < Checks to see if the left object is less than the right operand (< 2 3) will give true <= Checks to see if the left object is less than or equal to the right operand (<= 2 3) will give true > Checks to see if the left object is greater than the right operand (> 3 2) will give true >= Checks to see if the left object is greater than or equal to the right operand (>= 3 2) will give true Logical Operators Logical operators are used to evaluate Boolean expressions. Following are the logical operators available in Groovy. Show Examples Operator Description Example and This is the logical “and” operator (or true true) will give true or This is the logical “or” operator (and true false) will give false not This is the logical “not” operator (not false) will give true The following code snippet shows how the various operators can be used. Bitwise Operators Clojure provides four bitwise operators. Following are the bitwise operators available in Clojure. Show Examples S. No. Operator & Description 1 bit-and This is the bitwise “and” operator 2 bit-or This is the bitwise “or” operator 3 bit-xor This is the bitwise “xor” or Exclusive ‘or’ operator 4 bit-not This is the bitwise negation operator Following is the truth table showcasing these operators. p q p&q p | q p ^ q 0 0 0 0 0 0 1 0 1 1 1 1 1 1 0 1 0 0 1 1 Operator Precedence As is the case with LISPs in general, there is no need to worry about operator precedence. This is one of the benefits of S-Expressions and prefix notation. All functions evaluate left to right and inside out. The operators in Clojure are just functions, and everything is fully parenthesized. Clojure - Loops So far we have seen statements which are executed one after the other in a sequential manner. Additionally, statements are provided in Clojure to alter the flow of control in a program’s logic. They are then classified into flow of control statements which we will see in detail. S.No. Loops & Description 1 While Statement The 'while' statement is executed by first evaluating the condition expression (a Boolean value), and if the result is true, then the statements in the while loop are executed. 2 Doseq Statement The ‘doseq’ statement is similar to the ‘for each’ statement which is found in many other programming languages. The doseq statement is basically used to iterate over a sequence. 3 Dotimes Statement The ‘dotimes’ statement is used to execute a statement ‘x’ number of times. 4 Loop Statement The loop special form is not like a ‘for’ loop. The usage of loop is the same as the let binding. However, loop sets a recursion point Clojure - Decision Making Decision-making structures require that the programmer specify one or more conditions to be evaluated or tested by the program, along with a statement or statements to be executed if the condition is determined to be true, and optionally, other statements to be executed if the condition is determined to be false. S.No. Methods & Description 1 If Statement In Clojure, the condition is an expression which evaluates it to be either true or false. 'If' the condition is true, then statement#1 will be executed, else statement#2 will be executed. 2 If/do Expression The ‘if-do’ expression in Clojure is used to allow multiple expressions to be executed for each branch of the ‘if’ statement. 3 Nested If Statement Multiple 'if' statements embedded inside each other. 4 Case Statement Clojure offers the ‘case’ statement which is similar to the ‘switch’ statement available in the Java programming language. 5 Cond Statement Clojure offers another evaluation statement called the ‘cond’ statement. This statement takes a set of test/expression pairs. Clojure - Functions Clojure is known as a functional programming language, hence you would expect to see a lot of emphasis on how functions work in Clojure. This chapter covers what all can be done with functions in Clojure. S.No. Functions & Description 1 Defining a Function A function is defined by using the ‘defn’ macro. 2 Anonymous Functions An anonymous function is a function which has no name associated with it. 3 Functions with Multiple Arguments Clojure functions can be defined with zero or more parameters. The values you pass to functions are called arguments, and the arguments can be of any type. 4 Variadic Functions Clojure offers the ‘case’ statement which is similar to the ‘switch’ statement available in the Java programming language. 5 Higher Order Functions Higher-order functions (HOFs) are functions that take other functions as arguments. HOFs are an important functional programming technique and are quite commonly used in Clojure. Clojure - Numbers Numbers datatype in Clojure is derived from Java classes. Clojure supports integer and floating point numbers. An integer is a value that does not include a fraction. A floating-point number is a decimal value that includes a decimal fraction. Following is an example of numbers in Clojure. 
+(def x 5)
+(def y 5.25)
+ Where ‘x’ is of the type Integer and ‘y’ is the float. In Java, the following classes are attached to the numbers defined in Clojure. To actually see that the numbers in Clojure are derived from Java classes, use the following program to see the type of numbers assigned when using the ‘def’ command. Example 
+(ns clojure.examples.hello
+   (:gen-class))
+
+;; This program displays Hello World
+(defn Example []
+   (def x 5)
+   (def y 5.25)
+   (println (type x))
+   (println (type y)))
+(Example)
+ The ‘type’ command is used to output the class associated with the value assigned to a variable. Output The above code will produce the following output. 
+Java.lang.long
+Java.lang.double
+ Number Tests The following test functions are available for numbers. S.No. Numbers & Description 1 zero? Returns true if the number is zero, else false. 2 pos? Returns true if number is greater than zero, else false. 3 neg? Returns true if number is less than zero, else false. 4 even? Returns true if the number is even, and throws an exception if the number is not an integer. 5 odd? Returns true if the number is odd, and throws an exception if the number is not an integer. 6 number? Returns true if the number is really a Number. 7 integer? Returns true if the number is an integer. 8 float? Returns true if the number is a float. Clojure - Recursion We have seen the recur statement in an earlier topic and whereas the ‘for’ loop is somewhat like a loop, recur is a real loop in Clojure. If you have a programming background, you may have heard of tail recursion, which is a major feature of functional languages. This recur special form is the one that implements tail recursion. As the word “tail recursion” indicates, recur must be called in the tail position. In other words, recur must be the last thing to be evaluated. The simplest example of the recur statement is used within the ‘for’ loop. In the following example, the recur statement is used to change the value of the variable ‘i’ and feed the value of the variable back to the loop expression. Example 
+(ns clojure.examples.hello
+   (:gen-class))
+
+;; This program displays Hello World
+(defn Example []
+   (loop [i 0]
+      (when (< i 5)
+      (println i)
+      (recur (inc i)))))
+(Example)
+ Output The above program produces the following output. 
+0
+1
+2
+3
+4
+ Clojure - File I/O Clojure provides a number of helper methods when working with I/O. It offers easier classes to provide the following functionalities for files. Reading files Writing to files Seeing whether a file is a file or directory Let’s explore some of the file operations Clojure has to offer. Reading the Contents of a File as an Entire String If you want to get the entire contents of the file as a string, you can use the clojure.core.slurp method. The slurp command opens a reader on a file and reads all its contents, returning a string. Following is an example of how this can be done. 
+(ns clojure.examples.hello
+   (:gen-class))
+
+;; This program displays Hello World
+(defn Example []
+   (def string1 (slurp "Example.txt"))
+   (println string1))
+(Example)
+ If the file contains the following lines, they will be printed as ? 
+line : Example1
+line : Example2
+ Reading the Contents of a File One Line at a Time If you want to get the entire contents of the file as a string one line at a time, you can use the clojure.java.io/reader method. The clojure.java.io/reader class creates a reader buffer, which is used to read each line of the file. Following is an example that shows how this can be done. 
+(ns clojure.examples.hello
+   (:gen-class))
+
+;; This program displays Hello World
+(defn Example []
+   (with-open [rdr (clojure.java.io/reader "Example.txt")]
+   (reduce conj [] (line-seq rdr))))
+(Example)
+ If the file contains the following lines, they will be printed as ? 
+line : Example1
+line : Example2
+ The output will be shown as ? 
+["line : Example1" "line : Example2"]
+ Writing ‘to’ Files If you want to write ‘to’ files, you can use the clojure.core.spit command to spew entire strings into files. The spit command is the opposite of the slurp method. This method opens a file as a writer, writes content, then closes file. Following is an example. 
+(ns clojure.examples.hello
+   (:gen-class))
+
+;; This program displays Hello World
+(defn Example []
+   (spit "Example.txt"
+      "This is a string"))
+ In the above example, if you see the contents of the Example.txt file , you will see the contents of “This is a string”. Writing ‘to’ Files One Line at a Time If you want to write ‘to’ files one line at a time, you can use the clojure.java.io.writer class. The clojure.java.io.writer class is used to create a writer stream wherein bytes of data are fed into the stream and subsequently into the file. Following is an example that shows how the spit command can be used. 
+(ns clojure.examples.hello
+   (:gen-class))
+
+;; This program displays Hello World
+(defn Example []
+   (with-open [w (clojure.java.io/writer "Example.txt" :append true)]
+      (.write w (str "hello" "world"))))
+(Example)
+ When the above code is executed, the line “hello world” will be present in the Example.txt file. The append:true option is to append data to the file. If this option is not specified, then the file will be overwritten whenever data is written to the file. Checking to See If a File Exists To check if a file exists, the clojure.java.io.file class can be used to check for the existence of a file. Following is an example that shows how this can be accomplished. 
+(ns clojure.examples.hello
+   (:gen-class))
+
+;; This program displays Hello World
+(defn Example []
+   (println (.exists (clojure.java.io/file "Example.txt"))))
+(Example)
+ If the file Example.txt exists, the output will be true. Reading from the Console To read data from the console, the read-line statement can be used. Following is an example that shows how this can be used. If you enter the (read-line) command in the REPL window, you will have the chance to enter some input in the console window. 
+user->(read-line)
+Hello World
+ The above code will produce the following output. 
+“Hello World”
+ Clojure - Strings A String literal is constructed in Clojure by enclosing the string text in quotations. Strings in Clojure need to be constructed using the double quotation marks such as “Hello World”. Example Following is an example of the usage of strings in Clojure. 
+(ns clojure.examples.hello
+   (:gen-class))
+(defn hello-world []
+   (println "Hello World")
+   (println "This is a demo application"))
+(hello-world)
+ Output The above program produces the following output. 
+Hello World
+This is a demo application
+ Basic String Operations Clojure has a number of operations that can be performed on strings. Following are the operations. S.No. String Operations & Description 1 str The concatenation of strings can be done by the simple str function. 2 format The formatting of strings can be done by the simple format function. The format function formats a string using java.lang.String.format. 3 count Returns true if number is less than zero, else false. 4 subs Returns the substring of ‘s’ beginning at start inclusive, and ending at end (defaults to length of string), exclusive. 5 compare Returns a negative number, zero, or a positive number when ‘x’ is logically 'less than', 'equal to', or 'greater than' ‘y’. 6 lower-case Converts string to all lower-case. 7 upper-case Converts string to all upper-case. 8 join Returns a string of all elements in collection, as returned by (seq collection), separated by an optional separator. 9 split Splits string on a regular expression. 10 split-lines Split strings is based on the escape characters \n or \r\n. 11 reverse Reverses the characters in a string. 12 replace Replaces all instance of a match in a string with the replacement string. 13 trim Removes whitespace from both ends of the string. 14 triml Removes whitespace from the left hand side of the string. 15 trimr Removes whitespace from the right hand side of the string. Clojure - Lists List is a structure used to store a collection of data items. In Clojure, the List implements the ISeq interface. Lists are created in Clojure by using the list function. Example Following is an example of creating a list of numbers in Clojure. 
+(ns clojure.examples.example
+   (:gen-class))
+(defn example []
+   (println (list 1 2 3 4)))
+(example)
+ Output The above code produces the following output. 
+(1 2 3 4)
+ Following is an example of creating a list of characters in Clojure. 
+(ns clojure.examples.example
+   (:gen-class))
+(defn example []
+   (println (list 'a 'b 'c 'd)))
+(example)
+ The above code produces the following output. 
+(a b c d)
+ Following are the list methods available in Clojure. S.No. Lists & Description 1 list* Creates a new list containing the items prepended to the rest, the last of which will be treated as a sequence. 2 first This function returns the first item in the list. 3 nth This function returns the item in the ‘nth’ position in the list. 4 cons Returns a new list wherein an element is added to the beginning of the list. 5 conj Returns a new list wherein the list is at the beginning and the elements to be appended are placed at the end. 6 rest Returns the remaining items in the list after the first item. Clojure - Sets Sets in Clojure are a set of unique values. Sets are created in Clojure with the help of the set command. Example Following is an example of the creation of sets in Clojure. 
+(ns clojure.examples.example
+   (:gen-class))
+(defn example []
+   (println (set '(1 1 2 2))))
+(example)
+ Output The above code produces the following output. 
+#{1,2}
+ Following are the methods available in Clojure for sets. S.No. Sets & Description 1 sorted-set Returns a sorted set of elements. 2 get Returns the element at the index position. 3 contains? Finds out whether the set contains a certain element or not. 4 conj Appends an element to the set and returns the new set of elements. 5 disj Disjoins an element from the set. 6 union Disjoins an element from the set. 7 difference Return a set that is the first set without elements of the remaining sets. 8 intersection Return a set that is the intersection of the input sets. 9 subset? Is set1 a subset of set2? 10 superset? Is set1 a superset of set2? Clojure - Vectors A Vector is a collection of values indexed by contiguous integers. A vector is created by using the vector method in Clojure. Example Following is an example of creating a vector in Clojure. 
+(ns clojure.examples.example
+   (:require [clojure.set :as set])
+   (:gen-class))
+(defn example []
+   (println (vector 1 2 3)))
+(example)
+ Output The above code produces the following output. 
+[1 2 3]
+ Following are the methods available in Clojure. S.No. Vectors & Description 1 vector-of Creates a new vector of a single primitive type ‘t’, where ‘t’ is one of :int :long :float :double :byte :short :char or :boolean. 2 nth This function returns the item in the nth position in the vector. 3 get Returns the element at the index position in the vector. 4 conj Appends an element to the vector and returns the new set of vector elements. 5 pop For a list or queue, returns a new list/queue without the first item, for a vector, returns a new vector without the last item. 6 subvec Returns a sub vector from a starting and ending index. Clojure - Maps A Map is a collection that maps keys to values. Two different map types are provided - hashed and sorted. HashMaps require keys that correctly support hashCode and equals. SortedMaps require keys that implement Comparable, or an instance of Comparator. A map can be created in two ways, the first is via the hash-map method. Creation - HashMaps HashMaps have a typical key value relationship and is created by using hash-map function. 
+(ns clojure.examples.example
+   (:gen-class))
+(defn example []
+   (def demokeys (hash-map "z" "1" "b" "2" "a" "3"))
+   (println demokeys))
+(example)
+ Output The above code produces the following output. 
+{z 1, b 2, a 3}
+ Creation - SortedMaps SortedMaps have the unique characteristic of sorting their elements based on the key element. Following is an example that shows how the sorted map can be created using the sorted-map function. 
+(ns clojure.examples.example
+   (:gen-class))
+(defn example []
+   (def demokeys (sorted-map "z" "1" "b" "2" "a" "3"))
+   (println demokeys))
+(example)
+ The above code produces the following output. 
+{a 3, b 2, z 1}
+ From the above program you can clearly see that elements in the maps are sorted as per the key value. Following are the methods available for maps. S.No. Maps & Description 1 get Returns the value mapped to key, not-found or nil if key is not present. 2 contains? See whether the map contains a required key. 3 find Returns the map entry for the key. 4 keys Returns the list of keys in the map. 5 vals Returns the list of values in the map. 6 dissoc Dissociates a key value entry from the map. 7 merge Merges two maps entries into one single map entry. 8 merge-with Returns a map that consists of the rest of the maps conj-ed onto the first. 9 select-keys Returns a map containing only those entries in map whose key is in keys. 10 rename-keys Renames keys in the current HashMap to the newly defined ones. 11 map-invert Inverts the maps so that the values become the keys and vice versa. Clojure - Namespaces Namespaces in Clojure are used to differentiate classes into separate logical spaces just like in Java. Consider the following statement. 
+(:require [clojure.set :as set])
+ In the above statement, ‘clojure.set’ is a namespace which contains various classes and methods to be used in the program. For example, the above namespace contains the function called map-invert, which is used to invert a map of key-values. We cannot use this function unless we explicitly tell our program to include this namespace. Let’s look at the different methods available for namespaces. S.No. Methods & Description 1 *ns* This is used to look at your current namespace. 2 ns This is used to create a new namespace and associate it with the running program. 3 alias Add an alias in the current namespace to another namespace. Arguments are two symbols: the alias to be used and the symbolic name of the target namespace. 4 all-ns Returns a list of all namespaces. 5 find-ns Finds and returns a particular namespace. 6 ns-name Returns the name of a particular namespace. 7 ns-aliases Returns the aliases, which are associated with any namespaces. 8 ns-map Returns a map of all the mappings for the namespace. 9 un-alias Returns a map containing only those entries in map whose key is in keys. Clojure - Exception Handling Exception handling is required in any programming language to handle the runtime errors so that the normal flow of the application can be maintained. Exception usually disrupts the normal flow of the application, which is the reason why we need to use exception handling in our application. Exception is broadly classified into the following categories ? Checked Exception ? The classes that extend Throwable class except RuntimeException and Error are known as checked exceptions. E.g. IOException, SQLException, etc. Checked exceptions are checked at compile-time. Let’s consider the following program which does an operation on a file called Example.txt. However, there can be always a case wherein the file Example.txt does not exist. 
+(ns clojure.examples.example
+   (:gen-class))
+
+;; This program displays Hello World
+(defn Example []
+   (def string1 (slurp "Example.txt"))
+   (println string1))
+(Example)
+ If the file Example.txt does not exist, then the following exception will be generated by the program. 
+Caused by: java.io.FileNotFoundException: Example.txt (No such file or
+directory)
+at java.io.FileInputStream.open0(Native Method)
+at java.io.FileInputStream.open(FileInputStream.java:195)
+at java.io.FileInputStream.<init>(FileInputStream.java:138)
+at clojure.java.io$fn__9185.invoke(io.clj:229)
+at clojure.java.io$fn__9098$G__9091__9105.invoke(io.clj:69)
+at clojure.java.io$fn__9197.invoke(io.clj:258)
+at clojure.java.io$fn__9098$G__9091__9105.invoke(io.clj:69)
+ From the above exception, we can clearly see that the program raised a FileNotFoundException. Unchecked Exception ? The classes that extend RuntimeException are known as unchecked exceptions. For example, ArithmeticException, NullPointerException, ArrayIndexOutOfBoundsException, etc. Unchecked exceptions are not checked at compile-time rather they are checked at runtime. One classical case is the ArrayIndexOutOfBoundsException which happens when you try to access an index of an array which is greater than the length of the array. Following is a typical example of this sort of mistake. 
+(ns clojure.examples.example
+   (:gen-class))
+(defn Example []
+   (try
+      (aget (int-array [1 2 3]) 5)
+      (catch Exception e (println (str "caught exception: " (.toString e))))
+      (finally (println "This is our final block")))
+   (println "Let's move on"))
+(Example)
+ When the above code is executed, the following exception will be raised. 
+caught exception: java.lang.ArrayIndexOutOfBoundsException: 5
+This is our final block
+Let's move on
+ Error Error is irrecoverable e.g. OutOfMemoryError, VirtualMachineError, AssertionError, etc. These are errors which the program can never recover from and will cause the program to crash. We now need some mechanism to catch these exceptions so that the program can continue to run if these exceptions exist. The following diagram shows how the hierarchy of exceptions in Clojure is organized. It’s all based on the hierarchy defined in Java. Catching Exceptions Just like other programming languages, Clojure provides the normal ‘try-catch‘ block to catch exceptions as and when they occur. Following is the general syntax of the try-catch block. 
+(try
+   (//Protected code)
+   catch Exception e1)
+(//Catch block)
+ All of your code which could raise an exception is placed in the Protected code block. In the catch block, you can write custom code to handle your exception so that the application can recover from the exception. Let’s look at our earlier example which generated a file-not-found exception and see how we can use the try catch block to catch the exception raised by the program. 
+(ns clojure.examples.example
+   (:gen-class))
+(defn Example []
+   (try
+      (def string1 (slurp "Example.txt"))
+      (println string1)
+      (catch Exception e (println (str "caught exception: " (.getMessage e))))))
+(Example)
+ The above program produces the following output. 
+caught exception: Example.txt (No such file or directory)
+ From the above code, we wrap out faulty code in the try block. In the catch block, we are just catching our exception and outputting a message that an exception has occurred. So, we now have a meaningful way of capturing the exception, which is generated by the program. Multiple Catch Blocks One can have multiple catch blocks to handle multiple types of exceptions. For each catch block, depending on the type of exception raised you would write code to handle it accordingly. Let’s modify our earlier code to include two catch blocks, one which is specific for our file not found exception and the other is for a general exception block. 
+(ns clojure.examples.example
+   (:gen-class))
+(defn Example []
+   (try
+      (def string1 (slurp "Example.txt"))
+      (println string1)
+      
+      (catch java.io.FileNotFoundException e (println (str "caught file
+         exception: " (.getMessage e))))
+      
+      (catch Exception e (println (str "caught exception: " (.getMessage e)))))
+   (println "Let's move on"))
+(Example)
+ The above program produces the following output. 
+caught file exception: Example.txt (No such file or directory)
+Let's move on
+ From the above output, we can clearly see that our exception was caught by the ‘FileNotFoundException’ catch block and not the general one. Finally Block The finally block follows a try block or a catch block. A finally block of code always executes, irrespective of occurrence of an Exception. Using a finally block allows you to run any cleanup-type statements that you want to execute, no matter what happens in the protected code. Following is the syntax for this block. 
+(try
+   (//Protected code)
+   catch Exception e1)
+(//Catch block)
+(finally
+   //Cleanup code)
+ Let’s modify the above code and add the finally block of code. Following is the code snippet. 
+(ns clojure.examples.example
+   (:gen-class))
+(defn Example []
+   (try
+      (def string1 (slurp "Example.txt"))
+      (println string1)
+      
+      (catch java.io.FileNotFoundException e (println (str "caught file
+         exception: " (.getMessage e))))
+      
+      (catch Exception e (println (str "caught exception: " (.getMessage e))))
+      (finally (println "This is our final block")))
+   (println "Let's move on"))
+(Example)
+ The above program produces the following output. 
+caught file exception: Example.txt (No such file or directory)
+This is our final block
+Let's move on
+ From the above program, you can see that the final block is also implemented after the catch block catches the required exception. Since Clojure derives its exception handling from Java, similar to Java, the following methods are available in Clojure for managing the exceptions. public String getMessage() ? Returns a detailed message about the exception that has occurred. This message is initialized in the Throwable constructor. public Throwable getCause() ? Returns the cause of the exception as represented by a Throwable object. public String toString() ? Returns the name of the class concatenated with the result of getMessage(). public void printStackTrace() ? Prints the result of toString() along with the stack trace to System.err, the error output stream. public StackTraceElement [] getStackTrace() ? Returns an array containing each element on the stack trace. The element at index 0 represents the top of the call stack, and the last element in the array represents the method at the bottom of the call stack. public Throwable fillInStackTrace() ? Fills the stack trace of this Throwable object with the current stack trace, adding to any previous information in the stack trace. Following is the example code that uses some of the methods listed above. 
+(ns clojure.examples.example
+   (:gen-class))
+(defn Example []
+   (try
+      (def string1 (slurp "Example.txt"))
+      (println string1)
+      
+      (catch java.io.FileNotFoundException e (println (str "caught file
+         exception: " (.toString e))))
+      
+      (catch Exception e (println (str "caught exception: " (.toString e))))
+   (finally (println "This is our final block")))
+   (println "Let's move on"))
+(Example)
+ The above program produces the following output. 
+caught file exception: java.io.FileNotFoundException: Example.txt (No such file
+or directory)
+This is our final block
+Let's move on
+ Clojure - Sequences Sequences are created with the help of the ‘seq’ command. Following is a simple example of a sequence creation. 
+(ns clojure.examples.example
+   (:gen-class))
+
+;; This program displays Hello World
+(defn Example []
+   (println (seq [1 2 3])))
+(Example)
+ The above program produces the following output. 
+(1 2 3)
+ Following are the various methods available for sequences. S.No. Methods & Description 1 cons Returns a new sequence where ‘x’ is the first element and ‘seq’ is the rest. 2 conj Returns a new sequence where ‘x’ is the element that is added to the end of the sequence. 3 concat This is used to concat two sequences together. 4 distinct Used to only ensure that distinct elements are added to the sequence. 5 reverse Reverses the elements in the sequence. 6 first Returns the first element of the sequence. 7 last Returns the last element of the sequence. 8 rest Returns the entire sequence except for the first element. 9 sort Returns a sorted sequence of elements. 10 drop Drops elements from a sequence based on the number of elements, which needs to be removed. 11 take-last Takes the last list of elements from the sequence. 12 take Takes the first list of elements from the sequence. 13 split-at Splits the sequence of items into two parts. A location is specified at which the split should happen. Clojure - Regular Expressions A regular expression is a pattern that is used to find substrings in text. Regular expressions are used in a variety of programming languages and used a lot in LISP type programming languages. Following is an example of a regular expression. 
+//d+
+ The above regular expression is used to find one more occurrence of a digit in a string. The // characters are used to ensure that characters ‘d’ and ‘+’ are used to represent a regular expression. In general, regular expressions works with the following set of rules. There are two special positional characters that are used to denote the beginning and end of a line: caret (?) and dollar sign ($): Regular expressions can also include quantifiers. The plus sign (+) represents one or more times, applied to the preceding element of the expression. The asterisk (*) is used to represent zero or more occurrences. The question mark (?) denotes zero or once. The metacharacter { and } is used to match a specific number of instances of the preceding character. In a regular expression, the period symbol (.) can represent any character. This is described as the wildcard character. A regular expression may include character classes. A set of characters can be given as a simple sequence of characters enclosed in the metacharacters [and] as in [aeiou]. For letter or number ranges, you can use a dash separator as in [a–z] or [a–mA–M]. The complement of a character class is denoted by a leading caret ithin the square brackets as in [?a–z] and represents all characters other than those specified. The following methods are available for regular expressions. S.No. Methods & Description 1 re-pattern Returns an instance of java.util.regex.Pattern. This is then used in further methods for pattern matching. 2 refind Returns the next regex match, if any, of string to pattern, using java.util.regex.Matcher.find() 3 replace The replace function is used to replace a substring in a string with a new string value. The search for the substring is done with the use of a pattern. 4 replace-first The replace function is used to replace a substring in a string with a new string value, but only for the first occurrence of the substring. The search for the substring is done with the use of a pattern. Clojure - Predicates Predicates are functions that evaluate a condition and provide a value of either true or false. We have seen predicate functions in the examples of the chapter on numbers. We have seen functions like ‘even?’ which is used to test if a number is even or not, or ‘neg?’ which is used to test if a number is greater than zero or not. All of these functions return either a true or false value. Following is an example of predicates in Clojure. 
+(ns clojure.examples.example
+   (:gen-class))
+
+;; This program displays Hello World
+(defn Example []
+   (def x (even? 0))
+   (println x)
+   
+   (def x (neg? 2))
+   (println x)
+   
+   (def x (odd? 3))
+   (println x)
+   
+   (def x (pos? 3))
+   (println x))
+(Example)
+ The above program produces the following output. 
+true
+false
+true
+true
+ In addition to the normal predicate functions, Clojure provides more functions for predicates. The following methods are available for predicates. S.No. Methods & Description 1 every-pred Takes a set of predicates and returns a function ‘f’ that returns true if all of its composing predicates return a logical true value against all of its arguments, else it returns false. 2 every? Returns true if the predicate is true for every value, else false. 3 some Returns the first logical true value for any predicate value of x in the collection of values. 4 not-any? Returns false if any of the predicates of the values in a collection are logically true, else true. Clojure - Destructuring Destructuring is a functionality within Clojure, which allows one to extract values from a data structure, such as a vector and bind them to symbols without having to explicitly traverse the datastructure. Let’s look at an example of what exactly Destructuring means and how does it happen. Example 
+(ns clojure.examples.example
+   (:gen-class))
+(defn Example []
+   (def my-vector [1 2 3 4])
+   (let [[a b c d] my-vector]
+   (println a b c d)))
+(Example)
+ The above program produces the following output. Output 
+1 2 3 4
+ In the above example, following things are to be noted ? We are defining a vector of integers as 1 ,2, 3 and 4. We are then using the ‘let’ statement to assign 4 variables (a, b, c, and d) to the my-vector variable directly. If we run the ‘println’ statement on the four variables, we can see that they have already been assigned to the values in the vector respectively. So clojure has destructured the my-vector variable which has four values when it was assigned using the ‘let’ statement. The deconstructed four values were then assigned to the four parameters accordingly. If there are excess variables which don’t have a corresponding value to which they can be assigned to, then they will be assigned the value of nil. The following example makes this point clear. Example 
+(ns clojure.examples.hello
+   (:gen-class))
+(defn Example []
+   (def my-vector [1 2 3 4])
+   (let [[a b c d e] my-vector]
+   (println a b c d e)))
+(Example)
+ The above program produces the following output. You can see from the output that since the last variable ‘e’ does not have a corresponding value in the vector, it accounts to nil. Output 
+1 2 3 4 nil
+ the-rest The ‘the-rest’ variable is used to store the remaining values, which cannot get assigned to any variable. An example on how this is used is shown in the following program. Example 
+(ns clojure.examples.example
+   (:gen-class))
+(defn Example []
+   (def my-vector [1 2 3 4])
+   (let [[a b & the-rest] my-vector]
+   (println a b the-rest)))
+(Example)
+ The above program produces the following output. From the output, you can clearly see that the values of 3 and 4 cannot be assigned to any variable so they are assigned to the ‘the-rest’ variable. Output 
+1 2 (3 4)
+ Destructuring Maps Just like vectors, maps can also be destructured. Following is an example of how this can be accomplished. Example 
+(ns clojure.examples.example
+   (:gen-class))
+(defn Example []
+   (def my-map {"a" 1 "b" 2})
+   (let [{a "a" b "b"} my-map]
+   (println a b)))
+(Example)
+ The above program produces the following output. From the program you can clearly see that the map values of “a” and “b” are assigned to the variables of a and b. Output 
+1 2
+ Similarly in the case of vectors, if there is no corresponding value in the map when the destructuring happens, then the variable will be assigned a value of nil. Following is an example. Example 
+(ns clojure.examples.example
+   (:gen-class))
+(defn Example []
+   (def my-map {"a" 1 "b" 2})
+   (let [{a "a" b "b" c "c"} my-map]
+   (println a b c)))
+(Example)
+ The above program produces the following output. Output 
+1 2 nil
+ Clojure - Date and Time Since the Clojure framework is derived from Java classes, one can use the date-time classes available in Java in Clojure. The class date represents a specific instant in time, with millisecond precision. Following are the methods available for the date-time class. java.util.Date This is used to create the date object in Clojure. Syntax Following is the syntax. 
+java.util.Date.
+ Parameters ? None. Return Value ? Allocates a Date object and initializes it so that it represents the time at which it was allocated, measured to the nearest millisecond. Example An example on how this is used is shown in the following program. 
+(ns example)
+(defn Example []
+   (def date (.toString (java.util.Date.)))
+   (println date))
+(Example)
+ Output The above program produces the following output. This will depend on the current date and time on the system, on which the program is being run. 
+Tue Mar 01 06:11:17 UTC 2016
+ java.text.SimpleDateFormat This is used to format the date output. Syntax Following is the syntax. 
+(java.text.SimpleDateFormat. format dt)
+ Parameters ? ‘format’ is the format to be used when formatting the date. ‘dt’ is the date which needs to be formatted. Return Value ? A formatted date output. Example An example on how this is used is shown in the following program. 
+(ns example)
+(defn Example []
+   (def date (.format (java.text.SimpleDateFormat. "MM/dd/yyyy") (new java.util.Date)))
+   (println date))
+(Example)
+ Output The above program produces the following output. This will depend on the current date and time on the system, on which the program is being run. 
+03/01/2016
+ getTime Returns the number of milliseconds since January 1, 1970, 00:00:00 GMT represented by this Date object. Syntax Following is the syntax. 
+(.getTime)
+ Parameters ? None. Return Value ? The number of milliseconds since January 1, 1970, 00:00:00 GMT represented by this date. Example An example on how this is used is shown in the following program. 
+(ns example)
+(import java.util.Date)
+(defn Example []
+   (def date (.getTime (java.util.Date.)))
+   (println date))
+(Example)
+ Output The above program produces the following output. This will depend on the current date and time on the system, on which the program is being run. 
+1456812778160
+ Clojure - Atoms Atoms are a data type in Clojure that provide a way to manage shared, synchronous, independent state. An atom is just like any reference type in any other programming language. The primary use of an atom is to hold Clojure’s immutable datastructures. The value held by an atom is changed with the swap! method. Internally, swap! reads the current value, applies the function to it, and attempts to compare-and-set it in. Since another thread may have changed the value in the intervening time, it may have to retry, and does so in a spin loop. The net effect is that the value will always be the result of the application of the supplied function to a current value, atomically. Example Atoms are created with the help of the atom method. An example on the same is shown in the following program. 
+(ns clojure.examples.example
+   (:gen-class))
+(defn example []
+   (def myatom (atom 1))
+   (println @myatom))
+(example)
+ Output The above program produces the following result. 
+1
+ The value of atom is accessed by using the @ symbol. Clojure has a few operations that can be performed on atoms. Following are the operations. S.No. Operations & Description 1 reset! Sets the value of atom to a new value without regard for the current value. 2 compare-and-set! Atomically sets the value of atom to the new value if and only if the current value of the atom is identical to the old value held by the atom. Returns true if set happens, else it returns false. 3 swap! Atomically swaps the value of the atom with a new one based on a particular function. Clojure - Metadata In Clojure, metadata is used to annotate the data in a collection or for the data stored in a symbol. This is normally used to annotate data about types to the underlying compiler, but can also be used for developers. Metadata is not considered as part of the value of the object. At the same time, metadata is immutable. The following operations are possible in Clojure with regards to metadata. S.No. Operations & Description 1 meta-with This function is used to define a metadata map for any object. 2 meta This function is used to see if any metadata is associated with an object. 3 vary-meta Returns an object of the same type and value as the original object, but with a combined metadata. Clojure - StructMaps StructMaps are used for creating structures in Clojure. For example, if you wanted to create a structure which comprised of an Employee Name and Employeeid, you can do that with StructMaps. The following operations are possible in Clojure with regards to StructMaps. S.No. Operations & Description 1 defstruct This function is used for defining the structure which is required. 2 struct This function is used to define a structure object of the type, which is created by the defstruct operation. 3 struct-map This function is used to specifically assign values to key values by explicitly defining which values get assigned to which keys in the structure. 4 Accessing Individual Fields Individual fields of the structure can be accessed by accessing the keys along with the structure object. 5 Immutable Nature By default structures are also immutable, so if we try to change the value of a particular key, it will not change. 6 Adding a New Key to the Structure Since structures are immutable, the only way that another key can be added to the structure is via the creation of a new structure. An example on how this can be achieved is shown in the following program. Clojure - Agents As pointed out many times, Clojure is a programming language wherein many of the data types are immutable, which means that the only way one can change the value of a variable is to create a new variable and assign the new value to it. However, Clojure does provide some elements, which can create an mutable state. We have seen that this can be achieved with the atom data type. The other way this can be achieved is via Agents. Agents provide independent, asynchronous change of individual locations. Agents are bound to a single storage location for their lifetime, and only allow mutation of that location (to a new state) to occur as a result of an action. Actions are functions (with, optionally, additional arguments) that are asynchronously applied to an Agent’s state and whose return value becomes the Agent’s new state. The following operations are possible in Clojure with regards to Agents. S.No. Operations & Description 1 agent An agent is created by using the agent command. 2 send This function is used to send across a value to the agent. 3 shutdown-agents This function is used to shut down any running agents. 4 send-off There are instances wherein an agent is assigned a function which is blocking in nature. 5 await-for Since there is a delay when a value of an agent is updated, Clojure provided a ‘await-for’ function which is used to specify time in milliseconds to wait for the agent to be updated. 6 await Blocks the current thread (indefinitely!) until all actions dispatched thus far, from this thread or agent, to the agent(s) have occurred. Will block on failed agents. 7 agent-error Returns the exception thrown during an asynchronous action of the agent, if the agent fails. Returns nil if the agent does not fail. Clojure - Watchers Watchers are functions added to variable types such as atoms and reference variables which get invoked when a value of the variable type changes. For example, if the calling program changes the value of an atom variable, and if a watcher function is attached to the atom variable, the function will be invoked as soon as the value of the atom is changed. The following functions are available in Clojure for Watchers. add-watch Adds a watch function to an agent/atom/var/ref reference. The watch ‘fn’ must be a ‘fn’ of 4 args: a key, the reference, its old-state, its new-state. Whenever the reference's state might have been changed, any registered watches will have their functions called. Syntax Following is the syntax. 
+(add-watch variable :watcher
+   (fn [key variable-type old-state new-state]))
+ Parameters ? ‘variable’ is the name of the atom or reference variable. ‘variable-type’ is the type of variable, either atom or reference variable. ‘old-state & new-state’ are parameters that will automatically hold the old and new value of the variable. ‘key’ must be unique per reference, and can be used to remove the watch with remove-watch. Return Value ? None. Example An example on how this is used is shown in the following program. 
+(ns clojure.examples.example
+   (:gen-class))
+(defn Example []
+   (def x (atom 0))
+   (add-watch x :watcher
+      (fn [key atom old-state new-state]
+      (println "The value of the atom has been changed")
+      (println "old-state" old-state)
+      (println "new-state" new-state)))
+(reset! x 2))
+(Example)
+ Output The above program produces the following output. 
+The value of the atom has been changed
+old-state 0
+new-state 2
+ remove-watch Removes a watch which has been attached to a reference variable. Syntax Following is the syntax. 
+(remove-watch variable watchname)
+ Parameters ? ‘variable’ is the name of the atom or reference variable. ‘watchname’ is the name given to the watch when the watch function is defined. Return Value ? None. Example An example on how this is used is shown in the following program. 
+(ns clojure.examples.example
+   (:gen-class))
+(defn Example []
+   (def x (atom 0))
+   (add-watch x :watcher
+      (fn [key atom old-state new-state]
+         (println "The value of the atom has been changed")
+         (println "old-state" old-state)
+         (println "new-state" new-state)))
+   (reset! x 2)
+   (remove-watch x :watcher)
+(reset! x 4))
+(Example)
+ Output The above program produces the following output. 
+The value of the atom has been changed
+old-state 0
+new-state 2
+ You can clearly see from the above program that the second reset command does not trigger the watcher since it was removed from the watcher’s list. Clojure - Macros In any language, Macros are used to generate inline code. Clojure is no exception and provides simple macro facilities for developers. Macros are used to write code-generation routines, which provide the developer a powerful way to tailor the language to the needs of the developer. Following are the methods available for Macros. defmacro This function is used to define your macro. The macro will have a macro name, a parameter list and the body of the macro. Syntax Following is the syntax. 
+(defmacro name [params*] body)
+ Parameters ? ‘name’ is the name of the macro. ‘params’ are the parameters assigned to the macro. ‘body’ is the body of the macro. Return Value ? None. Example An example on how this is used is shown in the following program. 
+(ns clojure.examples.example
+   (:gen-class))
+(defn Example []
+   (defmacro Simple []
+      (println "Hello"))
+   (macroexpand '(Simple)))
+(Example)
+ Output The above program produces the following output. 
+Hello
+ From the above program you can see that the macro ‘Simple’ is expanded inline to ‘println’ “Hello”. Macros are similar to functions, with the only difference that the arguments to a form are evaluated in the case of macros. macro-expand This is used to expand a macro and place the code inline in the program. Syntax Following is the syntax. 
+(macroexpand macroname)
+ Parameters ? ‘macroname’ is the name of the macro which needs to be expanded. Return Value ? The expanded macro. Example An example on how this is used is shown in the following program. 
+(ns clojure.examples.example
+   (:gen-class))
+(defn Example []
+   (defmacro Simple []
+      (println "Hello"))
+   (macroexpand '(Simple)))
+(Example)
+ Output The above program produces the following output. 
+Hello
+ Macro with Arguments Macros can also be used to take in arguments. The macro can take in any number of arguments. Following example showcases how arguments can be used. Example 
+(ns clojure.examples.example
+   (:gen-class))
+(defn Example []
+   (defmacro Simple [arg]
+      (list 2 arg))
+   (println (macroexpand '(Simple 2))))
+(Example)
+ The above example places an argument in the Simple macro and then uses the argument to add argument value to a list. Output The above program produces the following output. 
+(2 2)
+ Clojure - Reference Values Reference values are another way Clojure can work with the demand to have mutable variables. Clojure provides mutable data types such as atoms, agents, and reference types. Following are the operations available for reference values. S.No. Operations & Description 1 ref This is used to create a reference value. When creating a reference value, there is an option to provide a validator function, which will validate the value created. 2 ref-set This function is used to set the value of a reference to a new value irrespective of whatever is the older value. 3 alter This function is used to alter the value of a reference type but in a safe manner. This is run in a thread, which cannot be accessed by another process. 4 dosync Runs the expression (in an implicit do) in a transaction that encompasses expression and any nested calls. 5 commute Commute is also used to change the value of a reference type just like alter and ref-set. Clojure - Databases In order to use the database functionality, please ensure to first download the jdbc files from the following url ? https://codeload.github.com/clojure/java.jdbc/zip/master You will find a zip file which has the necessary drivers for Clojure to have the ability to connect to databases. Once the zip file is extracted, ensure to add the unzipped location to your classpath. The main file for database connectivity is a file called jdbc.clj in the location clojure/java. The clojure jdbc connector supports a wide variety of databases, some of which are the following. H2Database Oracle Microsoft SQL Server MySQL PostgreSQL In our example, we are going to use MySQL DB as an example. The following operations are possible in Clojure with regards to Databases. Database Connection Before connecting to a MySQL database, make sure of the following ? You have created a database TESTDB. You have created a table EMPLOYEE in TESTDB. This table has fields FIRST_NAME, LAST_NAME, AGE, SEX and INCOME. User ID "testuser" and password "test123" are set to access TESTDB. Ensure you have downloaded the ‘mysql jar file’ and added the file to your classpath. You have gone through MySQL tutorial to understand MySQL Basics. Syntax Following is the syntax to create a connection in Clojure. 
+(def connection_name {
+   :subprotocol “protocol_name”
+   :subname “Location of mysql DB”
+   :user “username” :password “password” })
+ Parameters ? ‘connection_name’ is the name to be given to the connection. ‘subprotocol’ is the protocol to be used for the connection. By default we will be using the mysql protocol. ‘subname’ is the url to connect to the mysql db along with the database name. ‘user’ is the username used to connect to the database. ‘password’ is the password to be used to connect to the database. Return Value ? This will provide a connection string, which can be used in subsequent mysql operations. The following example shows how to connect to the tables in the information schema and retrieve all the data in the table. Example 
+(ns test.core
+   (:require [clojure.java.jdbc :as sql]))
+(defn -main []
+   (def mysql-db {
+      :subprotocol "mysql"
+      :subname "//127.0.0.1:3306/information_schema"
+      :user "root"
+      :password "shakinstev"})
+   (println (sql/query mysql-db
+      ["select table_name from tables"]
+      :row-fn :table_name)))
+ Querying Data Querying data on any database means to fetch some useful information from the database. Once a database connection is established, you are ready to make a query into this database. Following is the syntax by which data can be queried using Clojure. Syntax 
+clojure.java.jdbc/query dbconn
+["query"]
+   :row-fn :sequence
+ Parameters ? ‘dbconn’ is the name of the connection used to connect to the database. ‘query’ is the query string used to fetch data from the database. ‘:sequence’ is by default all the rows of data fetched from the database and is returned as a sequence. The necessary operations on the sequence can then be done to see what data has been fetched. Return Value ? This will return a sequence, which will have the rows of data from the query operation. The following example shows how to connect to the employee table and fetch the first_name column of the rows in the table. Example 
+(ns test.core
+   (:require [clojure.java.jdbc :as sql]))
+(defn -main []
+   (def mysql-db {
+      :subprotocol "mysql"
+      :subname "//127.0.0.1:3306/testdb"
+      :user "root"
+      :password "shakinstev"})
+   (println (sql/query mysql-db
+      ["select first_name from employee"]
+      :row-fn :first_name)))
+ From the above code, we can see that The query of “select first_name from employee” is passed as the query string. The :first_name is the sequence, which is returned as a result of the fetch operation. If we assume that there is just one row in our database which contains a first_name value of John, following will be the output of the above program. 
+(John)
+ Inserting Data It is required when you want to create your records into a database table. Following is the syntax by which data can be inserted using Clojure. This is done by using the ‘insert!’ function. Syntax 
+clojure.java.jdbc/insert!
+   :table_name {:column_namen columnvalue}
+ Parameters ? ‘:table_name’ is the name of the table in which the insertion needs to be made. ‘{:column_namen columnvalue }’ is a map of all the column names and values, which need to be added as a row in the table. Return Value ? This will return nil if the insertion is made successfully. The following example shows how to insert a record into the employee table in the testdb database. Example 
+(ns test.core
+   (:require [clojure.java.jdbc :as sql]))
+(defn -main []
+   (def mysql-db {
+      :subprotocol "mysql"
+      :subname "//127.0.0.1:3306/testdb"
+      :user "root"
+      :password "shakinstev"})
+   (sql/insert! mysql-db
+      :employee {:first_name "John" :last_name "Mark" :sex "M" :age 30 :income 30}))
+ If you now check your MySQL database and the employee table, you will see that the above row will be successfully inserted in the table. Deleting Data Rows can be deleted from a table by using the ‘delete!’ function. Following is the syntax on how this operation can be performed. Syntax 
+clojure.java.jdbc/delete!
+   :table_name [condition]
+ Parameters ? ‘:table_name’ is the name of the table in which the insertion needs to be made. ‘condition’ is the condition used to determine which row needs to be deleted from the table. Return Value ? This will return the number of rows deleted. The following example shows how to delete a record from the employee table in the testdb database. The example deletes a row from the table based on the condition that the age is equal to 30. Example 
+(ns test.core
+   (:require [clojure.java.jdbc :as sql]))
+(defn -main []
+   (def mysql-db {
+      :subprotocol "mysql"
+      :subname "//127.0.0.1:3306/testdb"
+      :user "root"
+      :password "shakinstev"})
+   (println (sql/delete! mysql-db
+      :employee ["age = ? " 30])))
+ If you had a record which had a row with age equal to the value of 30, that row will be deleted. Updating Data Rows can be updated from a table by using the ‘update!’ function. Following is the syntax on how this operation can be performed. Syntax 
+clojure.java.jdbc/update!
+   :table_name
+{setcondition}
+[condition]
+ Parameters ? ‘:table_name’ is the name of the table in which the insertion needs to be made. ‘setcondition’ is the column which needs to be updated as mentioned in terms of a map. ‘condition’ is the condition which is used to determine which row needs to be deleted from the table. Return Value ? This will return the number of rows updated. The following example shows how to delete a record from the employee table in the testdb database. The example updates a row from the table based on the condition that the age is equal to 30 and updates the value of income to 40. 
+(ns test.core
+   (:require [clojure.java.jdbc :as sql]))
+(defn -main []
+   (def mysql-db {
+      :subprotocol "mysql"
+      :subname "//127.0.0.1:3306/testdb"
+      :user "root"
+      :password "shakinstev"})
+   (println (sql/update! mysql-db
+      :employee
+      {:income 40}
+      ["age = ? " 30])))
+ If you had a record which had a row with age equal to the value of 30, that row will be updated wherein the value of income will be set to 40. Transactions Transactions are mechanisms that ensure data consistency. Transactions have the following four properties ? Atomicity ? Either a transaction completes or nothing happens at all. Consistency ? A transaction must start in a consistent state and leave the system in a consistent state. Isolation ? Intermediate results of a transaction are not visible outside the current transaction. Durability ? Once a transaction was committed, the effects are persistent, even after a system failure. Example The following example shows how to implement transactions in Clojure. Any operations which needs to be performed in a transaction needs to be embedded in the ‘with-dbtransaction’ clause. 
+(ns test.core
+   (:require [clojure.java.jdbc :as sql]))
+(defn -main []
+   (def mysql-db {
+      :subprotocol "mysql"
+      :subname "//127.0.0.1:3306/testdb"
+      :user "root"
+      :password "shakinstev"})
+   (sql/with-db-transaction [t-con mysql-db]
+      (sql/update! t-con
+         :employee
+         {:income 40}
+         ["age = ? " 30])))
+ Clojure - Java Interface As we already know, Clojure code runs on the Java virtual environment at the end. Thus it only makes sense that Clojure is able to utilize all of the functionalities from Java. In this chapter, let’s discuss the correlation between Clojure and Java. Calling Java Methods Java methods can be called by using the dot notation. An example is strings. Since all strings in Clojure are anyway Java strings, you can call normal Java methods on strings. An example on how this is done is shown in the following program. Example 
+(ns Project
+   (:gen-class))
+(defn Example []
+   (println (.toUpperCase "Hello World")))
+(Example)
+ The above program produces the following output. You can see from the code that if you just call the dot notation for any string method, it will also work in Clojure. Output 
+HELLO WORLD
+ Calling Java Methods with Parameters You can also call Java methods with parameters. An example on how this is done is shown in the following program. Example 
+(ns Project
+   (:gen-class))
+(defn Example []
+   (println (.indexOf "Hello World","e")))
+(Example)
+ The above program produces the following output. You can see from the above code, that we are passing the parameter “e” to the indexOf method. The above program produces the following output. Output 
+1
+ Creating Java Objects Objects can be created in Clojure by using the ‘new’ keyword similar to what is done in Java. An example on how this is done is shown in the following program. Example 
+(ns Project
+   (:gen-class))
+(defn Example []
+   (def str1 (new String "Hello"))
+   (println str1))
+(Example)
+ The above program produces the following output. You can see from the above code, that we can use the ‘new’ keyword to create a new object from the existing String class from Java. We can pass the value while creating the object, just like we do in Java. The above program produces the following output. Output 
+Hello
+ Following is another example which shows how we can create an object of the Integer class and use them in the normal Clojure commands. Example 
+(ns Project
+   (:gen-class))
+(defn Example []
+   (def my-int(new Integer 1))
+   (println (+ 2 my-int)))
+(Example)
+ The above program produces the following output. Output 
+3
+ Import Command We can also use the import command to include Java libraries in the namespace so that the classes and methods can be accessed easily. The following example shows how we can use the import command. In the example we are using the import command to import the classes from the java.util.stack library. We can then use the push and pop method of the stack class as they are. Example 
+(ns Project
+   (:gen-class))
+(import java.util.Stack)
+(defn Example []
+   (let [stack (Stack.)]
+   (.push stack "First Element")
+   (.push stack "Second Element")
+   (println (first stack))))
+(Example)
+ The above program produces the following output. Output 
+First Element
+ Running Code Using the Java Command Clojure code can be run using the Java command. Following is the syntax of how this can be done. 
+java -jar clojure-1.2.0.jar -i main.clj
+ You have to mention the Clojure jar file, so that all Clojure-based classes will be loaded in the JVM. The ‘main.clj’ file is the Clojure code file which needs to be executed. Java Built-in Functions Clojure can use many of the built-in functions of Java. Some of them are ? Math PI function ? Clojure can use the Math method to the value of PI. Following is an example code. Example 
+(ns Project
+   (:gen-class))
+(defn Example []
+   (println (. Math PI)))
+(Example)
+ The above code produces the following output. Output 
+3.141592653589793
+ System Properties ? Clojure can also query the system properties. Following is an example code. Example 
+(ns Project
+   (:gen-class))
+(defn Example []
+   (println (.. System getProperties (get "java.version"))))
+(Example)
+ Depending on the version of Java on the system, the corresponding value will be displayed. Following is an example output. Output 
+1.8.0_45
+ Clojure - Concurrent Programming In Clojure programming most data types are immutable, thus when it comes to concurrent programming, the code using these data types are pretty safe when the code runs on multiple processors. But many a times, there is a requirement to share data, and when it comes to shared data across multiple processors, it becomes necessary to ensure that the state of the data is maintained in terms of integrity when working with multiple processors. This is known as concurrent programming and Clojure provides support for such programming. The software transactional memory system (STM), exposed through dosync, ref, set, alter, etc. supports sharing changing state between threads in a synchronous and coordinated manner. The agent system supports sharing changing state between threads in an asynchronous and independent manner. The atoms system supports sharing changing state between threads in a synchronous and independent manner. Whereas the dynamic var system, exposed through def, binding, etc. supports isolating changing state within threads. Other programming languages also follow the model for concurrent programming. They have a direct reference to the data which can be changed. If shared access is required, the object is locked, the value is changed, and the process continues for the next access to that value. In Clojure there are no locks, but Indirect references to immutable persistent data structures. There are three types of references in Clojure. Vars ? Changes are isolated in threads. Refs ? Changes are synchronized and coordinated between threads. Agents ? Involves asynchronous independent changes between threads. The following operations are possible in Clojure with regards to concurrent programming. Transactions Concurrency in Clojure is based on transactions. References can only be changed within a transaction. Following rules are applied in transactions. All changes are atomic and isolated. Every change to a reference happens in a transaction. No transaction sees the effect made by another transaction. All transactions are placed inside of dosync block. We already seen what the dosync block does, let’s look at it again. dosync Runs the expression (in an implicit do) in a transaction that encompasses expression and any nested calls. Starts a transaction if none is already running on this thread. Any uncaught exception will abort the transaction and flow out of dosync. Following is the syntax. Syntax 
+(dosync expression)
+ Parameters ? ‘expression’ is the set of expressions which will come in the dosync block. Return Value ? None. Let’s look at an example wherein we try to change the value of a reference variable. Example 
+(ns clojure.examples.example
+   (:gen-class))
+(defn Example []
+   (def names (ref []))
+   (alter names conj "Mark"))
+(Example)
+ Output The above program when run gives the following error. 
+Caused by: java.lang.IllegalStateException: No transaction running
+   at clojure.lang.LockingTransaction.getEx(LockingTransaction.java:208)
+   at clojure.lang.Ref.alter(Ref.java:173)
+   at clojure.core$alter.doInvoke(core.clj:1866)
+   at clojure.lang.RestFn.invoke(RestFn.java:443)
+   at clojure.examples.example$Example.invoke(main.clj:5)
+   at clojure.examples.example$eval8.invoke(main.clj:7)
+   at clojure.lang.Compiler.eval(Compiler.java:5424)
+   ... 12 more
+ From the error you can clearly see that you cannot change the value of a reference type without first initiating a transaction. In order for the above code to work, we have to place the alter command in a dosync block as done in the following program. Example 
+(ns clojure.examples.example
+   (:gen-class))
+(defn Example []
+   (def names (ref []))
+   
+   (defn change [newname]
+      (dosync
+         (alter names conj newname)))
+   (change "John")
+   (change "Mark")
+   (println @names))
+(Example)
+ The above program produces the following output. Output 
+[John Mark]
+ Let’s see another example of dosync. Example 
+(ns clojure.examples.example
+   (:gen-class))
+(defn Example []
+   (def var1 (ref 10))
+   (def var2 (ref 20))
+   (println @var1 @var2)
+   
+   (defn change-value [var1 var2 newvalue]
+      (dosync
+         (alter var1 - newvalue)
+         (alter var2 + newvalue)))
+   (change-value var1 var2 20)
+   (println @var1 @var2))
+(Example)
+ In the above example, we have two values which are being changed in a dosync block. If the transaction is successful, both values will change else the whole transaction will fail. The above program produces the following output. Output 
+10 20
+-10 40
+ Clojure - Applications Clojure has some contributed libraries which have the enablement for creating Desktop and Web-based applications. Let’s discuss each one of them. S.No. Applications & Description 1 Desktop – See-saw See-saw is a library which can be used for creating desktop applications. 2 Desktop – Changing the Value of Text The value of the content in the window can be changed by using the ‘config!’ option. In the following example the config! option is used to change the window content to the new value of “Good Bye”. 3 Desktop – Displaying a Modal Dialog Box A modal dialog box can be shown by using the alert method of the see-saw class. The method takes the text value, which needs to be shown in the modal dialog box. 4 Desktop – Displaying Buttons Buttons can be displayed with the help of the button class. 5 Desktop – Displaying Labels Labels can be displayed with the help of the label class. 6 Desktop – Displaying Text Fields Text Fields can be displayed with the help of the text class. Web Applications - Introduction To create a web application in Clojure you need to use the Ring application library, which is available at the following link https://github.com/ring-clojure/ring You need to ensure you download the necessary jars from the site and ensure to add it as a dependency for the Clojure application. The Ring framework provides the following capabilities ? Sets things up such that an http request comes into your web application as a regular Clojure HashMap, and likewise makes it so that you can return a response as a HashMap. Provides a specification describing exactly what those request and response maps should look like. Brings along a web server (Jetty) and connects your web application to it. The Ring framework automatically can start a web server and ensures the Clojure application works on this server. Then one can also use the Compojure framework. This allows one to create routes which is now how most modern web applications are developed. Creating your first Clojure application ? The following example shows how you can create your first web application in Clojure. 
+(ns my-webapp.handler
+   (:require [compojure.core :refer :all]
+      [compojure.route :as route]
+      [ring.middleware.defaults :refer [wrap-defaults site-defaults]]))
+(defroutes app-routes
+   (GET "/" [] "Hello World")
+   (route/not-found "Not Found"))
+(def app
+   (wrap-defaults app-routes site-defaults))
+ Let’s look at the following aspects of the program ? The ‘defroutes’ is used to create routes so that request made to the web application to different routes can be directed to different functions in your Clojure application. In the above example, the “/” is known as the default route, so when you browse to the base of your web application, the string “Hello World” will be sent to the web browser. If the user hits any url which cannot be processed by the Clojure application, then it will display the string “Not Found”. When you run the Clojure application, by default your application will be loaded as localhost:3000, so if you browse to this location, you will receive the following output. Web Applications – Adding More Routes to Your Web Application You can also add more routes to your web application. The following example shows how to achieve this. 
+(ns my-webapp.handler
+   (:require [compojure.core :refer :all]
+      [compojure.route :as route]
+      [ring.middleware.defaults :refer [wrap-defaults site-defaults]]))
+(defroutes app-routes
+   (GET "/" [] "Hello World")
+   (GET "/Tutorial" [] "This is a tutorial on Clojure")
+   (route/not-found "Not Found"))
+(def app
+   (wrap-defaults app-routes site-defaults))
+ You can see that adding a route in the application is as easy as just adding another GET function with the url route. (GET "/Tutorial" [] "This is a tutorial on Clojure") If you browse to the location http://localhost:3000/Tutorial, you will receive the following output. Clojure - Automated Testing In this chapter, let’s discuss automated testing options provided by Clojure. Testing for Client Applications In order to use testing for Clojure framework, you have to use the dependencies located at https://github.com/slagyr/speclj#manual-installation This URL provides the speclj framework, which is used as a Test data driven or Behaviour driven test framework for Clojure. You have to ensure that you use the Clojure 1.7.0 framework when using any of the ‘speclj’ libraries. By default, the test files will be different from the Clojure code files and need to be placed in a ‘spec’ directory. Following is a sample code for a test file. 
+(ns change.core-spec
+   (:require [speclj.core :refer :all]))
+(describe "Truth"
+   (it "is true"
+   (should true))
+   (it "is not false"
+   (should-not false)))
+(run-specs)
+ Following things need to be noted about the above code ? We first have to ensure to use the ‘require’ statement to include all the core libraries in the ‘speclj’ framework. Next is the ‘describe’ function. This is used to provide a description for the test case being created. Next function is the ‘it’ function, which is the actual test case. In the first test case, the “is true” string is the name given to the test case. Should and should-not are known as assertions. All assertions begin with should. Should and should-not are just two of the many assertions available. They both take expressions that they will check for truthy-ness and falsy-ness respectively. If you run the test case, you will get the following output. The output shows the time taken in milliseconds for the test case to run. 
+?[32m.?[0m?[32m.?[0m
+Finished in 0.00014 seconds
+ Testing for Web-based Applications Selenium is one of the key frameworks used for testing modern day web-based applications. Clojure libraries are also available which can be used for testing web-based applications. Let’s look at how we can use the Selenium libraries for testing Clojure web-based applications. Step 1 ? The first step is to ensure we are using the Ring and Compojure framework to create a web-based application, which needs to be tested. Let’s use one of the examples from our earlier chapters. The following code is a simple web application, which displays “Hello World” in the browser. 
+(ns my-webapp.handler
+   (:require [compojure.core :refer :all]
+      [compojure.route :as route]
+      [ring.middleware.defaults :refer [wrap-defaults site-defaults]]))
+(defroutes app-routes
+   (GET "/" [] "Hello World")
+   (route/not-found "Not Found"))
+(def app
+   (wrap-defaults app-routes site-defaults))
+ Step 2 ? Next make sure to download the selenium jar file http://mvnrepository.com/artifact/org.seleniumhq.selenium/selenium-server/2.47.0 and include it in your classpath. Step 3 ? Also ensure to download the ‘clj’ web driver, which will be used for running the web test from the following location. https://clojars.org/clj-webdriver/versions/0.7.1 Step 4 ? In your project directory, create another directory called features and create a file called ‘config.clj’. Step 5 ? Next add the following code to the ‘config.clj’ file created in the earlier step. 
+ns clj-webdriver-tutorial.features.config)
+(def test-port 3000)
+(def test-host "localhost")
+(def test-base-url (str "http://" test-host ":" test-port "/"))
+ The above code basically tells the web test framework to test the application, which gets loaded at the URL http://localhost:3000 Step 6 ? Finally, let’s write our code to carry out our test. 
+(ns clj-webdriver-tutorial.features.homepage
+   (:require [clojure.test :refer :all]
+      [ring.adapter.jetty :refer [run-jetty]]
+      [clj-webdriver.taxi :refer :all]
+      [clj-webdriver-tutorial.features.config :refer :all]
+      [clj-webdriver-tutorial.handler :refer [app-routes]]))
+(ns clj-webdriver-tutorial.features.homepage
+   (:require [clojure.test :refer :all]
+      [ring.adapter.jetty :refer [run-jetty]]
+      [clj-webdriver.taxi :refer :all]
+      [clj-webdriver-tutorial.features.config :refer :all]
+      [clj-webdriver-tutorial.handler :refer [app-routes]]))
+(defn start-server []
+   (loop [server (run-jetty app-routes {:port test-port, :join? false})]
+      (if (.isStarted server)
+         server
+         (recur server))))
+(defn stop-server [server]
+   (.stop server))
+(defn start-browser []
+   (set-driver! {:browser :firefox}))
+(defn stop-browser []
+   (quit))
+(deftest homepage-greeting
+   (let [server (start-server)]
+      (start-browser)
+      (to test-base-url)
+      (is (= (text "body") "Hello World"))
+      (stop-browser)
+      (stop-server server)))
+ The above code is going to take the following actions ? Start the server for the application. Open the root path in the browser. Check if the "Hello World" message is present on the page. Close the browser. Shut down the server. Clojure - Libraries One thing which makes the Clojure library so powerful is the number of libraries available for the Clojure framework. We have already seen so many libraries used in our earlier examples for web testing, web development, developing swing-based applications, the jdbc library for connecting to MySQL databases. Following are just a couple of examples of few more libraries. data.xml This library allows Clojure to work with XML data. The library version to be used is org.clojure/data.xml "0.0.8". The data.xml supports parsing and emitting XML. The parsing functions will read XML from a Reader or InputStream. Example Following is an example of the data processing from a string to XML. 
+(ns clojure.examples.example
+   (use 'clojure.data.xml)
+   (:gen-class))
+(defn Example []
+   (let [input-xml (java.io.StringReader. "<?xml version = \"1.0\"
+      encoding = \"UTF-8\"?><example><clo><Tutorial>The Tutorial
+      value</Tutorial></clo></example>")]
+      (parse input-xml)))
+
+#clojure.data.xml.Element{
+   :tag :example, :attrs {}, :content (#clojure.data.xml.Element {
+      :tag :clo, :attrs {}, :content (#clojure.data.xml.Element {
+         :tag :Tutorial, :attrs {},:content ("The Tutorial value")})})}
+(Example)
+ data.json This library allows Clojure to work with JSON data. The library version to be used is org.clojure/data.json "0.2.6". Example Following is an example on the use of this library. 
+(ns clojure.examples.example
+   (:require [clojure.data.json :as json])
+   (:gen-class))
+(defn Example []
+   (println (json/write-str {:a 1 :b 2})))
+(Example)
+ Output The above program produces the following output. 
+{\"a\":1,\"b\":2}
+ data.csv This library allows Clojure to work with ‘csv’ data. The library version to be used is org.clojure/data.csv "0.1.3". Example Following is an example on the use of this library. 
+(ns clojure.examples.example
+   (require '[clojure.data.csv :as csv]
+      '[clojure.java.io :as io])
+   (:gen-class))
+(defn Example []
+   (with-open [in-file (io/reader "in-file.csv")]
+      (doall
+      (csv/read-csv in-file)))
+   (with-open [out-file (io/writer "out-file.csv")]
+   (csv/write-csv out-file
+      [[":A" "a"]
+      [":B" "b"]])))
+(Example)
+ In the above code, the ‘csv’ function will first read a file called in-file.csv and put all the data in the variable in-file. Next, we are using the write-csv function to write all data to a file called out-file.csv. Previous Page Print Next Page   Advertisements Write for us FAQ's Helping Contact © Copyright 2017. All Rights Reserved. go

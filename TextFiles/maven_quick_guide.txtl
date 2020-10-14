@@ -1,0 +1,1782 @@
+Maven Quick Guide Jobs  SENDFiles  Whiteboard  Net Meeting Tools  Articles Facebook Google+ Twitter Linkedin YouTube Home Tutorials Library Coding Ground Tutor Connect Videos Search Maven Tutorial Maven - Home Maven - Overview Maven - Environment Setup Maven - POM Maven - Build Life Cycle Maven - Build Profiles Maven - Repositories Maven - Plug-ins Maven - Creating Project Maven - Build & Test Project Maven - External Dependencies Maven - Project Documents Maven - Project Templates Maven - Snapshots Maven - Build Automation Maven - Manage Dependencies Maven - Deployment Automation Maven - Web Application Maven - Eclipse IDE Maven - NetBeans Maven - IntelliJ IDEA Maven Useful Resources Maven - Questions and Answers Maven - Quick Guide Maven - Useful Resources Maven - Discussion Selected Reading Developer's Best Practices Questions and Answers Effective Resume Writing HR Interview Questions Computer Glossary Who is Who Maven - Quick Guide Advertisements Previous Page Next Page   Maven - Overview What is Maven? Maven is a project management and comprehension tool that provides developers a complete build lifecycle framework. Development team can automate the project's build infrastructure in almost no time as Maven uses a standard directory layout and a default build lifecycle. In case of multiple development teams environment, Maven can set-up the way to work as per standards in a very short time. As most of the project setups are simple and reusable, Maven makes life of developer easy while creating reports, checks, build and testing automation setups. Maven provides developers ways to manage the following ? Builds Documentation Reporting Dependencies SCMs Releases Distribution Mailing list To summarize, Maven simplifies and standardizes the project build process. It handles compilation, distribution, documentation, team collaboration and other tasks seamlessly. Maven increases reusability and takes care of most of the build related tasks. Maven Evolution Maven was originally designed to simplify building processes in Jakarta Turbine project. There were several projects and each project contained slightly different ANT build files. JARs were checked into CVS. Apache group then developed Maven which can build multiple projects together, publish projects information, deploy projects, share JARs across several projects and help in collaboration of teams. Objective The primary goal of Maven is to provide developer with the following ? A comprehensive model for projects, which is reusable, maintainable, and easier to comprehend. Plugins or tools that interact with this declarative model. Maven project structure and contents are declared in an xml file, pom.xml, referred as Project Object Model (POM), which is the fundamental unit of the entire Maven system. In later chapters, we will explain POM in detail. Convention over Configuration Maven uses Convention over Configuration, which means developers are not required to create build process themselves. Developers do not have to mention each and every configuration detail. Maven provides sensible default behavior for projects. When a Maven project is created, Maven creates default project structure. Developer is only required to place files accordingly and he/she need not to define any configuration in pom.xml. As an example, following table shows the default values for project source code files, resource files and other configurations. Assuming, ${basedir} denotes the project location ? Item Default source code ${basedir}/src/main/java Resources ${basedir}/src/main/resources Tests ${basedir}/src/test Complied byte code ${basedir}/target distributable JAR ${basedir}/target/classes In order to build the project, Maven provides developers with options to mention life-cycle goals and project dependencies (that rely on Maven plugin capabilities and on its default conventions). Much of the project management and build related tasks are maintained by Maven plugins. Developers can build any given Maven project without the need to understand how the individual plugins work. We will discuss Maven Plugins in detail in the later chapters. Features of Maven Simple project setup that follows best practices. Consistent usage across all projects. Dependency management including automatic updating. A large and growing repository of libraries. Extensible, with the ability to easily write plugins in Java or scripting languages. Instant access to new features with little or no extra configuration. Model-based builds ? Maven is able to build any number of projects into predefined output types such as jar, war, metadata. Coherent site of project information ? Using the same metadata as per the build process, maven is able to generate a website and a PDF including complete documentation. Release management and distribution publication ? Without additional configuration, maven will integrate with your source control system such as CVS and manages the release of a project. Backward Compatibility ? You can easily port the multiple modules of a project into Maven 3 from older versions of Maven. It can support the older versions also. Automatic parent versioning ? No need to specify the parent in the sub module for maintenance. Parallel builds ? It analyzes the project dependency graph and enables you to build schedule modules in parallel. Using this, you can achieve the performance improvements of 20-50%. Better Error and Integrity Reporting ? Maven improved error reporting, and it provides you with a link to the Maven wiki page where you will get full description of the error. Maven - Environment Setup Maven is a Java based tool, so the very first requirement is to have JDK installed on your machine. System Requirement JDK 1.7 or above. Memory No minimum requirement. Disk Space No minimum requirement. Operating System No minimum requirement. Step 1 - Verify Java Installation on your Machine Open console and execute the following java command. OS Task Command Windows Open Command Console c:\> java -version Linux Open Command Terminal $ java -version Mac Open Terminal machine:~ joseph$ java -version Let's verify the output for all the operating systems ? OS Output Windows java version "1.7.0_60" Java(TM) SE Runtime Environment (build 1.7.0_60-b19) Java HotSpot(TM) 64-Bit Server VM (build 24.60-b09, mixed mode) Linux java version "1.7.0_60" Java(TM) SE Runtime Environment (build 1.7.0_60-b19) Java HotSpot(TM) 64-Bit Server VM (build 24.60-b09, mixed mode) Mac java version "1.7.0_60" Java(TM) SE Runtime Environment (build 1.7.0_60-b19) Java HotSpot(TM) 64-Bit Server VM (build 24.60-b09, mixed mode) If you do not have Java installed, install the Java Software Development Kit (SDK) from https://www.oracle.com/technetwork/java/javase/downloads/index.html. We are assuming Java 1.7.0.60 as installed version for this tutorial. Step 2 - Set JAVA Environment Set the JAVA_HOME environment variable to point to the base directory location where Java is installed on your machine. For example ? OS Output Windows Set the environment variable JAVA_HOME to C:\Program Files\Java\jdk1.7.0_60 Linux export JAVA_HOME=/usr/local/java-current Mac export JAVA_HOME=/Library/Java/Home Append Java compiler location to System Path. OS Output Windows Append the string “;C:\Program Files\Java\jdk1.7.0.60\bin” to the end of the system variable, Path. Linux export PATH=$PATH:$JAVA_HOME/bin/ Mac not required Verify Java Installation using java -version command as explained above. Step 3 - Download Maven Archive Download Maven 2.2.1 from https://maven.apache.org/download.cgi. OS Archive name Windows apache-maven-3.3.1-bin.zip Linux apache-maven-3.3.1-bin.tar.gz Mac apache-maven-3.3.1-bin.tar.gz Step 4 - Extract the Maven Archive Extract the archive, to the directory you wish to install Maven 3.3.1. The subdirectory apache-maven-3.3.1 will be created from the archive. OS Location (can be different based on your installation) Windows C:\Program Files\Apache Software Foundation\apache-maven-3.3.1 Linux /usr/local/apache-maven Mac /usr/local/apache-maven Step 5 - Set Maven Environment Variables Add M2_HOME, M2, MAVEN_OPTS to environment variables. OS Output Windows Set the environment variables using system properties. M2_HOME=C:\Program Files\Apache Software Foundation\apache-maven-3.3.1 M2=%M2_HOME%\bin MAVEN_OPTS=-Xms256m -Xmx512m Linux Open command terminal and set environment variables. export M2_HOME=/usr/local/apache-maven/apache-maven-3.3.1 export M2=$M2_HOME/bin export MAVEN_OPTS=-Xms256m -Xmx512m Mac Open command terminal and set environment variables. export M2_HOME=/usr/local/apache-maven/apache-maven-3.3.1 export M2=$M2_HOME/bin export MAVEN_OPTS=-Xms256m -Xmx512m Step 6 - Add Maven bin Directory Location to System Path Now append M2 variable to System Path. OS Output Windows Append the string ;%M2% to the end of the system variable, Path. Linux export PATH=$M2:$PATH Mac export PATH=$M2:$PATH Step 7 - Verify Maven Installation Now open console and execute the following mvn command. OS Task Command Windows Open Command Console c:\> mvn --version Linux Open Command Terminal $ mvn --version Mac Open Terminal machine:~ joseph$ mvn --version Finally, verify the output of the above commands, which should be as follows ? OS Output Windows Apache Maven 3.3.1 (r801777; 2009-08-07 00:46:01+0530) Java version: 1.7.0_60 Java home: C:\Program Files\Java\jdk1.7.0_60 \jre Linux Apache Maven 3.3.1 (r801777; 2009-08-07 00:46:01+0530) Java version: 1.7.0_60 Java home: C:\Program Files\Java\jdk1.7.0_60 \jre Mac Apache Maven 3.3.1 (r801777; 2009-08-07 00:46:01+0530) Java version: 1.7.0_60 Java home: C:\Program Files\Java\jdk1.7.0_60 \jre Maven - POM POM stands for Project Object Model. It is fundamental unit of work in Maven. It is an XML file that resides in the base directory of the project as pom.xml. The POM contains information about the project and various configuration detail used by Maven to build the project(s). POM also contains the goals and plugins. While executing a task or goal, Maven looks for the POM in the current directory. It reads the POM, gets the needed configuration information, and then executes the goal. Some of the configuration that can be specified in the POM are following ? project dependencies plugins goals build profiles project version developers mailing list Before creating a POM, we should first decide the project group (groupId), its name (artifactId) and its version as these attributes help in uniquely identifying the project in repository. POM Example 
+<project xmlns = "http://maven.apache.org/POM/4.0.0"
+   xmlns:xsi = "http://www.w3.org/2001/XMLSchema-instance"
+   xsi:schemaLocation = "http://maven.apache.org/POM/4.0.0
+   http://maven.apache.org/xsd/maven-4.0.0.xsd">
+   <modelVersion>4.0.0</modelVersion>
+
+   <groupId>com.companyname.project-group</groupId>
+   <artifactId>project</artifactId>
+   <version>1.0</version>
+</project>
+ It should be noted that there should be a single POM file for each project. All POM files require the project element and three mandatory fields: groupId, artifactId, version. Projects notation in repository is groupId:artifactId:version. Minimal requirements for a POM ? Sr.No. Node & Description 1 Project root This is project root tag. You need to specify the basic schema settings such as apache schema and w3.org specification. 2 Model version Model version should be 4.0.0. 3 groupId This is an Id of project's group. This is generally unique amongst an organization or a project. For example, a banking group com.company.bank has all bank related projects. 4 artifactId This is an Id of the project. This is generally name of the project. For example, consumer-banking. Along with the groupId, the artifactId defines the artifact's location within the repository. 5 version This is the version of the project. Along with the groupId, It is used within an artifact's repository to separate versions from each other. For example ? com.company.bank:consumer-banking:1.0 com.company.bank:consumer-banking:1.1. Super POM The Super POM is Maven’s default POM. All POMs inherit from a parent or default (despite explicitly defined or not). This base POM is known as the Super POM, and contains values inherited by default. Maven use the effective POM (configuration from super pom plus project configuration) to execute relevant goal. It helps developers to specify minimum configuration detail in his/her pom.xml. Although configurations can be overridden easily. An easy way to look at the default configurations of the super POM is by running the following command: mvn help:effective-pom Create a pom.xml in any directory on your computer.Use the content of above mentioned example pom. In example below, We've created a pom.xml in C:\MVN\project folder. Now open command console, go the folder containing pom.xml and execute the following mvn command. 
+C:\MVN\project>mvn help:effective-pom
+ Maven will start processing and display the effective-pom. 
+[INFO] Scanning for projects...
+[INFO] Searching repository for plugin with prefix: 'help'.
+[INFO] ------------------------------------------------------------------------
+[INFO] Building Unnamed - com.companyname.project-group:project-name:jar:1.0
+[INFO]    task-segment: [help:effective-pom] (aggregator-style)
+[INFO] ------------------------------------------------------------------------
+[INFO] [help:effective-pom {execution: default-cli}]
+[INFO]
+
+.....
+
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESSFUL
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time: < 1 second
+[INFO] Finished at: Thu Jul 05 11:41:51 IST 2012
+[INFO] Final Memory: 6M/15M
+[INFO] ------------------------------------------------------------------------
+ Effective POM displayed as result in console, after inheritance, interpolation, and profiles are applied. 
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- ============================================== -->
+<!-- -->
+<!-- Generated by Maven Help Plugin on 2015-04-09T11:41:51 -->
+<!-- See: http://maven.apache.org/plugins/maven-help-plugin/ -->
+<!-- -->
+<!-- ==============================================-->
+
+<!-- ==============================================-->
+<!-- -->
+<!-- Effective POM for project -->
+<!-- 'com.companyname.project-group:project-name:jar:1.0' -->
+<!-- -->
+<!-- ============================================== -->
+
+<project xmlns = "http://maven.apache.org/POM/4.0.0" xmlns:xsi = "http://www.w3.org/
+
+2001/XMLSchema-instance" xsi:schemaLocation = "http://maven.apache.org/POM/4.0.0 
+
+http://maven.apache.org/xsd/maven-4.0.0.xsd">
+   <modelVersion>4.0.0</modelVersion>
+   <groupId>com.companyname.project-group</groupId>
+   <artifactId>project</artifactId>
+   <version>1.0</version>
+   <build>
+      <sourceDirectory>C:\MVN\project\src\main\java</sourceDirectory>
+      <scriptSourceDirectory>src/main/scripts</scriptSourceDirectory>
+
+      <testSourceDirectory>C:\MVN\project\src\test\java</testSourceDirectory>
+      <outputDirectory>C:\MVN\project\target\classes</outputDirectory>
+      <testOutputDirectory>C:\MVN\project\target\test-classes</testOutputDirectory>
+      <resources>
+         <resource>
+            <mergeId>resource-0</mergeId>
+            <directory>C:\MVN\project\src\main\resources</directory>
+         </resource>
+      </resources>
+      <testResources>
+         <testResource>
+            <mergeId>resource-1</mergeId>
+            <directory>C:\MVN\project\src\test\resources</directory>
+         </testResource>
+      </testResources>
+      <directory>C:\MVN\project\target</directory>
+      <finalName>project-1.0</finalName>
+   
+      <pluginManagement>
+         <plugins>
+            <plugin>
+               <artifactId>maven-antrun-plugin</artifactId>
+               <version>1.3</version>
+            </plugin>
+            <plugin>
+               <artifactId>maven-assembly-plugin<  /artifactId>
+               <version>2.2-beta-2</version>
+            </plugin>
+            <plugin>
+               <artifactId>maven-clean-plugin<  /artifactId>
+               <version>2.2</version>
+            </plugin>
+         
+            <plugin>
+               <artifactId>maven-compiler-plugin</artifactId>
+               <version>2.0.2</version>
+            </plugin>
+            <plugin>
+               <artifactId>maven-dependency-plugin</artifactId>     
+               <version>2.0</version>
+            </plugin>
+            <plugin>
+               <artifactId>maven-deploy-plugin</artifactId>
+               <version>2.4</version>
+            </plugin>
+         
+            <plugin>
+               <artifactId>maven-ear-plugin</artifactId>
+               <version>2.3.1</version>
+            </plugin>
+            <plugin>
+               <artifactId>maven-ejb-plugin</artifactId>
+               <version>2.1</version>
+            </plugin>
+            <plugin>
+               <artifactId>maven-install-plugin</artifactId>
+               <version>2.2</version>
+            </plugin>
+         
+            <plugin>
+               <artifactId>maven-jar-plugin</artifactId>
+               <version>2.2</version>
+            </plugin>
+            <plugin>
+               <artifactId>maven-javadoc-plugin</artifactId>
+               <version>2.5</version>
+            </plugin>
+            <plugin>
+               <artifactId>maven-plugin-plugin</artifactId>
+               <version>2.4.3</version>
+            </plugin>
+         
+            <plugin>
+               <artifactId>maven-rar-plugin</artifactId>
+               <version>2.2</version>
+            </plugin>
+            <plugin>
+               <artifactId>maven-release-plugin</artifactId>
+               <version>2.0-beta-8</version>
+            </plugin>
+            <plugin>
+               <artifactId>maven-resources-plugin</artifactId>
+               <version>2.3</version>
+            </plugin>
+         
+            <plugin>
+               <artifactId>maven-site-plugin</artifactId>
+               <version>2.0-beta-7</version>
+            </plugin>
+            <plugin>
+               <artifactId>maven-source-plugin</artifactId>
+               <version>2.0.4</version>
+            </plugin>
+            <plugin>
+               <artifactId>maven-surefire-plugin</artifactId>
+               <version>2.4.3</version>
+            </plugin>
+            <plugin>
+               <artifactId>maven-war-plugin</artifactId>
+               <version>2.1-alpha-2</version>
+            </plugin>
+         </plugins>
+      </pluginManagement>
+   
+      <plugins>
+         <plugin>
+            <artifactId>maven-help-plugin</artifactId>
+            <version>2.1.1</version>
+         </plugin>
+      </plugins>
+   </build>
+   
+   <repositories>
+      <repository>
+         <snapshots>
+            <enabled>false</enabled>
+         </snapshots>
+         <id>central</id>
+         <name>Maven Repository Switchboard</name>
+         <url>http://repo1.maven.org/maven2</url>
+      </repository>
+   </repositories>
+   <pluginRepositories>
+      <pluginRepository>
+         <releases>
+            <updatePolicy>never</updatePolicy>
+         </releases>
+         <snapshots>
+            <enabled>false</enabled>
+         </snapshots>
+         <id>central</id>
+         <name>Maven Plugin Repository</name>
+         <url>http://repo1.maven.org/maven2</url>
+      </pluginRepository>
+   </pluginRepositories>
+   <reporting>
+      <outputDirectory>C:\MVN\project\target/site</outputDirectory>
+   </reporting>
+</project>
+ In above pom.xml, you can see the default project source folders structure, output directory, plug-ins required, repositories, reporting directory, which Maven will be using while executing the desired goals. Maven pom.xml is also not required to be written manually. Maven provides numerous archetype plugins to create projects, which in order, create the project structure and pom.xml Maven - Build Life Cycle What is Build Lifecycle? A Build Lifecycle is a well-defined sequence of phases, which define the order in which the goals are to be executed. Here phase represents a stage in life cycle. As an example, a typical Maven Build Lifecycle consists of the following sequence of phases. Phase Handles Description prepare-resources resource copying Resource copying can be customized in this phase. validate Validating the information Validates if the project is correct and if all necessary information is available. compile compilation Source code compilation is done in this phase. Test Testing Tests the compiled source code suitable for testing framework. package packaging This phase creates the JAR/WAR package as mentioned in the packaging in POM.xml. install installation This phase installs the package in local/remote maven repository. Deploy Deploying Copies the final package to the remote repository. There are always pre and post phases to register goals, which must run prior to, or after a particular phase. When Maven starts building a project, it steps through a defined sequence of phases and executes goals, which are registered with each phase. Maven has the following three standard lifecycles ? clean default(or build) site A goal represents a specific task which contributes to the building and managing of a project. It may be bound to zero or more build phases. A goal not bound to any build phase could be executed outside of the build lifecycle by direct invocation. The order of execution depends on the order in which the goal(s) and the build phase(s) are invoked. For example, consider the command below. The clean and package arguments are build phases while the dependency:copy-dependencies is a goal. 
+mvn clean dependency:copy-dependencies package
+ Here the clean phase will be executed first, followed by the dependency:copy-dependencies goal, and finally package phase will be executed. Clean Lifecycle When we execute mvn post-clean command, Maven invokes the clean lifecycle consisting of the following phases. pre-clean clean post-clean Maven clean goal (clean:clean) is bound to the clean phase in the clean lifecycle. Its clean:cleangoal deletes the output of a build by deleting the build directory. Thus, when mvn clean command executes, Maven deletes the build directory. We can customize this behavior by mentioning goals in any of the above phases of clean life cycle. In the following example, We'll attach maven-antrun-plugin:run goal to the pre-clean, clean, and post-clean phases. This will allow us to echo text messages displaying the phases of the clean lifecycle. We've created a pom.xml in C:\MVN\project folder. 
+<project xmlns = "http://maven.apache.org/POM/4.0.0"
+   xmlns:xsi = "http://www.w3.org/2001/XMLSchema-instance"
+   xsi:schemaLocation = "http://maven.apache.org/POM/4.0.0
+   http://maven.apache.org/xsd/maven-4.0.0.xsd">
+   <modelVersion>4.0.0</modelVersion>
+   <groupId>com.companyname.projectgroup</groupId>
+   <artifactId>project</artifactId>
+   <version>1.0</version>
+   <build>
+      <plugins>
+         <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-antrun-plugin</artifactId>
+            <version>1.1</version>
+            <executions>
+               <execution>
+                  <id>id.pre-clean</id>
+                  <phase>pre-clean</phase>
+                  <goals>
+                     <goal>run</goal>
+                  </goals>
+                  <configuration>
+                     <tasks>
+                        <echo>pre-clean phase</echo>
+                     </tasks>
+                  </configuration>
+               </execution>
+            
+               <execution>
+                  <id>id.clean</id>
+                  <phase>clean</phase>
+                  <goals>
+                     <goal>run</goal>
+                  </goals>
+                  <configuration>
+                     <tasks>
+                        <echo>clean phase</echo>
+                     </tasks>
+                  </configuration>
+               </execution>
+            
+               <execution>
+                  <id>id.post-clean</id>
+                  <phase>post-clean</phase>
+                  <goals>
+                     <goal>run</goal>
+                  </goals>
+                  <configuration>
+                     <tasks>
+                        <echo>post-clean phase</echo>
+                     </tasks>
+                  </configuration>
+               </execution>
+            </executions>
+         </plugin>
+      </plugins>
+   </build>
+</project>
+ Now open command console, go to the folder containing pom.xml and execute the following mvn command. 
+C:\MVN\project>mvn post-clean
+ Maven will start processing and displaying all the phases of clean life cycle. 
+[INFO] Scanning for projects...
+[INFO] -----------------------------------------------------------------
+-
+[INFO] Building Unnamed - com.companyname.projectgroup:project:jar:1.0
+[INFO] task-segment: [post-clean]
+[INFO] ------------------------------------------------------------------
+[INFO] [antrun:run {execution: id.pre-clean}]
+[INFO] Executing tasks
+[echo] pre-clean phase
+[INFO] Executed tasks
+[INFO] [clean:clean {execution: default-clean}]
+[INFO] [antrun:run {execution: id.clean}]
+[INFO] Executing tasks
+[echo] clean phase
+[INFO] Executed tasks
+[INFO] [antrun:run {execution: id.post-clean}]
+[INFO] Executing tasks
+[echo] post-clean phase
+[INFO] Executed tasks
+[INFO] ------------------------------------------------------------------
+[INFO] BUILD SUCCESSFUL
+[INFO] ------------------------------------------------------------------
+[INFO] Total time: > 1 second
+[INFO] Finished at: Sat Jul 07 13:38:59 IST 2012
+[INFO] Final Memory: 4M/44M
+[INFO] ------------------------------------------------------------------
+ You can try tuning mvn clean command, which will display pre-clean and clean. Nothing will be executed for post-clean phase. Default (or Build) Lifecycle This is the primary life cycle of Maven and is used to build the application. It has the following 23 phases. Sr.No. Lifecycle Phase & Description 1 validate Validates whether project is correct and all necessary information is available to complete the build process. 2 initialize Initializes build state, for example set properties. 3 generate-sources Generate any source code to be included in compilation phase. 4 process-sources Process the source code, for example, filter any value. 5 generate-resources Generate resources to be included in the package. 6 process-resources Copy and process the resources into the destination directory, ready for packaging phase. 7 compile Compile the source code of the project. 8 process-classes Post-process the generated files from compilation, for example to do bytecode enhancement/optimization on Java classes. 9 generate-test-sources Generate any test source code to be included in compilation phase. 10 process-test-sources Process the test source code, for example, filter any values. 11 test-compile Compile the test source code into the test destination directory. 12 process-test-classes Process the generated files from test code file compilation. 13 test Run tests using a suitable unit testing framework (Junit is one). 14 prepare-package Perform any operations necessary to prepare a package before the actual packaging. 15 package Take the compiled code and package it in its distributable format, such as a JAR, WAR, or EAR file. 16 pre-integration-test Perform actions required before integration tests are executed. For example, setting up the required environment. 17 integration-test Process and deploy the package if necessary into an environment where integration tests can be run. 18 post-integration-test Perform actions required after integration tests have been executed. For example, cleaning up the environment. 19 verify Run any check-ups to verify the package is valid and meets quality criteria. 20 install Install the package into the local repository, which can be used as a dependency in other projects locally. 21 deploy Copies the final package to the remote repository for sharing with other developers and projects. There are few important concepts related to Maven Lifecycles, which are worth to mention ? When a phase is called via Maven command, for example mvn compile, only phases up to and including that phase will execute. Different maven goals will be bound to different phases of Maven lifecycle depending upon the type of packaging (JAR / WAR / EAR). In the following example, we will attach maven-antrun-plugin:run goal to few of the phases of Build lifecycle. This will allow us to echo text messages displaying the phases of the lifecycle. We've updated pom.xml in C:\MVN\project folder. 
+<project xmlns = "http://maven.apache.org/POM/4.0.0"
+   xmlns:xsi = "http://www.w3.org/2001/XMLSchema-instance"
+   xsi:schemaLocation = "http://maven.apache.org/POM/4.0.0
+   http://maven.apache.org/xsd/maven-4.0.0.xsd">
+   <modelVersion>4.0.0</modelVersion>
+   <groupId>com.companyname.projectgroup</groupId>
+   <artifactId>project</artifactId>
+   <version>1.0</version>
+   <build>
+      <plugins>
+         <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-antrun-plugin</artifactId>
+            <version>1.1</version>
+            <executions>
+               <execution>
+                  <id>id.validate</id>
+                  <phase>validate</phase>
+                  <goals>
+                     <goal>run</goal>
+                  </goals>
+                  <configuration>
+                     <tasks>
+                        <echo>validate phase</echo>
+                     </tasks>
+                  </configuration>
+               </execution>
+            
+               <execution>
+                  <id>id.compile</id>
+                  <phase>compile</phase>
+                  <goals>
+                     <goal>run</goal>
+                  </goals>
+                  <configuration>
+                     <tasks>
+                        <echo>compile phase</echo>
+                     </tasks>
+                  </configuration>
+               </execution>
+            
+               <execution>
+                  <id>id.test</id>
+                  <phase>test</phase>
+                  <goals>
+                     <goal>run</goal>
+                  </goals>
+                  <configuration>
+                     <tasks>
+                        <echo>test phase</echo>
+                     </tasks>
+                  </configuration>
+               </execution>
+            
+               <execution>
+                  <id>id.package</id>
+                  <phase>package</phase>
+                  <goals>
+                     <goal>run</goal>
+                  </goals>
+                  <configuration>
+                     <tasks>
+                        <echo>package phase</echo>
+                     </tasks>
+                  </configuration>
+               </execution>
+            
+               <execution>
+                  <id>id.deploy</id>
+                  <phase>deploy</phase>
+                  <goals>
+                     <goal>run</goal>
+                  </goals>
+                  <configuration>
+                     <tasks>
+                        <echo>deploy phase</echo>
+                     </tasks>
+                  </configuration>
+               </execution>
+            </executions>
+         </plugin>
+      </plugins>
+   </build>
+</project>
+ Now open command console, go the folder containing pom.xml and execute the following mvn command. 
+C:\MVN\project>mvn compile
+ Maven will start processing and display phases of build life cycle up to the compile phase. 
+[INFO] Scanning for projects...
+[INFO] -----------------------------------------------------------------
+-
+[INFO] Building Unnamed - com.companyname.projectgroup:project:jar:1.0
+[INFO] task-segment: [compile]
+[INFO] -----------------------------------------------------------------
+-
+[INFO] [antrun:run {execution: id.validate}]
+[INFO] Executing tasks
+[echo] validate phase
+[INFO] Executed tasks
+[INFO] [resources:resources {execution: default-resources}]
+[WARNING] Using platform encoding (Cp1252 actually) to copy filtered
+resources,
+i.e. build is platform dependent!
+[INFO] skip non existing resourceDirectory
+C:\MVN\project\src\main\resources
+[INFO] [compiler:compile {execution: default-compile}]
+[INFO] Nothing to compile - all classes are up to date
+[INFO] [antrun:run {execution: id.compile}]
+[INFO] Executing tasks
+[echo] compile phase
+[INFO] Executed tasks
+[INFO] -----------------------------------------------------------------
+-
+[INFO] BUILD SUCCESSFUL
+[INFO] -----------------------------------------------------------------
+-
+[INFO] Total time: 2 seconds
+[INFO] Finished at: Sat Jul 07 20:18:25 IST 2012
+[INFO] Final Memory: 7M/64M
+[INFO] -----------------------------------------------------------------
+-
+ Site Lifecycle Maven Site plugin is generally used to create fresh documentation to create reports, deploy site, etc. It has the following phases ? pre-site site post-site site-deploy In the following example, we will attach maven-antrun-plugin:run goal to all the phases of Site lifecycle. This will allow us to echo text messages displaying the phases of the lifecycle. We've updated pom.xml in C:\MVN\project folder. 
+<project xmlns = "http://maven.apache.org/POM/4.0.0"
+   xmlns:xsi = "http://www.w3.org/2001/XMLSchema-instance"
+   xsi:schemaLocation = "http://maven.apache.org/POM/4.0.0
+   http://maven.apache.org/xsd/maven-4.0.0.xsd">
+   <modelVersion>4.0.0</modelVersion>
+   <groupId>com.companyname.projectgroup</groupId>
+   <artifactId>project</artifactId>
+   <version>1.0</version>
+   <build>
+      <plugins>
+         <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-antrun-plugin</artifactId>
+            <version>1.1</version>
+            <executions>
+               <execution>
+                  <id>id.pre-site</id>
+                  <phase>pre-site</phase>
+                  <goals>
+                     <goal>run</goal>
+                  </goals>
+                  <configuration>
+                     <tasks>
+                        <echo>pre-site phase</echo>
+                     </tasks>
+                  </configuration>
+               </execution>
+               
+               <execution>
+                  <id>id.site</id>
+                  <phase>site</phase>
+                  <goals>
+                     <goal>run</goal>
+                  </goals>
+                  <configuration>
+                     <tasks>
+                        <echo>site phase</echo>
+                     </tasks>
+                  </configuration>
+               </execution>
+               
+               <execution>
+                  <id>id.post-site</id>
+                  <phase>post-site</phase>
+                  <goals>
+                     <goal>run</goal>
+                  </goals>
+                  <configuration>
+                     <tasks>
+                        <echo>post-site phase</echo>
+                     </tasks>
+                  </configuration>
+               </execution>
+               
+               <execution>
+                  <id>id.site-deploy</id>
+                  <phase>site-deploy</phase>
+                  <goals>
+                     <goal>run</goal>
+                  </goals>
+                  <configuration>
+                     <tasks>
+                        <echo>site-deploy phase</echo>
+                     </tasks>
+                  </configuration>
+               </execution>
+               
+            </executions>
+         </plugin>
+      </plugins>
+   </build>
+</project>
+ Now open the command console, go the folder containing pom.xml and execute the following mvn command. 
+C:\MVN\project>mvn site
+ Maven will start processing and displaying the phases of site life cycle up to site phase. 
+[INFO] Scanning for projects...
+[INFO] ------------------------------------------------------------------
+[INFO] Building Unnamed - com.companyname.projectgroup:project:jar:1.0
+[INFO] task-segment: [site]
+[INFO] ------------------------------------------------------------------
+[INFO] [antrun:run {execution: id.pre-site}]
+[INFO] Executing tasks
+[echo] pre-site phase
+[INFO] Executed tasks
+[INFO] [site:site {execution: default-site}]
+
+[INFO] Generating "About" report.
+[INFO] Generating "Issue Tracking" report.
+[INFO] Generating "Project Team" report.
+[INFO] Generating "Dependencies" report.
+[INFO] Generating "Project Plugins" report.
+[INFO] Generating "Continuous Integration" report.
+[INFO] Generating "Source Repository" report.
+[INFO] Generating "Project License" report.
+[INFO] Generating "Mailing Lists" report.
+[INFO] Generating "Plugin Management" report.
+[INFO] Generating "Project Summary" report.
+
+[INFO] [antrun:run {execution: id.site}]
+[INFO] Executing tasks
+[echo] site phase
+[INFO] Executed tasks
+[INFO] ------------------------------------------------------------------
+[INFO] BUILD SUCCESSFUL
+[INFO] ------------------------------------------------------------------
+[INFO] Total time: 3 seconds
+[INFO] Finished at: Sat Jul 07 15:25:10 IST 2012
+[INFO] Final Memory: 24M/149M
+[INFO] ------------------------------------------------------------------
+ Maven - Build Profiles What is Build Profile? A Build profile is a set of configuration values, which can be used to set or override default values of Maven build. Using a build profile, you can customize build for different environments such as Production v/s Development environments. Profiles are specified in pom.xml file using its activeProfiles/profiles elements and are triggered in variety of ways. Profiles modify the POM at build time, and are used to give parameters different target environments (for example, the path of the database server in the development, testing, and production environments). Types of Build Profile Build profiles are majorly of three types. Type Where it is defined Per Project Defined in the project POM file, pom.xml Per User Defined in Maven settings xml file (%USER_HOME%/.m2/settings.xml) Global Defined in Maven global settings xml file (%M2_HOME%/conf/settings.xml) Profile Activation A Maven Build Profile can be activated in various ways. Explicitly using command console input. Through maven settings. Based on environment variables (User/System variables). OS Settings (for example, Windows family). Present/missing files. Profile Activation Examples Let us assume the following directory structure of your project ? Now, under src/main/resources, there are three environment specific files ? Sr.No. File Name & Description 1 env.properties default configuration used if no profile is mentioned. 2 env.test.properties test configuration when test profile is used. 3 env.prod.properties production configuration when prod profile is used. Explicit Profile Activation In the following example, we will attach maven-antrun-plugin:run goal to test the phase. This will allow us to echo text messages for different profiles. We will be using pom.xml to define different profiles and will activate profile at command console using maven command. Assume, we've created the following pom.xml in C:\MVN\project folder. 
+<project xmlns = "http://maven.apache.org/POM/4.0.0"
+   xmlns:xsi = "http://www.w3.org/2001/XMLSchema-instance"
+   xsi:schemaLocation = "http://maven.apache.org/POM/4.0.0
+   http://maven.apache.org/xsd/maven-4.0.0.xsd">
+   <modelVersion>4.0.0</modelVersion>
+   <groupId>com.companyname.projectgroup</groupId>
+   <artifactId>project</artifactId>
+   <version>1.0</version>
+   <profiles>
+      <profile>
+         <id>test</id>
+         <build>
+            <plugins>
+               <plugin>
+                  <groupId>org.apache.maven.plugins</groupId>
+                  <artifactId>maven-antrun-plugin</artifactId>
+                  <version>1.1</version>
+                  <executions>
+                     <execution>
+                        <phase>test</phase>
+                        <goals>
+                           <goal>run</goal>
+                        </goals>
+                        <configuration>
+                           <tasks>
+                              <echo>Using env.test.properties</echo>
+                              <copy file="src/main/resources/env.test.properties"
+                                 tofile="${project.build.outputDirectory}
+                                 /env.properties"/>
+                           </tasks>
+                        </configuration>
+                     </execution>
+                  </executions>
+               </plugin>
+            </plugins>
+         </build>
+      </profile>
+   </profiles>
+</project>
+ Now open the command console, go to the folder containing pom.xml and execute the following mvn command. Pass the profile name as argument using -P option. 
+C:\MVN\project>mvn test -Ptest
+ Maven will start processing and displaying the result of test build profile. 
+[INFO] Scanning for projects...
+[INFO] ------------------------------------------------------------------
+[INFO] Building Unnamed - com.companyname.projectgroup:project:jar:1.0
+[INFO] task-segment: [test]
+[INFO] ------------------------------------------------------------------
+[INFO] [resources:resources {execution: default-resources}]
+
+[WARNING] Using platform encoding (Cp1252 actually) to copy filtered resources,
+i.e. build is platform dependent!
+
+[INFO] Copying 3 resources
+[INFO] [compiler:compile {execution: default-compile}]
+[INFO] Nothing to compile - all classes are up to date
+[INFO] [resources:testResources {execution: default-testResources}]
+
+[WARNING] Using platform encoding (Cp1252 actually) to copy filtered resources,
+i.e. build is platform dependent!
+
+[INFO] skip non existing resourceDirectory C:\MVN\project\src\test\resources
+[INFO] [compiler:testCompile {execution: default-testCompile}]
+[INFO] Nothing to compile - all classes are up to date
+[INFO] [surefire:test {execution: default-test}]
+[INFO] Surefire report directory: C:\MVN\project\target\surefire-reports
+
+-------------------------------------------------------
+T E S T S
+-------------------------------------------------------
+
+There are no tests to run.
+Results :
+Tests run: 0, Failures: 0, Errors: 0, Skipped: 0
+[INFO] [antrun:run {execution: default}]
+[INFO] Executing tasks
+[echo] Using env.test.properties
+[INFO] Executed tasks
+
+[INFO] ------------------------------------------------------------------
+[INFO] BUILD SUCCESSFUL
+[INFO] ------------------------------------------------------------------
+
+[INFO] Total time: 1 second
+[INFO] Finished at: Sun Jul 08 14:55:41 IST 2012
+[INFO] Final Memory: 8M/64M
+[INFO] ------------------------------------------------------------------
+ Now as an exercise, you can perform the following steps ? Add another profile element to profiles element of pom.xml (copy existing profile element and paste it where profile elements ends). Update id of this profile element from test to normal. Update task section to echo env.properties and copy env.properties to target directory. Again repeat the above three steps, update id to prod and task section for env.prod.properties. That's all. Now you've three build profiles ready (normal/test/prod). Now open the command console, go to the folder containing pom.xml and execute the following mvn commands. Pass the profile names as argument using -P option. 
+C:\MVN\project>mvn test -Pnormal
+
+C:\MVN\project>mvn test -Pprod
+ Check the output of the build to see the difference. Profile Activation via Maven Settings Open Maven settings.xml file available in %USER_HOME%/.m2 directory where %USER_HOME% represents the user home directory. If settings.xml file is not there, then create a new one. Add test profile as an active profile using active Profiles node as shown below in example. 
+<settings xmlns = "http://maven.apache.org/POM/4.0.0"
+   xmlns:xsi = "http://www.w3.org/2001/XMLSchema-instance"
+   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
+   http://maven.apache.org/xsd/settings-1.0.0.xsd">
+   <mirrors>
+      <mirror>
+         <id>maven.dev.snaponglobal.com</id>
+         <name>Internal Artifactory Maven repository</name>
+         <url>http://repo1.maven.org/maven2/</url>
+         <mirrorOf>*</mirrorOf>
+      </mirror>
+   </mirrors>
+   <activeProfiles>
+      <activeProfile>test</activeProfile>
+   </activeProfiles>
+</settings>
+ Now open command console, go to the folder containing pom.xml and execute the following mvn command. Do not pass the profile name using -P option. Maven will display result of test profile being an active profile. 
+C:\MVN\project>mvn test
+ Profile Activation via Environment Variables Now remove active profile from maven settings.xml and update the test profile mentioned in pom.xml. Add activation element to profile element as shown below. The test profile will trigger when the system property "env" is specified with the value "test". Create an environment variable "env" and set its value as "test". 
+<profile>
+   <id>test</id>
+   <activation>
+      <property>
+         <name>env</name>
+         <value>test</value>
+      </property>
+   </activation>
+</profile>
+ Let's open command console, go to the folder containing pom.xml and execute the following mvn command. 
+C:\MVN\project>mvn test
+ Profile Activation via Operating System Activation element to include os detail as shown below. This test profile will trigger when the system is windows XP. 
+<profile>
+   <id>test</id>
+   <activation>
+      <os>
+         <name>Windows XP</name>
+         <family>Windows</family>
+         <arch>x86</arch>
+         <version>5.1.2600</version>
+      </os>
+   </activation>
+</profile>
+ Now open command console, go to the folder containing pom.xml and execute the following mvn commands. Do not pass the profile name using -P option. Maven will display result of test profile being an active profile. 
+C:\MVN\project>mvn test
+ Profile Activation via Present/Missing File Now activation element to include OS details as shown below. The test profile will trigger when target/generated-sources/axistools/wsdl2java/com/companyname/group is missing. 
+<profile>
+   <id>test</id>
+   <activation>
+      <file>
+         <missing>target/generated-sources/axistools/wsdl2java/
+           com/companyname/group</missing>
+      </file>
+   </activation>
+</profile>
+ Now open the command console, go to the folder containing pom.xml and execute the following mvn commands. Do not pass the profile name using -P option. Maven will display result of test profile being an active profile. 
+C:\MVN\project>mvn test
+ Maven - Repositories What is a Maven Repository? In Maven terminology, a repository is a directory where all the project jars, library jar, plugins or any other project specific artifacts are stored and can be used by Maven easily. Maven repository are of three types. The following illustration will give an idea regarding these three types. local central remote Local Repository Maven local repository is a folder location on your machine. It gets created when you run any maven command for the first time. Maven local repository keeps your project's all dependencies (library jars, plugin jars etc.). When you run a Maven build, then Maven automatically downloads all the dependency jars into the local repository. It helps to avoid references to dependencies stored on remote machine every time a project is build. Maven local repository by default get created by Maven in %USER_HOME% directory. To override the default location, mention another path in Maven settings.xml file available at %M2_HOME%\conf directory. 
+<settings xmlns = "http://maven.apache.org/SETTINGS/1.0.0"
+   xmlns:xsi = "http://www.w3.org/2001/XMLSchema-instance"
+   xsi:schemaLocation = "http://maven.apache.org/SETTINGS/1.0.0 
+   http://maven.apache.org/xsd/settings-1.0.0.xsd">
+   <localRepository>C:/MyLocalRepository</localRepository>
+</settings>
+ When you run Maven command, Maven will download dependencies to your custom path. Central Repository Maven central repository is repository provided by Maven community. It contains a large number of commonly used libraries. When Maven does not find any dependency in local repository, it starts searching in central repository using following URL ? https://repo1.maven.org/maven2/ Key concepts of Central repository are as follows ? This repository is managed by Maven community. It is not required to be configured. It requires internet access to be searched. To browse the content of central maven repository, maven community has provided a URL ? https://search.maven.org/#browse. Using this library, a developer can search all the available libraries in central repository. Remote Repository Sometimes, Maven does not find a mentioned dependency in central repository as well. It then stops the build process and output error message to console. To prevent such situation, Maven provides concept of Remote Repository, which is developer's own custom repository containing required libraries or other project jars. For example, using below mentioned POM.xml, Maven will download dependency (not available in central repository) from Remote Repositories mentioned in the same pom.xml. 
+<project xmlns = "http://maven.apache.org/POM/4.0.0"
+   xmlns:xsi = "http://www.w3.org/2001/XMLSchema-instance"
+   xsi:schemaLocation = "http://maven.apache.org/POM/4.0.0
+   http://maven.apache.org/xsd/maven-4.0.0.xsd">
+   <modelVersion>4.0.0</modelVersion>
+   <groupId>com.companyname.projectgroup</groupId>
+   <artifactId>project</artifactId>
+   <version>1.0</version>
+   <dependencies>
+      <dependency>
+         <groupId>com.companyname.common-lib</groupId>
+         <artifactId>common-lib</artifactId>
+         <version>1.0.0</version>
+      </dependency>
+   <dependencies>
+   <repositories>
+      <repository>
+         <id>companyname.lib1</id>
+         <url>http://download.companyname.org/maven2/lib1</url>
+      </repository>
+      <repository>
+         <id>companyname.lib2</id>
+         <url>http://download.companyname.org/maven2/lib2</url>
+      </repository>
+   </repositories>
+</project>
+ Maven Dependency Search Sequence When we execute Maven build commands, Maven starts looking for dependency libraries in the following sequence ? Step 1 ? Search dependency in local repository, if not found, move to step 2 else perform the further processing. Step 2 ? Search dependency in central repository, if not found and remote repository/repositories is/are mentioned then move to step 4. Else it is downloaded to local repository for future reference. Step 3 ? If a remote repository has not been mentioned, Maven simply stops the processing and throws error (Unable to find dependency). Step 4 ? Search dependency in remote repository or repositories, if found then it is downloaded to local repository for future reference. Otherwise, Maven stops processing and throws error (Unable to find dependency). Maven - Plugins What are Maven Plugins? Maven is actually a plugin execution framework where every task is actually done by plugins. Maven Plugins are generally used to ? create jar file create war file compile code files unit testing of code create project documentation create project reports A plugin generally provides a set of goals, which can be executed using the following syntax ? 
+mvn [plugin-name]:[goal-name]
+ For example, a Java project can be compiled with the maven-compiler-plugin's compile-goal by running the following command. 
+mvn compiler:compile
+ Plugin Types Maven provided the following two types of Plugins ? Sr.No. Type & Description 1 Build plugins They execute during the build process and should be configured in the <build/> element of pom.xml. 2 Reporting plugins They execute during the site generation process and they should be configured in the <reporting/> element of the pom.xml. Following is the list of few common plugins ? Sr.No. Plugin & Description 1 clean Cleans up target after the build. Deletes the target directory. 2 compiler Compiles Java source files. 3 surefire Runs the JUnit unit tests. Creates test reports. 4 jar Builds a JAR file from the current project. 5 war Builds a WAR file from the current project. 6 javadoc Generates Javadoc for the project. 7 antrun Runs a set of ant tasks from any phase mentioned of the build. Example We've used maven-antrun-plugin extensively in our examples to print data on console. Refer Build Profiles chapter. Let us understand it in a better way and create a pom.xml in C:\MVN\project folder. 
+<project xmlns = "http://maven.apache.org/POM/4.0.0"
+   xmlns:xsi = "http://www.w3.org/2001/XMLSchema-instance"
+   xsi:schemaLocation = "http://maven.apache.org/POM/4.0.0
+   http://maven.apache.org/xsd/maven-4.0.0.xsd">
+   <modelVersion>4.0.0</modelVersion>
+   <groupId>com.companyname.projectgroup</groupId>
+   <artifactId>project</artifactId>
+   <version>1.0</version>
+   <build>
+      <plugins>
+         <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-antrun-plugin</artifactId>
+            <version>1.1</version>
+            <executions>
+               <execution>
+                  <id>id.clean</id>
+                  <phase>clean</phase>
+                  <goals>
+                     <goal>run</goal>
+                  </goals>
+                  <configuration>
+                     <tasks>
+                        <echo>clean phase</echo>
+                     </tasks>
+                  </configuration>
+               </execution>     
+            </executions>
+         </plugin>
+      </plugins>
+   </build>
+</project>
+ Next, open the command console and go to the folder containing pom.xml and execute the following mvn command. 
+C:\MVN\project>mvn clean
+ Maven will start processing and displaying the clean phase of clean life cycle. 
+[INFO] Scanning for projects...
+[INFO] ------------------------------------------------------------------
+[INFO] Building Unnamed - com.companyname.projectgroup:project:jar:1.0
+[INFO]    task-segment: [post-clean]
+[INFO] ------------------------------------------------------------------
+[INFO] [clean:clean {execution: default-clean}]
+[INFO] [antrun:run {execution: id.clean}]
+[INFO] Executing tasks
+     [echo] clean phase
+[INFO] Executed tasks
+[INFO] ------------------------------------------------------------------
+[INFO] BUILD SUCCESSFUL
+[INFO] ------------------------------------------------------------------
+[INFO] Total time: < 1 second
+[INFO] Finished at: Sat Jul 07 13:38:59 IST 2012
+[INFO] Final Memory: 4M/44M
+[INFO] ------------------------------------------------------------------
+ The above example illustrates the following key concepts ? Plugins are specified in pom.xml using plugins element. Each plugin can have multiple goals. You can define phase from where plugin should starts its processing using its phase element. We've used clean phase. You can configure tasks to be executed by binding them to goals of plugin. We've bound echo task with run goal of maven-antrun-plugin. Maven will then download the plugin if not available in local repository and start its processing. Maven - Creating Project Maven uses archetype plugins to create projects. To create a simple java application, we'll use maven-archetype-quickstart plugin. In example below, we'll create a maven based java application project in C:\MVN folder. Let's open the command console, go to the C:\MVN directory and execute the following mvn command. 
+C:\MVN>mvn archetype:generate
+-DgroupId = com.companyname.bank 
+-DartifactId = consumerBanking 
+-DarchetypeArtifactId = maven-archetype-quickstart 
+-DinteractiveMode = false
+ Maven will start processing and will create the complete java application project structure. 
+[INFO] Scanning for projects...
+[INFO] Searching repository for plugin with prefix: 'archetype'.
+[INFO] -------------------------------------------------------------------
+[INFO] Building Maven Default Project
+[INFO] task-segment: [archetype:generate] (aggregator-style)
+[INFO] -------------------------------------------------------------------
+[INFO] Preparing archetype:generate
+[INFO] No goals needed for project - skipping
+[INFO] [archetype:generate {execution: default-cli}]
+[INFO] Generating project in Batch mode
+[INFO] -------------------------------------------------------------------
+[INFO] Using following parameters for creating project
+from Old (1.x) Archetype: maven-archetype-quickstart:1.0
+[INFO] -------------------------------------------------------------------
+
+[INFO] Parameter: groupId, Value: com.companyname.bank
+[INFO] Parameter: packageName, Value: com.companyname.bank
+[INFO] Parameter: package, Value: com.companyname.bank
+[INFO] Parameter: artifactId, Value: consumerBanking
+[INFO] Parameter: basedir, Value: C:\MVN
+[INFO] Parameter: version, Value: 1.0-SNAPSHOT
+
+[INFO] project created from Old (1.x) Archetype in dir: C:\MVN\consumerBanking
+[INFO] ------------------------------------------------------------------
+[INFO] BUILD SUCCESSFUL
+[INFO] ------------------------------------------------------------------
+[INFO] Total time: 14 seconds
+[INFO] Finished at: Tue Jul 10 15:38:58 IST 2012
+[INFO] Final Memory: 21M/124M
+[INFO] ------------------------------------------------------------------
+ Now go to C:/MVN directory. You'll see a java application project created, named consumer Banking (as specified in artifactId). Maven uses a standard directory layout as shown below ? Using the above example, we can understand the following key concepts ? Sr.No. Folder Structure & Description 1 consumerBanking contains src folder and pom.xml 2 src/main/java contains java code files under the package structure (com/companyName/bank). 3 src/main/test contains test java code files under the package structure (com/companyName/bank). 4 src/main/resources it contains images/properties files (In above example, we need to create this structure manually). If you observe, you will find that Maven also created a sample Java Source file and Java Test file. Open C:\MVN\consumerBanking\src\main\java\com\companyname\bank folder, you will see App.java. 
+package com.companyname.bank;
+
+/**
+ * Hello world!
+ *
+ */
+public class App {
+   public static void main( String[] args ){
+      System.out.println( "Hello World!" );
+   }
+}
+ Open C:\MVN\consumerBanking\src\test\java\com\companyname\bank folder to see AppTest.java. 
+package com.companyname.bank;
+
+import junit.framework.Test;
+import junit.framework.TestCase;
+import junit.framework.TestSuite;
+
+/**
+ * Unit test for simple App.
+ */
+public class AppTest extends TestCase {
+   /**
+      * Create the test case
+      *
+      * @param testName name of the test case
+   */
+   public AppTest( String testName ) {
+      super( testName );
+   }
+
+   /**
+      * @return the suite of tests being tested
+   */
+   public static Test suite() {
+      return new TestSuite( AppTest.class );
+   }
+
+   /**
+      * Rigourous Test :-)
+   */
+   public void testApp() {
+      assertTrue( true );
+   }
+}
+ Developers are required to place their files as mentioned in table above and Maven handles all the build related complexities. In the next chapter, we'll discuss how to build and test the project using maven Build and Test Project. Maven - Build & Test Project What we learnt in Project Creation chapter is how to create a Java application using Maven. Now we'll see how to build and test the application. Go to C:/MVN directory where you've created your java application. Open consumerBanking folder. You will see the POM.xml file with the following contents. 
+<project xmlns = "http://maven.apache.org/POM/4.0.0"
+   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+   xsi:schemaLocation = "http://maven.apache.org/POM/4.0.0
+   http://maven.apache.org/xsd/maven-4.0.0.xsd">
+   <modelVersion>4.0.0</modelVersion>
+   <groupId>com.companyname.projectgroup</groupId>
+   <artifactId>project</artifactId>
+   <version>1.0</version>
+   <dependencies>
+      <dependency>
+         <groupId>junit</groupId>
+         <artifactId>junit</artifactId>
+         <version>3.8.1</version>
+      </dependency>
+   </dependencies>  
+</project>
+ Here you can see, Maven already added Junit as test framework. By default, Maven adds a source file App.java and a test file AppTest.java in its default directory structure, as discussed in the previous chapter. Let's open the command console, go the C:\MVN\consumerBanking directory and execute the following mvn command. 
+C:\MVN\consumerBanking>mvn clean package
+ Maven will start building the project. 
+[INFO] Scanning for projects...
+[INFO] -------------------------------------------------------------------
+[INFO] Building consumerBanking
+[INFO] task-segment: [clean, package]
+[INFO] -------------------------------------------------------------------
+[INFO] [clean:clean {execution: default-clean}]
+[INFO] Deleting directory C:\MVN\consumerBanking\target
+[INFO] [resources:resources {execution: default-resources}]
+
+[WARNING] Using platform encoding (Cp1252 actually) to copy filtered resources,
+i.e. build is platform dependent!
+
+[INFO] skip non existing resourceDirectory C:\MVN\consumerBanking\src\main\resources
+[INFO] [compiler:compile {execution: default-compile}]
+[INFO] Compiling 1 source file to C:\MVN\consumerBanking\target\classes
+[INFO] [resources:testResources {execution: default-testResources}]
+
+[WARNING] Using platform encoding (Cp1252 actually) to copy filtered resources,
+i.e. build is platform dependent!
+
+[INFO] skip non existing resourceDirectory C:\MVN\consumerBanking\src\test\resources
+[INFO] [compiler:testCompile {execution: default-testCompile}]
+[INFO] Compiling 1 source file to C:\MVN\consumerBanking\target\test-classes
+[INFO] [surefire:test {execution: default-test}]
+[INFO] Surefire report directory: C:\MVN\consumerBanking\target\surefire-reports
+
+-----------------------------------------------------
+T E S T S
+-----------------------------------------------------
+
+Running com.companyname.bank.AppTest
+
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.027 sec
+
+Results :
+
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0
+
+[INFO] [jar:jar {execution: default-jar}]
+[INFO] Building jar: C:\MVN\consumerBanking\target\
+consumerBanking-1.0-SNAPSHOT.jar
+
+[INFO]-----------------------------------------------
+[INFO] BUILD SUCCESSFUL
+[INFO]-----------------------------------------------
+
+[INFO] Total time: 2 seconds
+[INFO] Finished at: Tue Jul 10 16:52:18 IST 2012
+[INFO] Final Memory: 16M/89M
+[INFO]-----------------------------------------------
+ You've built your project and created final jar file, following are the key learning concepts ? We give maven two goals, first to clean the target directory (clean) and then package the project build output as jar (package). Packaged jar is available in consumerBanking\target folder as consumerBanking-1.0-SNAPSHOT.jar. Test reports are available in consumerBanking\target\surefire-reports folder. Maven compiles the source code file(s) and then tests the source code file(s). Then Maven runs the test cases. Finally, Maven creates the package. Now open the command console, go the C:\MVN\consumerBanking\target\classes directory and execute the following java command. 
+>java com.companyname.bank.App
+ You will see the result as follows ? 
+Hello World!
+ Adding Java Source Files Let's see how we can add additional Java files in our project. Open C:\MVN\consumerBanking\src\main\java\com\companyname\bank folder, create Util class in it as Util.java. 
+package com.companyname.bank;
+
+public class Util {
+   public static void printMessage(String message){
+      System.out.println(message);
+   }
+}
+ Update the App class to use Util class. 
+package com.companyname.bank;
+
+/**
+   * Hello world!
+   *
+*/
+
+public class App {
+   public static void main( String[] args ){
+      Util.printMessage("Hello World!");
+   }
+}
+ Now open the command console, go the C:\MVN\consumerBanking directory and execute the following mvn command. 
+>mvn clean compile
+ After Maven build is successful, go to the C:\MVN\consumerBanking\target\classes directory and execute the following java command. 
+>java -cp com.companyname.bank.App
+ You will see the result as follows ? 
+Hello World!
+ Maven - External Dependencies As you know, Maven does the dependency management using the concept of Repositories. But what happens if dependency is not available in any of remote repositories and central repository? Maven provides answer for such scenario using concept of External Dependency. For example, let us do the following changes to the project created in ‘Creating Java Project’ chapter. Add lib folder to the src folder. Copy any jar into the lib folder. We've used ldapjdk.jar, which is a helper library for LDAP operations. Now our project structure should look like the following ? Here you are having your own library, specific to the project, which is an usual case and it contains jars, which may not be available in any repository for maven to download from. If your code is using this library with Maven, then Maven build will fail as it cannot download or refer to this library during compilation phase. To handle the situation, let's add this external dependency to maven pom.xml using the following way. 
+<project xmlns = "http://maven.apache.org/POM/4.0.0" 
+   xmlns:xsi = "http://www.w3.org/2001/XMLSchema-instance"
+   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 
+   http://maven.apache.org/maven-v4_0_0.xsd">
+   <modelVersion>4.0.0</modelVersion>
+   <groupId>com.companyname.bank</groupId>
+   <artifactId>consumerBanking</artifactId>
+   <packaging>jar</packaging>
+   <version>1.0-SNAPSHOT</version>
+   <name>consumerBanking</name>
+   <url>http://maven.apache.org</url>
+
+   <dependencies>
+      <dependency>
+         <groupId>junit</groupId>
+         <artifactId>junit</artifactId>
+         <version>3.8.1</version>
+         <scope>test</scope>
+      </dependency>
+
+      <dependency>
+         <groupId>ldapjdk</groupId>
+         <artifactId>ldapjdk</artifactId>
+         <scope>system</scope>
+         <version>1.0</version>
+         <systemPath>${basedir}\src\lib\ldapjdk.jar</systemPath>
+      </dependency>
+   </dependencies>
+
+</project>
+ Look at the second dependency element under dependencies in the above example, which clears the following key concepts about External Dependency. External dependencies (library jar location) can be configured in pom.xml in same way as other dependencies. Specify groupId same as the name of the library. Specify artifactId same as the name of the library. Specify scope as system. Specify system path relative to the project location. Hope now you are clear about external dependencies and you will be able to specify external dependencies in your Maven project. Maven - Project Documents This tutorial will teach you how to create documentation of the application in one go. So let's start, go to C:/MVN directory where you had created your java consumerBanking application using the examples given in the previous chapters. Open consumerBanking folder and execute the following mvn command. 
+C:\MVN>mvn site
+ Maven will start building the project. 
+[INFO] Scanning for projects...
+[INFO]-----------------------------------------------
+[INFO] Building consumerBanking
+[INFO] task-segment: [site]
+[INFO]-----------------------------------------------
+[INFO] [site:site {execution: default-site}]
+[INFO] artifact org.apache.maven.skins:maven-default-skin:
+checking for updates from central
+
+[INFO] Generating "About" report.
+[INFO] Generating "Issue Tracking" report.
+[INFO] Generating "Project Team" report.
+[INFO] Generating "Dependencies" report.
+[INFO] Generating "Continuous Integration" report.
+[INFO] Generating "Source Repository" report.
+[INFO] Generating "Project License" report.
+[INFO] Generating "Mailing Lists" report.
+[INFO] Generating "Plugin Management" report.
+[INFO] Generating "Project Summary" report.
+
+[INFO]-----------------------------------------------
+[INFO] BUILD SUCCESSFUL
+[INFO]-----------------------------------------------
+
+[INFO] Total time: 16 seconds
+[INFO] Finished at: Wed Jul 11 18:11:18 IST 2012
+[INFO] Final Memory: 23M/148M
+[INFO]-----------------------------------------------
+ Your project documentation is now ready. Maven has created a site within the target directory. Open C:\MVN\consumerBanking\target\site folder. Click on index.html to see the documentation. Maven creates the documentation using a documentation-processing engine called Doxia which reads multiple source formats into a common document model. To write documentation for your project, you can write your content in a following few commonly used formats which are parsed by Doxia. Format Name Description Reference XDoc A Maven 1.x documentation format https://jakarta.apache.org/site FML Used for FAQ documents https://maven.apache.org Maven - Project Templates Maven provides users, a very large list of different types of project templates (614 in numbers) using the concept of Archetype. Maven helps users to quickly start a new java project using the following command. 
+mvn archetype:generate
+ What is Archetype? Archetype is a Maven plugin whose task is to create a project structure as per its template. We are going to use quickstart archetype plugin to create a simple java application here. Using Project Template Let's open the command console, go to the C:\ > MVN directory and execute the following mvn command. 
+C:\MVN>mvn archetype:generate 
+ Maven will start processing and will ask to choose the required archetype. 
+[INFO] Scanning for projects...
+[INFO] Searching repository for plugin with prefix: 'archetype'.
+[INFO] -------------------------------------------------------------------
+[INFO] Building Maven Default Project
+[INFO] task-segment: [archetype:generate] (aggregator-style)
+[INFO] -------------------------------------------------------------------
+[INFO] Preparing archetype:generate
+...
+
+600: remote ?> org.trailsframework:trails-archetype (-)
+601: remote ?> org.trailsframework:trails-secure-archetype (-)
+602: remote ?> org.tynamo:tynamo-archetype (-)
+603: remote ?> org.wicketstuff.scala:wicket-scala-archetype (-)
+604: remote ?> org.wicketstuff.scala:wicketstuff-scala-archetype
+
+Basic setup for a project that combines Scala and Wicket,
+depending on the Wicket-Scala project.
+Includes an example Specs test.)
+
+605: remote ?> org.wikbook:wikbook.archetype (-)
+606: remote ?> org.xaloon.archetype:xaloon-archetype-wicket-jpa-glassfish (-)
+607: remote ?> org.xaloon.archetype:xaloon-archetype-wicket-jpa-spring (-)
+608: remote ?> org.xwiki.commons:xwiki-commons-component-archetype
+   (Make it easy to create a maven project for creating XWiki Components.)
+609: remote ?> org.xwiki.rendering:xwiki-rendering-archetype-macro
+   (Make it easy to create a maven project for creating XWiki Rendering Macros.)
+610: remote ?> org.zkoss:zk-archetype-component (The ZK Component archetype)
+611: remote ?> org.zkoss:zk-archetype-webapp (The ZK wepapp archetype)
+612: remote ?> ru.circumflex:circumflex-archetype (-)
+613: remote ?> se.vgregion.javg.maven.archetypes:javg-minimal-archetype (-)
+614: remote ?> sk.seges.sesam:sesam-annotation-archetype (-)
+Choose a number or apply filter
+(format: [groupId:]artifactId, case sensitive contains): 203:
+ Press Enter to choose to default option (203: maven-archetype-quickstart) Maven will ask for particular version of archetype. 
+Choose org.apache.maven.archetypes:maven-archetype-quickstart version:
+1: 1.0-alpha-1
+2: 1.0-alpha-2
+3: 1.0-alpha-3
+4: 1.0-alpha-4
+5: 1.0
+6: 1.1
+Choose a number: 6:
+ Press Enter to choose to default option (6: maven-archetype-quickstart:1.1) Maven will ask for the project detail. Enter project detail as asked. Press Enter if the default value is provided. You can override them by entering your own value. 
+Define value for property 'groupId': : com.companyname.insurance
+Define value for property 'artifactId': : health
+Define value for property 'version': 1.0-SNAPSHOT:
+Define value for property 'package': com.companyname.insurance:
+ Maven will ask for the project detail confirmation. Press enter or press Y. 
+Confirm properties configuration:
+groupId: com.companyname.insurance
+artifactId: health
+version: 1.0-SNAPSHOT
+package: com.companyname.insurance
+Y:
+ Now Maven will start creating the project structure and will display the following ? 
+[INFO]-----------------------------------------------
+[INFO] Using following parameters for creating project
+from Old (1.x) Archetype: maven-archetype-quickstart:1.1
+[INFO]-----------------------------------------------
+
+[INFO] Parameter: groupId, Value: com.companyname.insurance
+[INFO] Parameter: packageName, Value: com.companyname.insurance
+[INFO] Parameter: package, Value: com.companyname.insurance
+[INFO] Parameter: artifactId, Value: health
+[INFO] Parameter: basedir, Value: C:\MVN
+[INFO] Parameter: version, Value: 1.0-SNAPSHOT
+
+[INFO] project created from Old (1.x) Archetype in dir: C:\MVN\health
+[INFO]-----------------------------------------------
+[INFO] BUILD SUCCESSFUL
+[INFO]-----------------------------------------------
+[INFO] Total time: 4 minutes 12 seconds
+[INFO] Finished at: Fri Jul 13 11:10:12 IST 2012
+[INFO] Final Memory: 20M/90M
+[INFO]-----------------------------------------------
+ Created Project Now go to C:\ > MVN directory. You'll see a java application project created, named health, which was given as artifactId at the time of project creation. Maven will create a standard directory layout for the project as shown below ? Created POM.xml Maven generates a POM.xml file for the project as listed below ? 
+<project xmlns = "http://maven.apache.org/POM/4.0.0" 
+   xmlns:xsi = "http://www.w3.org/2001/XMLSchema-instance"
+   xsi:schemaLocation = "http://maven.apache.org/POM/4.0.0 
+   http://maven.apache.org/xsd/maven-4.0.0.xsd">
+   <modelVersion>4.0.0</modelVersion>
+   <groupId>com.companyname.insurance</groupId>
+   <artifactId>health</artifactId>
+   <version>1.0-SNAPSHOT</version>
+   <packaging>jar</packaging>
+   <name>health</name>
+   <url>http://maven.apache.org</url>
+   <properties>
+      <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+   </properties>
+   <dependencies>
+      <dependency>
+      <groupId>junit</groupId>
+         <artifactId>junit</artifactId>
+         <version>3.8.1</version>
+         <scope>test</scope>
+      </dependency>
+   </dependencies>
+</project>
+ Created App.java Maven generates sample java source file, App.java for the project as listed below ? Location: C:\ > MVN > health > src > main > java > com > companyname > insurance > App.java. 
+package com.companyname.insurance;
+
+/**
+   * Hello world!
+   *
+*/
+public class App {
+   public static void main( String[] args ) {
+      System.out.println( "Hello World!" );
+   }
+}
+ Created AppTest.java Maven generates sample java source test file, AppTest.java for the project as listed below ? Location: C:\ > MVN > health > src > test > java > com > companyname > insurance > AppTest.java. 
+package com.companyname.insurance;
+
+import junit.framework.Test;
+import junit.framework.TestCase;
+import junit.framework.TestSuite;
+
+/**
+   * Unit test for simple App.
+*/
+public class AppTest extends TestCase {
+   /**
+      * Create the test case
+      *
+     * @param testName name of the test case
+   */
+   public AppTest( String testName ) {
+      super( testName );
+   }
+   /**
+      * @return the suite of tests being tested
+   */
+   public static Test suite() {
+      return new TestSuite( AppTest.class );
+   }
+   /**
+      * Rigourous Test :-)
+   */
+   public void testApp() {
+      assertTrue( true );
+   }
+}
+ Now you can see the power of Maven. You can create any kind of project using single command in maven and can kick-start your development. Different Archetypes Sr.No. Archetype ArtifactIds & Description 1 maven-archetype-archetype An archetype, which contains a sample archetype. 2 maven-archetype-j2ee-simple An archetype, which contains a simplified sample J2EE application. 3 maven-archetype-mojo An archetype, which contains a sample a sample Maven plugin. 4 maven-archetype-plugin An archetype, which contains a sample Maven plugin. 5 maven-archetype-plugin-site An archetype, which contains a sample Maven plugin site. 6 maven-archetype-portlet An archetype, which contains a sample JSR-268 Portlet. 7 maven-archetype-quickstart An archetype, which contains a sample Maven project. 8 maven-archetype-simple An archetype, which contains a simple Maven project. 9 maven-archetype-site An archetype, which contains a sample Maven site to demonstrates some of the supported document types like APT, XDoc, and FML and demonstrates how to i18n your site. 10 maven-archetype-site-simple An archetype, which contains a sample Maven site. 11 maven-archetype-webapp An archetype, which contains a sample Maven Webapp project. Maven - Snapshots A large software application generally consists of multiple modules and it is common scenario where multiple teams are working on different modules of same application. For example, consider a team is working on the front end of the application as app-ui project (app-ui.jar:1.0) and they are using data-service project (data-service.jar:1.0). Now it may happen that team working on data-service is undergoing bug fixing or enhancements at rapid pace and they are releasing the library to remote repository almost every other day. Now if data-service team uploads a new version every other day, then following problems will arise ? data-service team should tell app-ui team every time when they have released an updated code. app-ui team required to update their pom.xml regularly to get the updated version. To handle such kind of situation, SNAPSHOT concept comes into play. What is SNAPSHOT? SNAPSHOT is a special version that indicates a current development copy. Unlike regular versions, Maven checks for a new SNAPSHOT version in a remote repository for every build. Now data-service team will release SNAPSHOT of its updated code every time to repository, say data-service: 1.0-SNAPSHOT, replacing an older SNAPSHOT jar. Snapshot vs Version In case of Version, if Maven once downloaded the mentioned version, say data-service:1.0, it will never try to download a newer 1.0 available in repository. To download the updated code, data-service version is be upgraded to 1.1. In case of SNAPSHOT, Maven will automatically fetch the latest SNAPSHOT (data-service:1.0-SNAPSHOT) every time app-ui team build their project. app-ui pom.xml app-ui project is using 1.0-SNAPSHOT of data-service. 
+<project xmlns = "http://maven.apache.org/POM/4.0.0" 
+   xmlns:xsi = "http://www.w3.org/2001/XMLSchema-instance"
+   xsi:schemaLocation = "http://maven.apache.org/POM/4.0.0 
+   http://maven.apache.org/xsd/maven-4.0.0.xsd">
+   <modelVersion>4.0.0</modelVersion>
+   <groupId>app-ui</groupId>
+   <artifactId>app-ui</artifactId>
+   <version>1.0</version>
+   <packaging>jar</packaging>
+   <name>health</name>
+   <url>http://maven.apache.org</url>
+   <properties>
+      <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+   </properties>
+   <dependencies>
+      <dependency>
+      <groupId>data-service</groupId>
+         <artifactId>data-service</artifactId>
+         <version>1.0-SNAPSHOT</version>
+         <scope>test</scope>
+      </dependency>
+   </dependencies>
+</project>
+ data-service pom.xml data-service project is releasing 1.0-SNAPSHOT for every minor change. 
+<project xmlns = "http://maven.apache.org/POM/4.0.0" 
+   xmlns:xsi = "http://www.w3.org/2001/XMLSchema-instance"
+   xsi:schemaLocation = "http://maven.apache.org/POM/4.0.0 
+   http://maven.apache.org/xsd/maven-4.0.0.xsd">
+   <modelVersion>4.0.0</modelVersion>
+   <groupId>data-service</groupId>
+   <artifactId>data-service</artifactId>
+   <version>1.0-SNAPSHOT</version>
+   <packaging>jar</packaging>
+   <name>health</name>
+   <url>http://maven.apache.org</url>
+   <properties>
+      <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+   </properties>
+</project>
+ Although, in case of SNAPSHOT, Maven automatically fetches the latest SNAPSHOT on daily basis, you can force maven to download latest snapshot build using -U switch to any maven command. 
+mvn clean package -U
+ Let's open the command console, go to the C:\ > MVN > app-ui directory and execute the following mvn command. 
+C:\MVN\app-ui>mvn clean package -U
+ Maven will start building the project after downloading the latest SNAPSHOT of data-service. 
+[INFO] Scanning for projects...
+[INFO]--------------------------------------------
+[INFO] Building consumerBanking
+[INFO]    task-segment: [clean, package]
+[INFO]--------------------------------------------
+[INFO] Downloading data-service:1.0-SNAPSHOT
+[INFO] 290K downloaded.
+[INFO] [clean:clean {execution: default-clean}]
+[INFO] Deleting directory C:\MVN\app-ui\target
+[INFO] [resources:resources {execution: default-resources}]
+
+[WARNING] Using platform encoding (Cp1252 actually) to copy filtered resources,
+i.e. build is platform dependent!
+
+[INFO] skip non existing resourceDirectory C:\MVN\app-ui\src\main\resources
+[INFO] [compiler:compile {execution:default-compile}]
+[INFO] Compiling 1 source file to C:\MVN\app-ui\target\classes
+[INFO] [resources:testResources {execution: default-testResources}]
+
+[WARNING] Using platform encoding (Cp1252 actually) to copy filtered resources,
+i.e. build is platform dependent!
+
+[INFO] skip non existing resourceDirectory C:\MVN\app-ui\src\test\resources
+[INFO] [compiler:testCompile {execution: default-testCompile}]
+[INFO] Compiling 1 source file to C:\MVN\app-ui\target\test-classes
+[INFO] [surefire:test {execution: default-test}]
+[INFO] Surefire report directory: C:\MVN\app-ui\target\
+surefire-reports
+
+--------------------------------------------------
+ T E S T S
+--------------------------------------------------
+
+Running com.companyname.bank.AppTest
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.027 sec
+
+Results :
+
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0
+
+[INFO] [jar:jar {execution: default-jar}]
+[INFO] Building jar: C:\MVN\app-ui\target\
+app-ui-1.0-SNAPSHOT.jar
+[INFO]--------------------------------------------------------
+[INFO] BUILD SUCCESSFUL
+[INFO]--------------------------------------------------------
+[INFO] Total time: 2 seconds
+[INFO] Finished at: 2015-09-27T12:30:02+05:30
+[INFO] Final Memory: 16M/89M
+[INFO]------------------------------------------------------------------------
+ Maven - Build Automation Build Automation defines the scenario where dependent project(s) build process gets started once the project build is successfully completed, in order to ensure that dependent project(s) is/are stable. Example Consider a team is developing a project bus-core-api on which two other projects app-web-ui and app-desktop-ui are dependent. app-web-ui project is using 1.0-SNAPSHOT of bus-core-api project. 
+<project xmlns = "http://maven.apache.org/POM/4.0.0"
+   xmlns:xsi = "http://www.w3.org/2001/XMLSchema-instance"
+   xsi:schemaLocation = "http://maven.apache.org/POM/4.0.0
+   http://maven.apache.org/xsd/maven-4.0.0.xsd">
+   <modelVersion>4.0.0</modelVersion>
+   <groupId>app-web-ui</groupId>
+   <artifactId>app-web-ui</artifactId>
+   <version>1.0</version>
+   <packaging>jar</packaging>
+   <dependencies>
+      <dependency>
+         <groupId>bus-core-api</groupId>
+            <artifactId>bus-core-api</artifactId>
+            <version>1.0-SNAPSHOT</version>
+      </dependency>
+   </dependencies>
+</project>
+ app-desktop-ui project is using 1.0-SNAPSHOT of bus-core-api project. 
+<project xmlns = "http://maven.apache.org/POM/4.0.0" 
+   xmlns:xsi = "http://www.w3.org/2001/XMLSchema-instance"
+   xsi:schemaLocation = "http://maven.apache.org/POM/4.0.0 
+   http://maven.apache.org/xsd/maven-4.0.0.xsd">
+   <modelVersion>4.0.0</modelVersion>
+   <groupId>app_desktop_ui</groupId>
+   <artifactId>app_desktop_ui</artifactId>
+   <version>1.0</version>
+   <packaging>jar</packaging>
+   <name>app_desktop_ui</name>
+   <url>http://maven.apache.org</url>
+   <properties>
+      <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+   </properties>
+   <dependencies>
+      <dependency>
+         <groupId>junit</groupId>
+         <artifactId>junit</artifactId>
+         <version>3.8.1</version>
+         <scope>test</scope>
+      </dependency>
+      <dependency>
+         <groupId>bus_core_api</groupId>
+         <artifactId>bus_core_api</artifactId>
+         <version>1.0-SNAPSHOT</version>
+         <scope>system</scope>
+         <systemPath>C:\MVN\bus_core_api\target\bus_core_api-1.0-SNAPSHOT.jar</systemPath>
+      </dependency>
+   </dependencies>
+</project>
+ bus-core-api project ? 
+<project xmlns = "http://maven.apache.org/POM/4.0.0" 
+   xmlns:xsi = "http://www.w3.org/2001/XMLSchema-instance"
+   xsi:schemaLocation = "http://maven.apache.org/POM/4.0.0 
+   http://maven.apache.org/xsd/maven-4.0.0.xsd">
+   <modelVersion>4.0.0</modelVersion>
+   <groupId>bus_core_api</groupId>
+   <artifactId>bus_core_api</artifactId>
+   <version>1.0-SNAPSHOT</version>
+   <packaging>jar</packaging>   
+</project>
+ Now, teams of app-web-ui and app-desktop-ui projects require that their build process should kick off whenever bus-core-api project changes. Using snapshot, ensures that the latest bus-core-api project should be used but to meet the above requirement we need to do something extra. We can proceed with the following two ways ? Add a post-build goal in bus-core-api pom to kick-off app-web-ui and app-desktop-ui builds. Use a Continuous Integration (CI) Server like Hudson to manage build automation automatically. Using Maven Update bus-core-api project pom.xml. 
+<project xmlns = "http://maven.apache.org/POM/4.0.0"
+   xmlns:xsi = "http://www.w3.org/2001/XMLSchema-instance"
+   xsi:schemaLocation = "http://maven.apache.org/POM/4.0.0
+   http://maven.apache.org/xsd/maven-4.0.0.xsd">
+   <modelVersion>4.0.0</modelVersion>
+   <groupId>bus-core-api</groupId>
+   <artifactId>bus-core-api</artifactId>
+   <version>1.0-SNAPSHOT</version>
+   <packaging>jar</packaging>
+   <build>
+      <plugins>
+         <plugin>
+         <artifactId>maven-invoker-plugin</artifactId>
+         <version>1.6</version>
+         <configuration>
+            <debug>true</debug>
+            <pomIncludes>
+               <pomInclude>app-web-ui/pom.xml</pomInclude>
+               <pomInclude>app-desktop-ui/pom.xml</pomInclude>
+            </pomIncludes>
+         </configuration>
+         <executions>
+            <execution>
+               <id>build</id>
+               <goals>
+                  <goal>run</goal>
+               </goals>
+            </execution>
+         </executions>
+         </plugin>
+      </plugins>
+   <build>
+</project>
+ Let's open the command console, go to the C:\ > MVN > bus-core-api directory and execute the following mvn command. 
+>mvn clean package -U
+ Maven will start building the project bus-core-api. 
+[INFO] Scanning for projects...
+[INFO] ------------------------------------------------------------------
+[INFO] Building bus-core-api
+[INFO] task-segment: [clean, package]
+[INFO] ------------------------------------------------------------------
+...
+[INFO] [jar:jar {execution: default-jar}]
+[INFO] Building jar: C:\MVN\bus-core-ui\target\
+bus-core-ui-1.0-SNAPSHOT.jar
+[INFO] ------------------------------------------------------------------
+[INFO] BUILD SUCCESSFUL
+[INFO] ------------------------------------------------------------------
+ Once bus-core-api build is successful, Maven will start building the app-web-ui project. 
+[INFO] ------------------------------------------------------------------
+[INFO] Building app-web-ui
+[INFO] task-segment: [package]
+[INFO] ------------------------------------------------------------------
+...
+[INFO] [jar:jar {execution: default-jar}]
+[INFO] Building jar: C:\MVN\app-web-ui\target\
+app-web-ui-1.0-SNAPSHOT.jar
+[INFO] ------------------------------------------------------------------
+[INFO] BUILD SUCCESSFUL
+[INFO] ------------------------------------------------------------------
+ Once app-web-ui build is successful, Maven will start building the app-desktop-ui project. 
+[INFO] ------------------------------------------------------------------
+[INFO] Building app-desktop-ui
+[INFO] task-segment: [package]
+[INFO] ------------------------------------------------------------------
+...
+[INFO] [jar:jar {execution: default-jar}]
+[INFO] Building jar: C:\MVN\app-desktop-ui\target\
+app-desktop-ui-1.0-SNAPSHOT.jar
+[INFO] -------------------------------------------------------------------
+[INFO] BUILD SUCCESSFUL
+[INFO] -------------------------------------------------------------------
+ Using Continuous Integration Service with Maven Using a CI Server is more preferable to developers. It is not required to update the bus-core-api project, every time a new project (for example, app-mobile-ui) is added, as dependent project on bus-core-api project. Hudsion is a continuous integration tool written in java, which in a servlet container, such as, Apache tomcat and glassfish application server. Hudson automatically manages build automation using Maven dependency management. The following snapshot will define the role of Hudson tool. Hudson considers each project build as job. Once a project code is checked-in to SVN (or any Source Management Tool mapped to Hudson), Hudson starts its build job and once this job gets completed, it start other dependent jobs (other dependent projects) automatically. In the above example, when bus-core-ui source code is updated in SVN, Hudson starts its build. Once build is successful, Hudson looks for dependent projects automatically, and starts building app-web-ui and app-desktop-ui projects. Maven - Manage Dependencies One of the core features of Maven is Dependency Management. Managing dependencies is a difficult task once we've to deal with multi-module projects (consisting of hundreds of modules/sub-projects). Maven provides a high degree of control to manage such scenarios. Transitive Dependencies Discovery It is pretty often a case, when a library, say A, depends upon other library, say B. In case another project C wants to use A, then that project requires to use library B too. Maven helps to avoid such requirements to discover all the libraries required. Maven does so by reading project files (pom.xml) of dependencies, figure out their dependencies and so on. We only need to define direct dependency in each project pom. Maven handles the rest automatically. With transitive dependencies, the graph of included libraries can quickly grow to a large extent. Cases can arise when there are duplicate libraries. Maven provides few features to control extent of transitive dependencies. Sr.No. Feature & Description 1 Dependency mediation Determines what version of a dependency is to be used when multiple versions of an artifact are encountered. If two dependency versions are at the same depth in the dependency tree, the first declared dependency will be used. 2 Dependency management Directly specify the versions of artifacts to be used when they are encountered in transitive dependencies. For an example project C can include B as a dependency in its dependency Management section and directly control which version of B is to be used when it is ever referenced. 3 Dependency scope Includes dependencies as per the current stage of the build. 4 Excluded dependencies Any transitive dependency can be excluded using "exclusion" element. As example, A depends upon B and B depends upon C, then A can mark C as excluded. 5 Optional dependencies Any transitive dependency can be marked as optional using "optional" element. As example, A depends upon B and B depends upon C. Now B marked C as optional. Then A will not use C. Dependency Scope Transitive Dependencies Discovery can be restricted using various Dependency Scope as mentioned below. Sr.No. Scope & Description 1 compile This scope indicates that dependency is available in classpath of project. It is default scope. 2 provided This scope indicates that dependency is to be provided by JDK or web-Server/Container at runtime. 3 runtime This scope indicates that dependency is not required for compilation, but is required during execution. 4 test This scope indicates that the dependency is only available for the test compilation and execution phases. 5 system This scope indicates that you have to provide the system path. 6 import This scope is only used when dependency is of type pom. This scope indicates that the specified POM should be replaced with the dependencies in that POM's <dependencyManagement> section. Dependency Management Usually, we have a set of project under a common project. In such case, we can create a common pom having all the common dependencies and then make this pom, the parent of sub-project's poms. Following example will help you understand this concept. Following are the detail of the above dependency graph ? App-UI-WAR depends upon App-Core-lib and App-Data-lib. Root is parent of App-Core-lib and App-Data-lib. Root defines Lib1, lib2, Lib3 as dependencies in its dependency section. App-UI-WAR 
+<project xmlns = "http://maven.apache.org/POM/4.0.0"
+   xmlns:xsi = "http://www.w3.org/2001/XMLSchema-instance"
+   xsi:schemaLocation = "http://maven.apache.org/POM/4.0.0
+   http://maven.apache.org/xsd/maven-4.0.0.xsd">
+   <modelVersion>4.0.0</modelVersion>
+   <groupId>com.companyname.groupname</groupId>
+   <artifactId>App-UI-WAR</artifactId>
+   <version>1.0</version>
+   <packaging>war</packaging>
+   <dependencies>
+      <dependency>
+         <groupId>com.companyname.groupname</groupId>
+         <artifactId>App-Core-lib</artifactId>
+         <version>1.0</version>
+      </dependency>
+   </dependencies>  
+   <dependencies>
+      <dependency>
+         <groupId>com.companyname.groupname</groupId>
+         <artifactId>App-Data-lib</artifactId>
+         <version>1.0</version>
+      </dependency>
+   </dependencies>  
+</project>
+ App-Core-lib 
+<project xmlns = "http://maven.apache.org/POM/4.0.0"
+   xmlns:xsi = "http://www.w3.org/2001/XMLSchema-instance"
+   xsi:schemaLocation = "http://maven.apache.org/POM/4.0.0
+   http://maven.apache.org/xsd/maven-4.0.0.xsd">
+   <parent>
+      <artifactId>Root</artifactId>
+      <groupId>com.companyname.groupname</groupId>
+      <version>1.0</version>
+   </parent>
+   <modelVersion>4.0.0</modelVersion>
+   <groupId>com.companyname.groupname</groupId>
+   <artifactId>App-Core-lib</artifactId>
+   <version>1.0</version> 
+   <packaging>jar</packaging>
+</project>
+ App-Data-lib 
+<project xmlns = "http://maven.apache.org/POM/4.0.0"
+   xmlns:xsi = "http://www.w3.org/2001/XMLSchema-instance"
+   xsi:schemaLocation = "http://maven.apache.org/POM/4.0.0
+   http://maven.apache.org/xsd/maven-4.0.0.xsd">
+   <parent>
+      <artifactId>Root</artifactId>
+      <groupId>com.companyname.groupname</groupId>
+      <version>1.0</version>
+   </parent>
+   <modelVersion>4.0.0</modelVersion>
+   <groupId>com.companyname.groupname</groupId>
+   <artifactId>App-Data-lib</artifactId>
+   <version>1.0</version>   
+   <packaging>jar</packaging>
+</project>
+ Root 
+<project xmlns = "http://maven.apache.org/POM/4.0.0"
+   xmlns:xsi = "http://www.w3.org/2001/XMLSchema-instance"
+   xsi:schemaLocation = "http://maven.apache.org/POM/4.0.0
+   http://maven.apache.org/xsd/maven-4.0.0.xsd">
+   <modelVersion>4.0.0</modelVersion>
+   <groupId>com.companyname.groupname</groupId>
+   <artifactId>Root</artifactId>
+   <version>1.0</version>
+   <packaging>pom</packaging>
+   <dependencies>
+      <dependency>
+         <groupId>com.companyname.groupname1</groupId>
+         <artifactId>Lib1</artifactId>
+         <version>1.0</version>
+      </dependency>
+   </dependencies>  
+   <dependencies>
+      <dependency>
+         <groupId>com.companyname.groupname2</groupId>
+         <artifactId>Lib2</artifactId>
+         <version>2.1</version>
+      </dependency>
+   </dependencies>  
+   <dependencies>
+      <dependency>
+         <groupId>com.companyname.groupname3</groupId>
+         <artifactId>Lib3</artifactId>
+         <version>1.1</version>
+      </dependency>
+   </dependencies>  
+</project>
+ Now when we build App-UI-WAR project, Maven will discover all the dependencies by traversing the dependency graph and build the application. From above example, we can learn the following key concepts ? Common dependencies can be placed at single place using concept of parent pom. Dependencies of App-Data-lib and App-Core-lib project are listed in Root project (See the packaging type of Root. It is POM). There is no need to specify Lib1, lib2, Lib3 as dependency in App-UI-WAR. Maven use the Transitive Dependency Mechanism to manage such detail. Maven - Deployment Automation In project development, normally a deployment process consists of the following steps ? Check-in the code from all project in progress into the SVN (version control system) or source code repository and tag it. Download the complete source code from SVN. Build the application. Store the build output either WAR or EAR file to a common network location. Get the file from network and deploy the file to the production site. Updated the documentation with date and updated version number of the application. Problem Statement There are normally multiple people involved in the above mentioned deployment process. One team may handle check-in of code, other may handle build and so on. It is very likely that any step may be missed out due to manual efforts involved and owing to multi-team environment. For example, older build may not be replaced on network machine and deployment team deployed the older build again. Solution Automate the deployment process by combining the following ? Maven, to build and release projects. SubVersion, source code repository, to manage source code. Remote Repository Manager (Jfrog/Nexus) to manage project binaries. Update Project POM.xml We will be using Maven Release plug-in to create an automated release process. For Example: bus-core-api project POM.xml. 
+<project xmlns = "http://maven.apache.org/POM/4.0.0" 
+   xmlns:xsi = "http://www.w3.org/2001/XMLSchema-instance"
+   xsi:schemaLocation = "http://maven.apache.org/POM/4.0.0 
+   http://maven.apache.org/xsd/maven-4.0.0.xsd">
+   <modelVersion>4.0.0</modelVersion>
+   <groupId>bus-core-api</groupId>
+   <artifactId>bus-core-api</artifactId>
+   <version>1.0-SNAPSHOT</version>
+   <packaging>jar</packaging> 
+   <scm>
+      <url>http://www.svn.com</url>
+      <connection>scm:svn:http://localhost:8080/svn/jrepo/trunk/
+      Framework</connection>
+      <developerConnection>scm:svn:${username}/${password}@localhost:8080:
+      common_core_api:1101:code</developerConnection>
+   </scm>
+   <distributionManagement>
+      <repository>
+         <id>Core-API-Java-Release</id>
+         <name>Release repository</name>
+         <url>http://localhost:8081/nexus/content/repositories/
+         Core-Api-Release</url>
+      </repository>
+   </distributionManagement>
+   <build>
+      <plugins>
+         <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-release-plugin</artifactId>
+            <version>2.0-beta-9</version>
+            <configuration>
+               <useReleaseProfile>false</useReleaseProfile>
+               <goals>deploy</goals>
+               <scmCommentPrefix>[bus-core-api-release-checkin]-<
+               /scmCommentPrefix>
+            </configuration>
+         </plugin>
+      </plugins>
+   </build>
+</project>
+ In Pom.xml, following are the important elements we have used ? Sr.No. Element & Description 1 SCM Configures the SVN location from where Maven will check out the source code. 2 Repositories Location where built WAR/EAR/JAR or any other artifact will be stored after code build is successful. 3 Plugin maven-release-plugin is configured to automate the deployment process. Maven Release Plug-in The Maven does the following useful tasks using maven-release-plugin. 
+mvn release:clean
+ It cleans the workspace in case the last release process was not successful. 
+mvn release:rollback
+ Rollback the changes done to workspace code and configuration in case the last release process was not successful. 
+mvn release:prepare
+ Performs multiple number of operations, such as ? Checks whether there are any uncommitted local changes or not. Ensures that there are no SNAPSHOT dependencies. Changes the version of the application and removes SNAPSHOT from the version to make release. Update pom files to SVN. Run test cases. Commit the modified POM files. Tag the code in subversion Increment the version number and append SNAPSHOT for future release. Commit the modified POM files to SVN. 
+mvn release:perform
+ Checks out the code using the previously defined tag and run the Maven deploy goal, to deploy the war or built artifact to repository. Let's open the command console, go to the C:\ > MVN >bus-core-api directory and execute the following mvn command. 
+>mvn release:prepare
+ Maven will start building the project. Once build is successful run the following mvn command. 
+>mvn release:perform
+ Once build is successful you can verify the uploaded JAR file in your repository. Maven - Web Application This chapter teaches you how to manage a web based project using Maven. Here you will learn how to create/build/deploy and run a web application. Create Web Application To create a simple java web application, we will use maven-archetype-webapp plugin. So, let's open the command console, go to the C:\MVN directory and execute the following mvn command. 
+C:\MVN>mvn archetype:generate 
+-DgroupId = com.companyname.automobile 
+-DartifactId = trucks
+-DarchetypeArtifactId = maven-archetype-webapp 
+-DinteractiveMode = false
+ Maven will start processing and will create the complete web based java application project structure as follows ? 
+[INFO] Scanning for projects...
+[INFO] Searching repository for plugin with prefix: 'archetype'.
+[INFO] -------------------------------------------------------------------
+[INFO] Building Maven Default Project
+[INFO] task-segment: [archetype:generate] (aggregator-style)
+[INFO] -------------------------------------------------------------------
+[INFO] Preparing archetype:generate
+[INFO] No goals needed for project - skipping
+[INFO] [archetype:generate {execution: default-cli}]
+[INFO] Generating project in Batch mode
+[INFO] --------------------------------------------------------------------
+[INFO] Using following parameters for creating project
+from Old (1.x) Archetype: maven-archetype-webapp:1.0
+[INFO] --------------------------------------------------------------------
+
+[INFO] Parameter: groupId, Value: com.companyname.automobile
+[INFO] Parameter: packageName, Value: com.companyname.automobile
+[INFO] Parameter: package, Value: com.companyname.automobile
+[INFO] Parameter: artifactId, Value: trucks
+[INFO] Parameter: basedir, Value: C:\MVN
+[INFO] Parameter: version, Value: 1.0-SNAPSHOT
+
+[INFO] project created from Old (1.x) Archetype in dir: C:\MVN\trucks
+
+[INFO] -------------------------------------------------------------------
+[INFO] BUILD SUCCESSFUL
+[INFO] -------------------------------------------------------------------
+
+[INFO] Total time: 16 seconds
+[INFO] Finished at: Tue Jul 17 11:00:00 IST 2012
+[INFO] Final Memory: 20M/89M
+[INFO] -------------------------------------------------------------------
+ Now go to C:/MVN directory. You'll see a java application project created, named trucks (as specified in artifactId) as specified in the following snapshot. The following directory structure is generally used for web applications ? Maven uses a standard directory layout. Using the above example, we can understand the following key concepts ? Sr.No. Folder Structure & Description 1 trucks contains src folder and pom.xml. 2 src/main/webapp contains index.jsp and WEB-INF folder. 3 src/main/webapp/WEB-INF contains web.xml 4 src/main/resources it contains images/properties files. POM.xml 
+<project xmlns = "http://maven.apache.org/POM/4.0.0" 
+   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+   xsi:schemaLocation = "http://maven.apache.org/POM/4.0.0 
+   http://maven.apache.org/maven-v4_0_0.xsd">
+   <modelVersion>4.0.0</modelVersion>
+   <groupId>com.companyname.automobile</groupId>
+   <artifactId>trucks</artifactId>
+   <packaging>war</packaging>
+   <version>1.0-SNAPSHOT</version>
+   <name>trucks Maven Webapp</name>
+   <url>http://maven.apache.org</url>
+   <dependencies>
+      <dependency>
+         <groupId>junit</groupId>
+         <artifactId>junit</artifactId>
+         <version>3.8.1</version>
+         <scope>test</scope>
+       </dependency>
+   </dependencies>
+   <build>
+      <finalName>trucks</finalName>
+   </build>
+</project>
+ If you observe, you will find that Maven also created a sample JSP Source file. Open C:\ > MVN > trucks > src > main > webapp > folder to see index.jsp with the following code ? 
+<html>
+   <body>
+      <h2>Hello World!</h2>
+   </body>
+</html>
+ Build Web Application Let's open the command console, go to the C:\MVN\trucks directory and execute the following mvn command. 
+C:\MVN\trucks>mvn clean package
+ Maven will start building the project. 
+[INFO] Scanning for projects...
+[INFO] -------------------------------------------------------------------
+[INFO] Building trucks Maven Webapp
+[INFO] task-segment: [clean, package]
+[INFO] -------------------------------------------------------------------
+[INFO] [clean:clean {execution: default-clean}]
+[INFO] [resources:resources {execution: default-resources}]
+
+[WARNING] Using platform encoding (Cp1252 actually) to
+copy filtered resources,i.e. build is platform dependent!
+
+[INFO] Copying 0 resource
+[INFO] [compiler:compile {execution: default-compile}]
+[INFO] No sources to compile
+[INFO] [resources:testResources {execution: default-testResources}]
+
+[WARNING] Using platform encoding (Cp1252 actually) to
+copy filtered resources,i.e. build is platform dependent!
+
+[INFO] skip non existing resourceDirectory
+C:\MVN\trucks\src\test\resources
+[INFO] [compiler:testCompile {execution: default-testCompile}]
+[INFO] No sources to compile
+[INFO] [surefire:test {execution: default-test}]
+[INFO] No tests to run.
+[INFO] [war:war {execution: default-war}]
+[INFO] Packaging webapp
+[INFO] Assembling webapp[trucks] in [C:\MVN\trucks\target\trucks]
+[INFO] Processing war project
+[INFO] Copying webapp resources[C:\MVN\trucks\src\main\webapp]
+[INFO] Webapp assembled in[77 msecs]
+[INFO] Building war: C:\MVN\trucks\target\trucks.war
+[INFO] -------------------------------------------------------------------
+[INFO] BUILD SUCCESSFUL
+[INFO] -------------------------------------------------------------------
+[INFO] Total time: 3 seconds
+[INFO] Finished at: Tue Jul 17 11:22:45 IST 2012
+[INFO] Final Memory: 11M/85M
+[INFO] -------------------------------------------------------------------
+ Deploy Web Application Now copy the trucks.war created in C:\ > MVN > trucks > target > folder to your webserver webapp directory and restart the webserver. Test Web Application Run the web-application using URL: http://<server-name>:<port-number>/trucks/index.jsp. Verify the output. Maven - Eclipse IDE Eclipse provides an excellent plugin m2eclipse which seamlessly integrates Maven and Eclipse together. Some of features of m2eclipse are listed below ? You can run Maven goals from Eclipse. You can view the output of Maven commands inside the Eclipse, using its own console. You can update maven dependencies with IDE. You can Launch Maven builds from within Eclipse. It does the dependency management for Eclipse build path based on Maven's pom.xml. It resolves Maven dependencies from the Eclipse workspace without installing to local Maven repository (requires dependency project be in same workspace). It automatic downloads the required dependencies and sources from the remote Maven repositories. It provides wizards for creating new Maven projects, pom.xml and to enable Maven support on existing projects It provides quick search for dependencies in remote Maven repositories. Installing m2eclipse plugin Use one of the following links to install m2eclipse ? Eclipse URL Eclipse 3.5 (Gallileo) Installing m2eclipse in Eclipse 3.5 (Gallileo) Eclipse 3.6 (Helios) Installing m2eclipse in Eclipse 3.6 (Helios) Following example will help you to leverage benefits of integrating Eclipse and maven. Import a maven project in Eclipse Open Eclipse. Select File > Import > option. Select Maven Projects Option. Click on Next Button. Select Project location, where a project was created using Maven. We've created a Java Project consumer Banking in the previous chapters. Go to ‘Creating Java Project’ chapter, to see how to create a project using Maven. Click Finish Button. Now, you can see the maven project in eclipse. Now, have a look at consumer Banking project properties. You can see that Eclipse has added Maven dependencies to java build path. Now, it is time to build this project using maven capability of eclipse. Right Click on consumerBanking project to open context menu. Select Run as option. Then maven package option. Maven will start building the project. You can see the output in Eclipse Console as follows ? 
+[INFO] Scanning for projects...
+[INFO] -------------------------------------------------------------------
+[INFO] Building consumerBanking
+[INFO]
+[INFO] Id: com.companyname.bank:consumerBanking:jar:1.0-SNAPSHOT
+[INFO] task-segment: [package]
+[INFO] -------------------------------------------------------------------
+[INFO] [resources:resources]
+[INFO] Using default encoding to copy filtered resources.
+[INFO] [compiler:compile]
+[INFO] Nothing to compile - all classes are up to date
+[INFO] [resources:testResources]
+[INFO] Using default encoding to copy filtered resources.
+[INFO] [compiler:testCompile]
+[INFO] Nothing to compile - all classes are up to date
+[INFO] [surefire:test]
+[INFO] Surefire report directory:
+C:\MVN\consumerBanking\target\surefire-reports
+
+-------------------------------------------------------
+T E S T S
+-------------------------------------------------------
+
+Running com.companyname.bank.AppTest
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.047 sec
+Results :
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0
+[INFO] [jar:jar]
+
+[INFO] -------------------------------------------------------------------
+[INFO] BUILD SUCCESSFUL
+[INFO] -------------------------------------------------------------------
+
+[INFO] Total time: 1 second
+[INFO] Finished at: Thu Jul 12 18:18:24 IST 2012
+[INFO] Final Memory: 2M/15M
+[INFO] -------------------------------------------------------------------
+ Now, right click on App.java. Select Run As option. Then select Java Application. You will see the result as follows ? 
+Hello World!
+ Maven - NetBeans NetBeans 6.7 and newer has in-built support for Maven. In case of previous version, Maven plugin is available in plugin Manager. We are using NetBeans 6.9 in this example. Some of features of NetBeans are listed below ? You can run Maven goals from NetBeans. You can view the output of Maven commands inside the NetBeans using its own console. You can update maven dependencies with IDE. You can Launch Maven builds from within NetBeans. NetBeans does the dependency management automatically based on Maven's pom.xml. NetBeans resolves Maven dependencies from its workspace without installing to local Maven repository (requires dependency project be in same workspace). NetBeans automatic downloads required dependencies and sources from the remote Maven repositories. NetBeans provides wizards for creating new Maven projects, pom.xml. NetBeans provides a Maven Repository browser that enables you to view your local repository and registered external Maven repositories. Following example will help you to leverage benefits of integrating NetBeans and Maven. Open a maven project in NetBeans Open NetBeans. Select File Menu > Open Project option. Select Project location, where a project was created using Maven. We've created a Java Project consumerBanking. Go to ‘Creating Java Project’ chapter, to see how to create a project using Maven. Now, you can see the maven project in NetBeans. Have a look at consumerBanking project Libraries and Test Libraries. You can see that NetBeans has added Maven dependencies to its build path. Build a maven project in NetBeans Now, Its time to build this project using maven capability of NetBeans. Right Click on consumerBanking project to open context menu. Select Clean and Build as option. Maven will start building the project. You can see the output in NetBeans Console as follows ? 
+NetBeans: Executing 'mvn.bat -Dnetbeans.execution = true clean install'
+NetBeans:      JAVA_HOME = C:\Program Files\Java\jdk1.6.0_21
+Scanning for projects...
+------------------------------------------------------------------------
+Building consumerBanking
+   task-segment: [clean, install]
+------------------------------------------------------------------------
+[clean:clean]
+[resources:resources]
+[WARNING] Using platform encoding (Cp1252 actually)
+to copy filtered resources, i.e. build is platform dependent!
+skip non existing resourceDirectory C:\MVN\consumerBanking\src\main\resources
+[compiler:compile]
+Compiling 2 source files to C:\MVN\consumerBanking\target\classes
+[resources:testResources]
+[WARNING] Using platform encoding (Cp1252 actually)
+to copy filtered resources, i.e. build is platform dependent!
+skip non existing resourceDirectory C:\MVN\consumerBanking\src\test\resources
+[compiler:testCompile]
+Compiling 1 source file to C:\MVN\consumerBanking\target\test-classes
+[surefire:test]
+Surefire report directory: C:\MVN\consumerBanking\target\surefire-reports
+
+-------------------------------------------------------
+ T E S T S
+-------------------------------------------------------
+Running com.companyname.bank.AppTest
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.023 sec
+
+Results :
+
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0
+
+[jar:jar]
+Building jar: C:\MVN\consumerBanking\target\consumerBanking-1.0-SNAPSHOT.jar
+[install:install]
+Installing C:\MVN\consumerBanking\target\consumerBanking-1.0-SNAPSHOT.jar
+to C:\Users\GB3824\.m2\repository\com\companyname\bank\consumerBanking\
+1.0-SNAPSHOT\consumerBanking-1.0-SNAPSHOT.jar
+------------------------------------------------------------------------
+BUILD SUCCESSFUL
+------------------------------------------------------------------------
+Total time: 9 seconds
+Finished at: Thu Jul 19 12:57:28 IST 2012
+Final Memory: 16M/85M
+------------------------------------------------------------------------
+ Run Application in NetBeans Now, right click on App.java. Select Run File as option. You will see the result in the NetBeans Console. 
+NetBeans: Executing 'mvn.bat -Dexec.classpathScope = runtime 
+-Dexec.args = -classpath %classpath com.companyname.bank.App 
+-Dexec.executable = C:\Program Files\Java\jdk1.6.0_21\bin\java.exe 
+-Dnetbeans.execution = true process-classes 
+org.codehaus.mojo:exec-maven-plugin:1.1.1:exec'
+NetBeans:      JAVA_HOME = C:\Program Files\Java\jdk1.6.0_21
+Scanning for projects...
+------------------------------------------------------------------------
+Building consumerBanking
+   task-segment: [process-classes, 
+   org.codehaus.mojo:exec-maven-plugin:1.1.1:exec]
+------------------------------------------------------------------------
+[resources:resources]
+[WARNING] Using platform encoding (Cp1252 actually) 
+to copy filtered resources, i.e. build is platform dependent!
+skip non existing resourceDirectory C:\MVN\consumerBanking\src\main\resources
+[compiler:compile]
+Nothing to compile - all classes are up to date
+[exec:exec]
+Hello World!
+------------------------------------------------------------------------
+BUILD SUCCESSFUL
+------------------------------------------------------------------------
+Total time: 1 second
+Finished at: Thu Jul 19 14:18:13 IST 2012
+Final Memory: 7M/64M
+------------------------------------------------------------------------
+ Maven - IntelliJ IDEA IDE Integration IntelliJ IDEA has in-built support for Maven. We are using IntelliJ IDEA Community Edition 11.1 in this example. Some of the features of IntelliJ IDEA are listed below ? You can run Maven goals from IntelliJ IDEA. You can view the output of Maven commands inside the IntelliJ IDEA using its own console. You can update maven dependencies within IDE. You can Launch Maven builds from within IntelliJ IDEA. IntelliJ IDEA does the dependency management automatically based on Maven's pom.xml. IntelliJ IDEA resolves Maven dependencies from its workspace without installing to local Maven repository (requires dependency project be in same workspace). IntelliJ IDEA automatically downloads the required dependencies and sources from the remote Maven repositories. IntelliJ IDEA provides wizards for creating new Maven projects, pom.xml. Following example will help you to leverage benefits of integrating IntelliJ IDEA and Maven. Create a new project in IntelliJ IDEA We will import Maven project using New Project Wizard. Open IntelliJ IDEA. Select File Menu > New Project Option. Select import project from existing model. Select Maven option Select Project location, where a project was created using Maven. We have created a Java Project consumerBanking. Go to ‘Creating Java Project' chapter, to see how to create a project using Maven. Select Maven project to import. Enter name of the project and click finish. Now, you can see the maven project in IntelliJ IDEA. Have a look at consumerBanking project external libraries. You can see that IntelliJ IDEA has added Maven dependencies to its build path under Maven section. Build a maven project in IntelliJ IDEA Now, it is time to build this project using capability of IntelliJ IDEA. Select consumerBanking project. Select Buid menu > Rebuild Project Option You can see the output in IntelliJ IDEA Console 
+4:01:56 PM Compilation completed successfully
+ Run Application in IntelliJ IDEA Select consumerBanking project. Right click on App.java to open context menu. select Run App.main() You will see the result in IntelliJ IDEA Console. 
+"C:\Program Files\Java\jdk1.6.0_21\bin\java"
+-Didea.launcher.port=7533 
+"-Didea.launcher.bin.path=
+C:\Program Files\JetBrains\IntelliJ IDEA Community Edition 11.1.2\bin"
+-Dfile.encoding=UTF-8 
+-classpath "C:\Program Files\Java\jdk1.6.0_21\jre\lib\charsets.jar;
+
+C:\Program Files\Java\jdk1.6.0_21\jre\lib\deploy.jar;
+C:\Program Files\Java\jdk1.6.0_21\jre\lib\javaws.jar;
+C:\Program Files\Java\jdk1.6.0_21\jre\lib\jce.jar;
+C:\Program Files\Java\jdk1.6.0_21\jre\lib\jsse.jar;
+C:\Program Files\Java\jdk1.6.0_21\jre\lib\management-agent.jar;
+C:\Program Files\Java\jdk1.6.0_21\jre\lib\plugin.jar;
+C:\Program Files\Java\jdk1.6.0_21\jre\lib\resources.jar;
+C:\Program Files\Java\jdk1.6.0_21\jre\lib\rt.jar;
+C:\Program Files\Java\jdk1.6.0_21\jre\lib\ext\dnsns.jar;
+C:\Program Files\Java\jdk1.6.0_21\jre\lib\ext\localedata.jar;
+C:\Program Files\Java\jdk1.6.0_21\jre\lib\ext\sunjce_provider.jar;
+C:\Program Files\Java\jdk1.6.0_21\jre\lib\ext\sunmscapi.jar;
+C:\Program Files\Java\jdk1.6.0_21\jre\lib\ext\sunpkcs11.jar
+
+C:\MVN\consumerBanking\target\classes;
+C:\Program Files\JetBrains\
+IntelliJ IDEA Community Edition 11.1.2\lib\idea_rt.jar" 
+com.intellij.rt.execution.application.AppMain com.companyname.bank.App
+Hello World!
+
+Process finished with exit code 0
+ Previous Page Print Next Page   Advertisements Write for us FAQ's Helping Contact © Copyright 2017. All Rights Reserved. go
